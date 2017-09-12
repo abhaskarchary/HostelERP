@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from payfees.models import Dues
+from .models import Dues
 from datetime import datetime
 # Create your views here.
 

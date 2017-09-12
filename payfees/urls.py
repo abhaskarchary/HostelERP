@@ -18,7 +18,7 @@ from django.views.generic import ListView,DetailView
 
 from django.conf.urls import url, include
 
-from payfees.models import Dues
+from .models import Dues
 from . import views
 
 urlpatterns = [
