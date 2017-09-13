@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from .models import Studentinfo
+
 # Create your views here.
+def studentinfo(request):
+    return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+
 def form(request):
     return render(request, 'registration/form1.html')
 
