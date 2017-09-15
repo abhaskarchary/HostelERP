@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 import datetime
+from Room.models import Room
 
 # Create your models here.
 def increment_id():
@@ -19,6 +20,7 @@ def increment_id():
 class Studentinfo(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    #room_no = models.ForeignKey(Room.room_number)
     sex = models.CharField(max_length=6)
     adhaar = models.CharField(max_length=12)
     mobile_no = models.CharField(max_length=10)
