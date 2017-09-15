@@ -22,8 +22,10 @@ from .models import Dues
 from . import views
 
 urlpatterns = [
-    url(r'^$', ListView.as_view(queryset=Dues.objects.all(), template_name="payfees/displayreports.html")),
+
+    url(r'info/$', ListView.as_view(queryset=Dues.objects.all(), template_name="payfees/displayreports.html")),
     url(r'^search_student/$', views.search, name = 'search'),
+    url(r'^$', views.account, name = 'account'),
     url(r'^show_student_dues/$', views.show, name = 'show'),
     url(r'^update_dues/$', views.update_dues, name = 'update_dues')
 ]

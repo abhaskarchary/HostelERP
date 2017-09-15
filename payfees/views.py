@@ -42,3 +42,6 @@ def update_dues(request):
 
         dues1.update(roomfees = room_fees, messfees = mess_fees, totaldue = (room_fees + mess_fees))
         return HttpResponse("<h3>Fees paid Successfully<h3>")
+
+def account(request):
+    return render(request, 'payfees/account.html')
