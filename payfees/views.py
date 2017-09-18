@@ -7,31 +7,36 @@ from student.models import Studentinfo
 
 
 def search(request):
-    return render(request, 'payfees/search.html')
-
+    if request.session.has_key('userid'):
+        return render(request, 'payfees/search.html')
+    else:
+        return render(request, 'error.html')
 
 def show(request):
-    stu_id = request.POST['student_id']
-    dues = None
-    #context = {}
-    counter = 0
-    l=[]
-    if stu_id:
-        dues = Dues.objects.filter(sid = stu_id).values()
-        stu = Studentinfo.objects.filter(sid = stu_id).values()
-        for due in dues:
-            attr = {
-                'Student id': due['sid'],
-                'Room Fees': due['roomfees'],
-                'Mess Fees': due['messfees'],
-                'Total': due['totaldue'],
-            }
-            l = [due['sid'], due['roomfees'], due['messfees'], due['totaldue']]
-            counter = 1
-        for b in stu:
-            l.append(b['balance'])
-        context = {'attr': l}
-        return render(request, 'payfees/show_individual_dues.html', context)
+    if request.session.has_key('userid'):
+        stu_id = request.POST['student_id']
+        dues = None
+        #context = {}
+        counter = 0
+        l=[]
+        if stu_id:
+            dues = Dues.objects.filter(sid = stu_id).values()
+            stu = Studentinfo.objects.filter(sid = stu_id).values()
+            for due in dues:
+                attr = {
+                    'Student id': due['sid'],
+                    'Room Fees': due['roomfees'],
+                    'Mess Fees': due['messfees'],
+                    'Total': due['totaldue'],
+                }
+                l = [due['sid'], due['roomfees'], due['messfees'], due['totaldue']]
+                counter = 1
+            for b in stu:
+                l.append(b['balance'])
+            context = {'attr': l}
+            return render(request, 'payfees/show_individual_dues.html', context)
+    else:
+        return render(request, 'error.html')
 
 
 def update_dues(request):
@@ -58,5 +63,12 @@ def update_dues(request):
 def account(request):
     if request.session.has_key('userid'):
         return render(request, 'payfees/account.html')
+    else:
+        return render(request, 'error.html')
+
+
+def info(request):
+    if request.session.has_key('userid'):
+        return render(request, 'payfees/displayreports.html', {'FeesDetails': Dues.objects.all()})
     else:
         return render(request, 'error.html')

@@ -3,8 +3,14 @@ from .models import Studentinfo
 from payfees.models import Dues
 
 # Create your views here.
+
+
 def studentinfo(request):
-    return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+    if request.session.has_key('userid'):
+        return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+    else:
+        return render(request, 'error.html')
+
 
 def form(request):
     if request.session.has_key('userid'):
@@ -87,6 +93,7 @@ def update(request):
     }
     context = {'attr':attr}
     return render(request, 'registration/pay_initial_fees.html', context)
+
 
 def pay_init_fees(request):
     last_booking = Studentinfo.objects.all().order_by('sid').last()
