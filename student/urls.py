@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^register$', views.form, name = 'form'),
     url(r'^update/$', views.update, name = 'update'),
     url(r'^studentinfo/$', views.studentinfo, name = 'studentinfo'),
+    url(r'^pay_initial_fees/$', views.pay_init_fees, name = 'pay_init_fees'),
 ]

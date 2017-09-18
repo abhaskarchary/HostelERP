@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Studentinfo
+from payfees.models import Dues
 
 # Create your views here.
 def studentinfo(request):
@@ -48,8 +49,21 @@ def update(request):
     student_info_object.institution_name = iname
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
+    student_info_object.balance = 0.0
 
     student_info_object.save()
+    due = Dues()
+
+    last_booking = Studentinfo.objects.all().order_by('sid').last()
+
+    due.sid = last_booking.sid
+    due.name = last_booking.first_name +" "+ last_booking.last_name
+    due.roomfees = 0.0
+    due.messfees = 0.0
+    due.securitymoney = 0.0
+    due.fine = 0.0
+    due.totaldue = 0.0
+    due.save()
 
     attr = {
         'Student id': student_info_object.sid,
@@ -72,5 +86,23 @@ def update(request):
         'HOD Mobile':student_info_object.hod_mobile
     }
     context = {'attr':attr}
+    return render(request, 'registration/pay_initial_fees.html', context)
 
-    return render(request, 'registration/form.html', context)
+def pay_init_fees(request):
+    last_booking = Studentinfo.objects.all().order_by('sid').last()
+
+    stu = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    stu1 = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    initial_bal = float(request.POST['initial_balance'])
+    #stu['balance'] = stu['balance'] + initial_bal
+    #stu.update(balance = (stu['balance'] + initial_bal))
+    for s in stu:
+        #s.update(balance = (s['balance'] + initial_bal))
+        bal = s['balance'] + initial_bal
+        #s['balance'] = s['balance'] + initial_bal
+    stu1.update(balance = bal)
+    #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
+
+    return render(request, 'registration/registration_complete.html')
+    #return HttpResponse("<h1>"+stu.sid+"<h1>")
+    #return
