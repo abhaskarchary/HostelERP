@@ -59,11 +59,11 @@ def startsession(request):
     else: return render(request, 'login.html', {})
 
 
-# def viewempdata(request):
-#     if request.session.has_key('userid'):
-#         return render(request, 'displayaccounts.html', dict(EmployeeInfo.objects.all()))
-#     else:
-#         return render(request, 'error.html')
+def viewempdata(request):
+    if request.session.has_key('userid'):
+        return render(request, 'displayaccounts.html', {'Employee':EmployeeInfo.objects.all()})
+    else:
+        return render(request, 'error.html')
 
 
 def update(request):

@@ -23,7 +23,7 @@ from . import views
 
 urlpatterns = [
 
-    url(r'info/$', ListView.as_view(queryset=Dues.objects.all(), template_name="payfees/displayreports.html")),
+    url(r'info/$', views.info, name = 'info'),
     url(r'^search_student/$', views.search, name = 'search'),
     url(r'^$', views.account, name = 'account'),
     url(r'^show_student_dues/$', views.show, name = 'show'),

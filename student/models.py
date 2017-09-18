@@ -37,6 +37,6 @@ class Studentinfo(models.Model):
     hod_mobile = models.CharField(max_length=10)
     registration_date = models.DateTimeField(auto_now=True)
     sid = models.CharField(max_length = 20, default = increment_id, editable=False, primary_key=True)
-
+    balance = models.FloatField(max_length=5)
     def __str__(self):
         return self.sid
