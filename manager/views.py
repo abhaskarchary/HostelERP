@@ -1,28 +1,50 @@
-from django.shortcuts import render
-from .models import EmployeeInfo
+import re
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
 from django.http import HttpResponse
 from .models import EmployeeInfo
 
-
 # Create your views here.
-def register(request):
-    return render(request, 'registration1/register.html')
 
 
-def logout(request):
-   try:
-      del request.session['userid']
-   except:
-      pass
-   return render(request, 'login.html')
+def manager(request):
+    return redirect('/manager/login/')
 
 
 def login(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
-        return render(request, 'loggedin.html', {"userid": userid})
+        response = HttpResponse(render(request, 'loggedin.html', {"userid": userid}))
+        _add_to_header(response, 'Cache-Control', 'no-store')
+        _add_to_header(response, 'Cache-Control', 'no-cache')
+        _add_to_header(response, 'Pragma', 'no-store')
+        return response
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'login.html')
+
+
+def _add_to_header(response, key, value):
+    if response.has_header(key):
+        values = re.split(r'\s*,\s*', response[key])
+        if not value in values:
+            response[key] = ', '.join(values + [value])
+    else:
+        response[key] = value
+
+
+def register(request):
+    if request.session.has_key('userid'):
+        return render(request, 'registration1/register.html')
+    else:
+        return render(request, 'error.html')
+
+
+def logout(request):
+    try:
+        del request.session['userid']
+    except:
+        pass
+    return render(request, 'login.html')
 
 
 def startsession(request):
@@ -33,8 +55,15 @@ def startsession(request):
         request.session['userid'] = userid
         attr = {'userid': userid}
         context = {'attr': attr}
-        return render(request, 'loggedin.html', context)
+        return redirect('/manager/login/')
     else: return render(request, 'login.html', {})
+
+
+# def viewempdata(request):
+#     if request.session.has_key('userid'):
+#         return render(request, 'displayaccounts.html', dict(EmployeeInfo.objects.all()))
+#     else:
+#         return render(request, 'error.html')
 
 
 def update(request):

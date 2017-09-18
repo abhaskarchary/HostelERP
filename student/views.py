@@ -6,7 +6,11 @@ def studentinfo(request):
     return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
 
 def form(request):
-    return render(request, 'registration/form1.html')
+    if request.session.has_key('userid'):
+        return render(request, 'registration/form1.html')
+    else:
+        return render(request, 'error.html')
+
 
 def update(request):
     first_name = request.POST['name1']
