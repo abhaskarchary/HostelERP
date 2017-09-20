@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Studentinfo
-from payfees.models import Dues
+from payfees.models import Dues,Fees
 
 # Create your views here.
 
@@ -64,8 +64,8 @@ def update(request):
 
     due.sid = last_booking.sid
     due.name = last_booking.first_name +" "+ last_booking.last_name
-    due.roomfees = 0.0
-    due.messfees = 0.0
+    due.fees = 0.0
+    #due.messfees = 0.0
     due.securitymoney = 0.0
     due.fine = 0.0
     due.totaldue = 0.0
@@ -91,13 +91,16 @@ def update(request):
         'HOD Name':student_info_object.hod_name,
         'HOD Mobile':student_info_object.hod_mobile
     }
-    context = {'attr':attr}
+    l=[]
+    fee_check = Fees.objects.filter(id = 1).values()
+    for f in fee_check:
+        l=[f['security_money']]
+    context = {'attr': l}
     return render(request, 'registration/pay_initial_fees.html', context)
 
 
 def pay_init_fees(request):
     last_booking = Studentinfo.objects.all().order_by('sid').last()
-
     stu = Studentinfo.objects.filter(sid = last_booking.sid).values()
     stu1 = Studentinfo.objects.filter(sid = last_booking.sid).values()
     initial_bal = float(request.POST['initial_balance'])

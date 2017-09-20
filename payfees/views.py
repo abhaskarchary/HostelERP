@@ -23,13 +23,7 @@ def show(request):
             dues = Dues.objects.filter(sid = stu_id).values()
             stu = Studentinfo.objects.filter(sid = stu_id).values()
             for due in dues:
-                attr = {
-                    'Student id': due['sid'],
-                    'Room Fees': due['roomfees'],
-                    'Mess Fees': due['messfees'],
-                    'Total': due['totaldue'],
-                }
-                l = [due['sid'], due['roomfees'], due['messfees'], due['totaldue']]
+                l = [due['sid'], due['fees'], due['totaldue']]
                 counter = 1
             for b in stu:
                 l.append(b['balance'])
@@ -41,8 +35,8 @@ def show(request):
 
 def update_dues(request):
     stu_id = request.POST['student_id']
-    room_fees = request.POST['room_fees']
-    mess_fees = request.POST['mess_fees']
+    fees = request.POST['room_fees']
+   # mess_fees = request.POST['mess_fees']
 
     if stu_id:
         dues = Dues.objects.filter(sid = stu_id).values()
@@ -50,12 +44,12 @@ def update_dues(request):
         stu = Studentinfo.objects.filter(sid = stu_id).values()
         stu1 = Studentinfo.objects.filter(sid = stu_id).values()
         for s in stu:
-            remaining_bal = s['balance'] - (float(room_fees) + float(mess_fees))
+            remaining_bal = s['balance'] - (float(fees))
         for due in dues:
-            room_fees = due['roomfees'] - float(room_fees)
-            mess_fees = due['messfees'] - float(mess_fees)
+            fees = due['fees'] - float(fees)
+            #mess_fees = due['messfees'] - float(mess_fees)
 
-        dues1.update(roomfees = room_fees, messfees = mess_fees, totaldue = (room_fees + mess_fees))
+        dues1.update(fees = fees, totaldue = (fees ))
         stu1.update(balance = remaining_bal)
         return HttpResponse("<h3>Fees paid Successfully<h3>")
 
