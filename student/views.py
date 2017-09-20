@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Studentinfo
 from payfees.models import Dues
+from Room.models import Room
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def studentinfo(request):
 
 def form(request):
     if request.session.has_key('userid'):
-        return render(request, 'registration/form1.html')
+        return render(request, 'registration/form1.html', {'context':Room.objects.filter(vacancy__gt=0)})
     else:
         return render(request, 'error.html')
 
@@ -36,6 +37,7 @@ def update(request):
     iname = request.POST['iname']
     hname = request.POST['hname']
     hmobile = request.POST['hmobile']
+    room_number = request.POST['room']
             #print(first_name, last_name)
 
     student_info_object = Studentinfo()
@@ -56,6 +58,7 @@ def update(request):
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
     student_info_object.balance = 0.0
+    [student_info_object.room] = Room.objects.filter(room_number=room_number)
 
     student_info_object.save()
     due = Dues()
@@ -76,6 +79,7 @@ def update(request):
         'First name':student_info_object.first_name,
         'Last name':student_info_object.last_name,
         'Sex':student_info_object.sex,
+        'Room':student_info_object.room.room_number,
         'Adhaar Card no.':student_info_object.adhaar,
         'Mobile':student_info_object.mobile_no,
         'Parent Name':student_info_object.parent_name,

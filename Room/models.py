@@ -7,7 +7,7 @@ from django.db import models
 
 
 class Room(models.Model):
-    room_number = models.CharField(max_length=5, primary_key=True)
+    room_number = models.CharField(max_length=5, primary_key=True, default=None)
     capacity = models.CharField(max_length=5, default= '2')
     vacancy = models.CharField(max_length=5, default= '2')
     rent = models.CharField(max_length=5, default= '6000')
