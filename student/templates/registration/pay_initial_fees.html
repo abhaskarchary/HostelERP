@@ -5,11 +5,21 @@
     <title>ERP | Registration</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+    <script>
+        function check_initial_fees(){
+            var attr = {{ attr|safe }}
+            var initial_fees = document.payfees_form.initial_balance.value;
+            if(initial_fees < attr[0]){
+                alert('Initial fee cannot be less than the security deposit');
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="login-page">
       <div class="form">
-        <form action="/student/pay_initial_fees/" method="post" class="login-form">
+        <form action="/student/pay_initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
             <input class="i1" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
             <input  type="submit" name="submit"  value="Submit">

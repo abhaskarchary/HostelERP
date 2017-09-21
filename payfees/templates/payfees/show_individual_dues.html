@@ -7,9 +7,13 @@
         function validate(){
             var attr = {{ attr|safe }}
             var r = document.due_form.room_fees.value;
-            var m = document.due_form.mess_fees.value;
-            if(r > attr[0] || m > attr[1]){
+            //var m = document.due_form.mess_fees.value;
+            if(r > attr[1]){
                 alert('Amount can not be greater than Dues');
+                return false;
+            }
+            else if(r>attr[3]){
+                alert("You don't have enough balance");
                 return false;
             }
 
@@ -21,7 +25,7 @@
         {% if attr %}
         <table border="0" align="center" cellspacing="10" cellpadding="10">
             <tr>
-                <th>Student ID</th><th>Room Fees</th><th>Mess Fees</th><th>Total Dues</th><th>Wallet Balance</th>
+                <th>Student ID</th><th>Fees Due</th><th>Total</th><th>Wallet Balance</th>
             </tr>
             <tr>
                 {% for i in attr %}
@@ -32,8 +36,7 @@
         <form name='due_form' action="/dues/update_dues/" method="post" onsubmit="return validate()">
             {% csrf_token %}
             <input type="text" readonly="readonly" name="student_id" value= {{ attr.0 }} >
-            <input type="text" required="required" placeholder="Enter room fees" value="" name="room_fees" id="rf">
-            <input type="text"  placeholder="Enter Mess fees" value="" name="mess_fees" id="mf">
+            <input type="text" required="required" placeholder="Enter the amount to be paid" value="" name="room_fees" id="rf">
             <input type="submit" value="Submit">
         </form>
         {% else %}
