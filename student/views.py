@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Studentinfo
 from payfees.models import Dues
+from Room.models import Room
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def studentinfo(request):
 
 def form(request):
     if request.session.has_key('userid'):
-        return render(request, 'registration/form1.html')
+        return render(request, 'registration/form1.html', {'context':Room.objects.filter(room_number__gt=0)})
     else:
         return render(request, 'error.html')
 
@@ -36,6 +37,7 @@ def update(request):
     iname = request.POST['iname']
     hname = request.POST['hname']
     hmobile = request.POST['hmobile']
+    room_number = request.POST['room']
             #print(first_name, last_name)
 
     student_info_object = Studentinfo()
@@ -56,43 +58,47 @@ def update(request):
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
     student_info_object.balance = 0.0
-
+    [student_info_object.room] = Room.objects.filter(room_number=room_number)
+    if int(student_info_object.room.vacancy) < 1:
+        return redirect('/student/register')
     student_info_object.save()
-    due = Dues()
 
-    last_booking = Studentinfo.objects.all().order_by('sid').last()
-
-    due.sid = last_booking.sid
-    due.name = last_booking.first_name +" "+ last_booking.last_name
-    due.roomfees = 0.0
-    due.messfees = 0.0
-    due.securitymoney = 0.0
-    due.fine = 0.0
-    due.totaldue = 0.0
-    due.save()
-
-    attr = {
-        'Student id': student_info_object.sid,
-        'First name':student_info_object.first_name,
-        'Last name':student_info_object.last_name,
-        'Sex':student_info_object.sex,
-        'Adhaar Card no.':student_info_object.adhaar,
-        'Mobile':student_info_object.mobile_no,
-        'Parent Name':student_info_object.parent_name,
-        'Parent Mobile':student_info_object.parent_mobile,
-        'Address line 1':student_info_object.address_l1,
-        'Address line 2':student_info_object.address_l2,
-        'City':student_info_object.city,
-        'Pin Code':student_info_object.pin_code,
-        'Guardian Name':student_info_object.guardian_name,
-        'Guardian Mobile':student_info_object.guardian_mobile,
-        'Registration Date':student_info_object.registration_date,
-        'Institution Name':student_info_object.institution_name,
-        'HOD Name':student_info_object.hod_name,
-        'HOD Mobile':student_info_object.hod_mobile
-    }
-    context = {'attr':attr}
-    return render(request, 'registration/pay_initial_fees.html', context)
+    """Changes discarded"""
+    # due = Dues()
+    #
+    # last_booking = Studentinfo.objects.all().order_by('sid').last()
+    #
+    # due.sid = last_booking.sid
+    # due.name = last_booking.first_name +" "+ last_booking.last_name
+    # due.roomfees = 0.0
+    # due.messfees = 0.0
+    # due.securitymoney = 0.0
+    # due.fine = 0.0
+    # due.totaldue = 0.0
+    # due.save()
+    #
+    # attr = {
+    #     'Student id': student_info_object.sid,
+    #     'First name':student_info_object.first_name,
+    #     'Last name':student_info_object.last_name,
+    #     'Sex':student_info_object.sex,
+    #     'Adhaar Card no.':student_info_object.adhaar,
+    #     'Mobile':student_info_object.mobile_no,
+    #     'Parent Name':student_info_object.parent_name,
+    #     'Parent Mobile':student_info_object.parent_mobile,
+    #     'Address line 1':student_info_object.address_l1,
+    #     'Address line 2':student_info_object.address_l2,
+    #     'City':student_info_object.city,
+    #     'Pin Code':student_info_object.pin_code,
+    #     'Guardian Name':student_info_object.guardian_name,
+    #     'Guardian Mobile':student_info_object.guardian_mobile,
+    #     'Registration Date':student_info_object.registration_date,
+    #     'Institution Name':student_info_object.institution_name,
+    #     'HOD Name':student_info_object.hod_name,
+    #     'HOD Mobile':student_info_object.hod_mobile
+    # }
+    # context = {'attr':attr}
+    return render(request, 'registration/pay_initial_fees.html')
 
 
 def pay_init_fees(request):

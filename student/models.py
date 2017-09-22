@@ -50,10 +50,16 @@ class Studentinfo(models.Model):
     def __str__(self):
         return self.sid
 
+    def __init__(self, *args, **kwargs):
+        super(Studentinfo, self).__init__(*args, **kwargs)
+        try:
+            self.prev_room = self.room.room_number
+        except:
+            self.prev_room = '000'
+
     def save(self, *args, **kwargs):
         if self.prev_room != self.room.room_number:
-            if self.prev_room is not None:
-                self.prev_room = self.room.room_number
+            if self.prev_room != '000':
                 [prev] = Room.objects.filter(room_number=self.prev_room)
                 prev.vacancy = str(int(prev.vacancy) + 1)
                 prev.save()
