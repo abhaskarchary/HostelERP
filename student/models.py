@@ -5,29 +5,30 @@ import datetime
 from Room.models import Room
 import logging
 
+
 # Create your models here.
 def increment_id():
-  last_booking = Studentinfo.objects.all().order_by('sid').last()
-  if not last_booking:
-    return 'ETL' + str(datetime.date.today().year) + '0000'
-  if str(datetime.date.today().year) != last_booking.sid[3:7]:
-    return 'ETL' + str(datetime.date.today().year) + '0000'
-  booking_id = last_booking.sid
-  booking_int = int(booking_id[7:11])
-  new_booking_int = booking_int + 1
-  new_booking_id = 'ETL' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
-  return new_booking_id
+    last_booking = Studentinfo.objects.all().order_by('sid').last()
+    if not last_booking:
+        return 'ETL' + str(datetime.date.today().year) + '0000'
+    if str(datetime.date.today().year) != last_booking.sid[3:7]:
+        return 'ETL' + str(datetime.date.today().year) + '0000'
+    booking_id = last_booking.sid
+    booking_int = int(booking_id[7:11])
+    new_booking_int = booking_int + 1
+    new_booking_id = 'ETL' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
+    return new_booking_id
+
 
 def choices():
-    return Room.objects.filter(vacancy__gt = 0).values('room_number').query
-
+    return Room.objects.filter(vacancy__gt=0).values('room_number').query
 
 
 class Studentinfo(models.Model):
-    sid = models.CharField(max_length = 20, default = increment_id, editable=False, primary_key=True)
+    sid = models.CharField(max_length=20, default=increment_id, editable=False, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    room = models.ForeignKey(Room, limit_choices_to = {'room_number__in':choices()})
+    room = models.ForeignKey(Room, limit_choices_to={'room_number__in': choices()})
     prev_room = None
     sex = models.CharField(max_length=6)
     adhaar = models.CharField(max_length=12)
@@ -46,8 +47,6 @@ class Studentinfo(models.Model):
     registration_date = models.DateTimeField(auto_now=True)
     balance = models.FloatField(max_length=5)
 
-
-
     def __str__(self):
         return self.sid
 
@@ -62,7 +61,3 @@ class Studentinfo(models.Model):
             self.room.vacancy = str(int(self.room.vacancy) - 1)
             self.room.save()
             super(Studentinfo, self).save(*args, **kwargs)
-
-
-
-
