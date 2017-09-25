@@ -6,6 +6,7 @@ from Room.models import Room
 import logging
 
 # Create your models here.
+
 def increment_id():
     last_booking = Studentinfo.objects.all().order_by('sid').last()
     if not last_booking:
@@ -69,4 +70,6 @@ class Studentinfo(models.Model):
 
             self.room.vacancy = str(int(self.room.vacancy) - 1)
             self.room.save()
-            super(Studentinfo, self).save(*args, **kwargs)
+        super(Studentinfo, self).save(*args, **kwargs)
+
+

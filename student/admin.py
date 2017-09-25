@@ -3,4 +3,4 @@ from .models import Studentinfo
 
 # Register your models here.
 
-admin.site.register(Studentinfo)
+# admin.site.register(Studentinfo)

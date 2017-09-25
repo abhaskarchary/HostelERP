@@ -20,6 +20,12 @@ def form(request):
     else:
         return render(request, 'error.html')
 
+def change_info(request, sid):
+    if request.session.has_key('userid'):
+        [context] = Studentinfo.objects.filter(sid=sid)
+        return render(request, 'registration/form1.html', {'context': context})
+    return render(request, 'error.html')
+
 
 def update(request):
     first_name = request.POST['name1']

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ERP | Login</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+</head>
+<body>
+<div class="login-page">
+  <div class="form">
+<form action="#" method="post" class="login-form">
+  {% csrf_token %}
+<input class="i1" type="text" name="name1" id="name" required="required" value="{{student.first_name}}">
+<input class="i2" type="text" id="name2" name="name2" required="required" value="{{student.last_name}}"><br>
+  {% if student.sex == 'male' %}
+    <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px"><input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female</div><br>
+  {% else %}
+    <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px"><input type="radio" name="sex" value="male">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px" checked>Female</div><br>
+  {% endif %}
+  <input class="i1" type="number" required="required" value="{{student.adhaar}}" max="999999999999" name="adhaar">
+<input class="i3" type="text" value="+91" readonly="readonly">
+<input class="i5" type="number" name="mobile" id="mobile" required="required" value="{{student.mobile_no}}" min="7000000000" max="9999999999"><br>
+<input class="i1" type="text" name="pname" id="parent" required="required" value="{{student.parent_name}}">
+<input class="i2" type="number" name="pmobile" id="parentmobile" required="required" value="{{student.parent_mobile}}" min="7000000000" max="9999999999"><br>
+<input class="i1" type="text" required="required" value="{{student.address_l1}}" name = "ad1">
+<input class="i2" type="text" required="required" value="{{student.address_l2}}" name = "ad2"><br>
+<input class="i1" type="text" required="required" value="{{student.city}}" name = "city">
+<input class="i2" type="number" id="pincode" required="required" value="{{student.pin_code}}" max="999999" name = "pin"><br>
+<input class="i1" type="text" id="guardian" value="{{student.guardian_name}}" name ="gname">
+<input class="i2" type="number" id="guardianmobile" required="required" value="{{student.guardian_mobile}}" min="7000000000" max="9999999999" name = "gmobile"><br>
+<input class="i4" type="text" id="institute" required="required" value="{{student.institution_name}}" name="iname"><br>
+<input class="i1" type="text" id="nameofHOD" required="required" value="{{student.hod_name}}" name="hname">
+<input class="i2" type="number" id="HODmobile" required="required" value="{{student.hod_mobile}}" min="7000000000" max="9999999999" name="hmobile"><br>
+
+  Room : <input class="i3" type="text" value="{{ student.room.room_number }}" readonly="readonly">
+
+</select><br>
+  <button type="submit">Submit</button>
+</form>
+</div>
+</div>
+</body>
+</html>

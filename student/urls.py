@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^update/$', views.update, name = 'update'),
     url(r'^studentinfo/$', views.studentinfo, name = 'studentinfo'),
     url(r'^pay_initial_fees/$', views.pay_init_fees, name = 'pay_init_fees'),
+    # url(r'^change_info_student/$', views.change_info, name = 'pay_init_fees'),
 ]
