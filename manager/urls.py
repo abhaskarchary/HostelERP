@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^update/$', views.update, name='update'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^deduct_fees/$', views.deduct_fees, name='deduct_fees'),
 ]

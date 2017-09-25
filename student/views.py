@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Studentinfo
-from payfees.models import Dues
+from payfees.models import Fees
 from Room.models import Room
+
 
 # Create your views here.
 
@@ -58,6 +59,10 @@ def update(request):
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
     student_info_object.balance = 0.0
+    student_info_object.running_dues = 0.0
+    student_info_object.running_fine = 0.0
+    student_info_object.refundable_security = 0.0
+    student_info_object.total_dues = 0.0
     [student_info_object.room] = Room.objects.filter(room_number=room_number)
     if int(student_info_object.room.vacancy) < 1:
         return redirect('/student/register')
@@ -70,8 +75,7 @@ def update(request):
     #
     # due.sid = last_booking.sid
     # due.name = last_booking.first_name +" "+ last_booking.last_name
-    # due.roomfees = 0.0
-    # due.messfees = 0.0
+    # due.fees = 0.0
     # due.securitymoney = 0.0
     # due.fine = 0.0
     # due.totaldue = 0.0
@@ -98,7 +102,12 @@ def update(request):
     #     'HOD Mobile':student_info_object.hod_mobile
     # }
     # context = {'attr':attr}
-    return render(request, 'registration/pay_initial_fees.html')
+    l=[]
+    fee = Fees.objects.filter(id = 1).values()
+    for f in fee:
+        l = [f['security_money']]
+    context = {'attr': l}
+    return render(request, 'registration/pay_initial_fees.html',context)
 
 
 def pay_init_fees(request):

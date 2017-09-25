@@ -5,7 +5,6 @@ import datetime
 from Room.models import Room
 import logging
 
-
 # Create your models here.
 def increment_id():
     last_booking = Studentinfo.objects.all().order_by('sid').last()
@@ -45,6 +44,10 @@ class Studentinfo(models.Model):
     hod_name = models.CharField(max_length=30)
     hod_mobile = models.CharField(max_length=10)
     registration_date = models.DateTimeField(auto_now=True)
+    running_dues = models.FloatField(max_length=4, null=False)
+    running_fine = models.FloatField(max_length=4)
+    total_dues = models.FloatField(max_length=4)
+    refundable_security = models.FloatField(max_length=4)
     balance = models.FloatField(max_length=5)
 
     def __str__(self):

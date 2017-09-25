@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.http import HttpResponse
 from .models import EmployeeInfo
-
+from payfees.views import deduct_fees
+from student.models import Studentinfo
+import datetime
 # Create your views here.
 
 
@@ -97,3 +99,39 @@ def update(request):
     Manager_info_object.save()
 
     return HttpResponse("<H1>Registered successfully</H1>")
+
+def deduct_fees(request):
+    stu = Studentinfo.objects.all().values()
+    y = datetime.date.today().year
+    m = datetime.date.today().month
+    d = datetime.date.today().month
+    if d>1 and d<5:
+        for s in stu:
+            # total = s['total_dues']
+            # bal = s['balance']
+            # fine = s['running_fine']
+            # due = s['running_dues']
+            remaining_dues=s['running_dues']
+            remaining_fine=s['running_fine']
+            remaining_total_dues=s['total_dues']
+            remaining_bal=s['balance']
+            stu1 = Studentinfo.objects.filter(sid = s['sid']).values()
+            if((s['running_dues']>0.0 or s['running_fine']>0.0) and s['balance']>0.0):
+                if s['total_dues']<=s['balance']:
+                    remaining_dues = 0.0
+                    remaining_fine = 0.0
+                    remaining_bal = s['balance'] - s['total_dues']
+                elif(s['total_dues']>s['balance']):
+                    if(s['running_dues']>s['balance']):
+                        remaining_dues=s['running_dues']-s['balance']
+                        remaining_fine=s['running_fine']
+                        remaining_bal=0.0
+                    else:
+                        remaining_dues=0.0
+                        remaining_bal=s['balance']-s['running_dues']
+                        remaining_fine=s['running_fine']-remaining_bal
+                        remaining_bal=0.0
+                remaining_total_dues = remaining_dues + remaining_fine
+            stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
+                    balance = remaining_bal, total_dues = remaining_total_dues)
+    return HttpResponse("<h1>Fees paid successfully<h1")

@@ -8,11 +8,11 @@
             var attr = {{ attr|safe }}
             var r = document.due_form.room_fees.value;
             //var m = document.due_form.mess_fees.value;
-            if(r > attr[1]){
+            if(r > attr[3]){
                 alert('Amount can not be greater than Dues');
                 return false;
             }
-            else if(r>attr[3]){
+            else if(r>attr[4]){
                 alert("You don't have enough balance");
                 return false;
             }
@@ -25,7 +25,7 @@
         {% if attr %}
         <table border="0" align="center" cellspacing="10" cellpadding="10">
             <tr>
-                <th>Student ID</th><th>Fees Due</th><th>Total</th><th>Wallet Balance</th>
+                <th>Student ID</th><th>Running Dues</th><th>Running Fine</th><th>Total Dues</th><th>Wallet Balance</th>
             </tr>
             <tr>
                 {% for i in attr %}
