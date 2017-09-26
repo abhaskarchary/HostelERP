@@ -19,8 +19,9 @@ from . import views
 
 urlpatterns = [
     url(r'^register$', views.form, name = 'form'),
+    url(r'^update/(?P<sid>ETL[0-9]+)/$', views.update, name='update'),
     url(r'^update/$', views.update, name = 'update'),
     url(r'^studentinfo/$', views.studentinfo, name = 'studentinfo'),
     url(r'^pay_initial_fees/$', views.pay_init_fees, name = 'pay_init_fees'),
-    # url(r'^change_info_student/$', views.change_info, name = 'pay_init_fees'),
+    url(r'^change_info_student/(?P<sid>ETL[0-9]+)/$', views.change_info, name = 'change_info'),
 ]

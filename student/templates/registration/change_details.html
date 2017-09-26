@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ERP | Login</title>
+<title>ERP | Change Details</title>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
 </head>
 <body>
 <div class="login-page">
   <div class="form">
-<form action="#" method="post" class="login-form">
+<form action="/student/update/{{ student.sid }}/" method="post" class="login-form">
   {% csrf_token %}
 <input class="i1" type="text" name="name1" id="name" required="required" value="{{student.first_name}}">
 <input class="i2" type="text" id="name2" name="name2" required="required" value="{{student.last_name}}"><br>
@@ -34,6 +34,11 @@
 <input class="i2" type="number" id="HODmobile" required="required" value="{{student.hod_mobile}}" min="7000000000" max="9999999999" name="hmobile"><br>
 
   Room : <input class="i3" type="text" value="{{ student.room.room_number }}" readonly="readonly">
+  Select Room:<select class="i1" name="room">
+  {% for i in rooms %}
+    <option value="{{ i }}"> {{ i }}</option>
+  {% endfor %}
+  <option value="None" selected> Don't Change</option>
 
 </select><br>
   <button type="submit">Submit</button>

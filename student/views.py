@@ -23,11 +23,11 @@ def form(request):
 def change_info(request, sid):
     if request.session.has_key('userid'):
         [context] = Studentinfo.objects.filter(sid=sid)
-        return render(request, 'registration/form1.html', {'context': context})
+        return render(request, 'registration/change_details.html', {'student': context,'rooms':Room.objects.filter(vacancy__gt=0)})
     return render(request, 'error.html')
 
 
-def update(request):
+def update(request, sid = None):
     first_name = request.POST['name1']
     last_name = request.POST['name2']
     sex = request.POST['sex']
@@ -46,8 +46,10 @@ def update(request):
     hmobile = request.POST['hmobile']
     room_number = request.POST['room']
             #print(first_name, last_name)
-
-    student_info_object = Studentinfo()
+    if sid is None:
+        student_info_object = Studentinfo()
+    else:
+        [student_info_object] = Studentinfo.objects.filter(sid=sid)
     student_info_object.first_name = first_name
     student_info_object.last_name = last_name
     student_info_object.sex = sex
@@ -69,8 +71,9 @@ def update(request):
     student_info_object.running_fine = 0.0
     student_info_object.refundable_security = 0.0
     student_info_object.total_dues = 0.0
-    [student_info_object.room] = Room.objects.filter(room_number=room_number)
-    if int(student_info_object.room.vacancy) < 1:
+    if room_number != 'None':
+        [student_info_object.room] = Room.objects.filter(room_number=room_number)
+    if int(student_info_object.room.vacancy) < 1 and room_number != 'None':
         return redirect('/student/register')
     student_info_object.save()
 
@@ -108,6 +111,10 @@ def update(request):
     #     'HOD Mobile':student_info_object.hod_mobile
     # }
     # context = {'attr':attr}
+
+    if sid is not None:
+        return render(request, 'registration/registration_complete.html')
+
     l=[]
     fee = Fees.objects.filter(id = 1).values()
     for f in fee:
