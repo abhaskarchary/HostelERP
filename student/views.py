@@ -20,14 +20,16 @@ def form(request):
     else:
         return render(request, 'error.html')
 
-def change_info(request, sid):
+
+def change_info(request):
     if request.session.has_key('userid'):
+        sid= request.POST['student_id']
         [context] = Studentinfo.objects.filter(sid=sid)
         return render(request, 'registration/change_details.html', {'student': context,'rooms':Room.objects.filter(vacancy__gt=0)})
     return render(request, 'error.html')
 
 
-def update(request, sid = None):
+def update(request,sid = None):
     first_name = request.POST['name1']
     last_name = request.POST['name2']
     sex = request.POST['sex']
@@ -48,6 +50,11 @@ def update(request, sid = None):
             #print(first_name, last_name)
     if sid is None:
         student_info_object = Studentinfo()
+        student_info_object.balance = 0.0
+        student_info_object.running_dues = 0.0
+        student_info_object.running_fine = 0.0
+        student_info_object.refundable_security = 0.0
+        student_info_object.total_dues = 0.0
     else:
         [student_info_object] = Studentinfo.objects.filter(sid=sid)
     student_info_object.first_name = first_name
@@ -66,11 +73,6 @@ def update(request, sid = None):
     student_info_object.institution_name = iname
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
-    student_info_object.balance = 0.0
-    student_info_object.running_dues = 0.0
-    student_info_object.running_fine = 0.0
-    student_info_object.refundable_security = 0.0
-    student_info_object.total_dues = 0.0
     if room_number != 'None':
         [student_info_object.room] = Room.objects.filter(room_number=room_number)
     if int(student_info_object.room.vacancy) < 1 and room_number != 'None':
@@ -141,3 +143,7 @@ def pay_init_fees(request):
     return render(request, 'registration/registration_complete.html')
     #return HttpResponse("<h1>"+stu.sid+"<h1>")
     #return
+
+
+def change_std_info(request):
+    return render(request, 'studentinfo/changes.html')

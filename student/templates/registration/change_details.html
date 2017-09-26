@@ -34,11 +34,11 @@
 <input class="i2" type="number" id="HODmobile" required="required" value="{{student.hod_mobile}}" min="7000000000" max="9999999999" name="hmobile"><br>
 
   Room : <input class="i3" type="text" value="{{ student.room.room_number }}" readonly="readonly">
-  Select Room:<select class="i1" name="room">
+  Change Room : <select class="i1" name="room">
   {% for i in rooms %}
     <option value="{{ i }}"> {{ i }}</option>
   {% endfor %}
-  <option value="None" selected> Don't Change</option>
+  <option value="None" selected>Select Room no.</option>
 
 </select><br>
   <button type="submit">Submit</button>

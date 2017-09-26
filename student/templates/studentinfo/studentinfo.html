@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ERP | Student info</title>
 </head>
-<form>
+<body>
 <center><h1>Student Info</h1></center>
 <hr>
 <table cellpadding="3" border="1">
@@ -26,7 +26,7 @@
         <th>Institution Name</th>
         <th>HOD Name</th>
         <th>HOD Mobile</th>
-        <th>Edit</th>
+        <!--<th>Edit</th>-->
     </tr>
     {% for c in context %}
         <tr>
@@ -47,7 +47,7 @@
             <td>{{ c.institution_name }}</td>
             <td>{{ c.hod_name }}</td>
             <td>{{ c.hod_mobile }}</td>
-            <td><a href ="/student/change_info_student/{{ c.sid }}">Edit</a></td>
+            <!--<td><a href ="/student/change_info_student/{{ c.sid }}">Edit</a></td>-->
         </tr>
     {% endfor %}
 </table>
