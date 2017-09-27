@@ -46,7 +46,7 @@ def logout(request):
         del request.session['userid']
     except:
         pass
-    return render(request, 'login.html')
+    return render(request, 'home/home.html')
 
 
 def startsession(request):
