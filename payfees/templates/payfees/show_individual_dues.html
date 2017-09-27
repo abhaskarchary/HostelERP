@@ -33,7 +33,8 @@
                 {% endfor %}
             </tr>
         </table>
-        <form name='due_form' action="/dues/update_dues/{{ attr.0 }}/" method="get" onsubmit="return validate()">
+        <form name='due_form' action="/dues/update_dues/{{ attr.0 }}/" method="post" onsubmit="return validate()">
+            {% csrf_token %}
             <input type="text" required="required" placeholder="Enter the amount to be paid" value="" name="amount" id="rf">
             <input type="submit" value="Submit">
         </form>
