@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^search_student/$', views.search, name = 'search'),
     url(r'^$', views.account, name = 'account'),
     url(r'^show_student_dues/$', views.show, name = 'show'),
-    url(r'^update_dues/$', views.update_dues, name = 'update_dues')
+    url(r'^update_dues/(?P<stu_id>ETL[0-9]+)/$', views.update_dues, name = 'update_dues')
 ]

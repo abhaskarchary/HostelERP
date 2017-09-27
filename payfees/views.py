@@ -28,27 +28,34 @@ def show(request):
         return render(request, 'error.html')
 
 
-def update_dues(request):
-    stu_id = request.POST['student_id']
-    fees = request.POST['room_fees']
-   # mess_fees = request.POST['mess_fees']
+def update_dues(request, stu_id):
+    #stu_id = request.POST['student_id']
+    amount = float(request.GET['amount'])
+   #mess_fees = request.POST['mess_fees']
 
     if stu_id:
         stu = Studentinfo.objects.filter(sid = stu_id).values()
         stu1 = Studentinfo.objects.filter(sid = stu_id).values()
         for s in stu:
-            remaining_bal = s['balance'] - (float(fees))
-            if(float(fees)<s['running_dues']):
-                remaining_dues = s['running_dues'] - float(fees)
-                remaining_fine = s['running_fine']
-            elif(float(fees)>=s['running_dues'] and float(fees)<s['total_dues']):
-                fees = float(fees) - s['running_dues']
-                remaining_dues = 0.0
-                remaining_fine = s['running_fine'] - fees;
-            else:
-                remaining_dues = 0.0
-                remaining_fine = 0.0
-        remaining_total_dues = s['total_dues'] - float(fees)
+            total = s['total_dues']
+            bal = s['balance']
+            fine = s['running_fine']
+            due = s['running_dues']
+            if total<amount:
+                remaining_dues=0.0
+                remaining_fine=0.0
+                remaining_amount=amount-total
+            elif amount<total and amount<due:
+                remaining_dues=due-amount
+                remaining_fine=fine
+                remaining_amount=0.0
+            elif amount<total and amount>due:
+                remaining_dues=0.0
+                remaining_amount=amount-due
+                remaining_fine=fine-remaining_amount
+                remaining_amount=0.0
+        remaining_total_dues = remaining_dues+remaining_fine
+        remaining_bal=bal+remaining_amount
         stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
                     balance = remaining_bal, total_dues = remaining_total_dues)
         return HttpResponse("<h3>Fees paid Successfully<h3>")
