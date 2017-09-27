@@ -44,21 +44,27 @@ def register(request):
 def logout(request):
     try:
         del request.session['userid']
+        return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
     except:
         pass
-    return render(request, 'home/home.html')
+        return render(request, 'login.html', {'Message': 'You cannot logout without logging in!'})
+    #return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
 
 
 def startsession(request):
     userid = request.POST['userid']
     userpass = request.POST['userpass']
-    object = EmployeeInfo.objects.get(empid = userid, password = userpass)
-    if object.first_name != "" and object.employee_type == "manager":
-        request.session['userid'] = userid
-        attr = {'userid': userid}
-        context = {'attr': attr}
-        return redirect('/manager/login/')
-    else: return render(request, 'login.html', {})
+    try:
+        object = EmployeeInfo.objects.get(empid = userid, password = userpass)
+        if object.first_name != "" and object.employee_type == "manager":
+            request.session['userid'] = userid
+            attr = {'userid': userid}
+            context = {'attr': attr}
+            return redirect('/manager/login/')
+        else: return render(request, 'login.html', {})
+    except:
+        pass
+    return render(request, 'login.html', {'Message':'Error Code 1 : Invalid Userid or password!!!'})
 
 
 def viewempdata(request):

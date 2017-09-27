@@ -160,13 +160,17 @@ def change_std_info(request):
 def startsession(request):
     userid = request.POST['userid']
     userpass = request.POST['userpass']
-    [object] = Studentinfo.objects.filter(sid = userid, password = userpass)
-    if object.first_name != "":
-        request.session['userid'] = userid
-        attr = {'userid': userid}
-        context = {'attr': attr}
-        return redirect('/student/login/')
-    else: return render(request, 'student_zone/login.html', {})
+    try:
+        [object] = Studentinfo.objects.filter(sid = userid, password = userpass)
+        if object.first_name != "":
+            request.session['userid'] = userid
+            attr = {'userid': userid}
+            context = {'attr': attr}
+            return redirect('/student/login/')
+        else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1 : Invalid Userid or password!!!'})
+    except:
+        pass
+    return render(request,'student_zone/login.html', {'Message':'Error Code 1 : Invalid Userid or password!!!'})
 
 
 def login(request):
@@ -194,6 +198,7 @@ def _add_to_header(response, key, value):
 def logout(request):
     try:
         del request.session['userid']
+        return render(request, 'student_zone/login.html', {'Message': 'You have been logged out successfully!'})
     except:
         pass
-    return render(request, 'student_zone/login.html')
+        return render(request, 'student_zone/login.html', {'Message': 'You cannot logout without logging in!'})
