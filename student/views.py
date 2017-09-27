@@ -7,7 +7,7 @@ from Room.models import Room
 # Create your views here.
 
 def signin(request):
-    return render(request, 'loggedin.html')
+    return render(request, 'student_zone/loggedin.html')
 
 
 def accountlogs(request):
