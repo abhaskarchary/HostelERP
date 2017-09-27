@@ -26,7 +26,9 @@ urlpatterns = [
     url(r'^pay_initial_fees/$', views.pay_init_fees, name = 'pay_init_fees'),
     #url(r'^change_info_student/(?P<sid>ETL[0-9]+)/$', views.change_info, name = 'change_info'),
     url(r'^change_student_info/$', views.change_info, name = 'change_info'),
-    url(r'^signin/$', views.signin, name = 'sign_in'),
     url(r'^accountlogs/$', views.accountlogs, name = 'account_logs'),
     url(r'^messageroom/$', views.messageroom, name = 'messageroom'),
+    url(r'^startsession/$', views.startsession, name='startsession'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
 ]

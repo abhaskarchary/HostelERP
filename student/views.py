@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Studentinfo
 from payfees.models import Fees
 from Room.models import Room
-
+from django.http import HttpResponse
+import re
 
 # Create your views here.
-
-def signin(request):
-    return render(request, 'student_zone/loggedin.html')
 
 
 def accountlogs(request):
@@ -158,3 +156,44 @@ def pay_init_fees(request):
 
 def change_std_info(request):
     return render(request, 'studentinfo/changes.html')
+
+def startsession(request):
+    userid = request.POST['userid']
+    userpass = request.POST['userpass']
+    [object] = Studentinfo.objects.filter(sid = userid, password = userpass)
+    if object.first_name != "":
+        request.session['userid'] = userid
+        attr = {'userid': userid}
+        context = {'attr': attr}
+        return redirect('/student/login/')
+    else: return render(request, 'student_zone/login.html', {})
+
+
+def login(request):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        context = Studentinfo.objects.get(sid=userid)
+        response = HttpResponse(render(request, 'student_zone/loggedin.html', {"context": context}))
+        _add_to_header(response, 'Cache-Control', 'no-store')
+        _add_to_header(response, 'Cache-Control', 'no-cache')
+        _add_to_header(response, 'Pragma', 'no-store')
+        return response
+    else:
+        return render(request, 'student_zone/login.html')
+
+
+def _add_to_header(response, key, value):
+    if response.has_header(key):
+        values = re.split(r'\s*,\s*', response[key])
+        if not value in values:
+            response[key] = ', '.join(values + [value])
+    else:
+        response[key] = value
+
+
+def logout(request):
+    try:
+        del request.session['userid']
+    except:
+        pass
+    return render(request, 'student_zone/login.html')

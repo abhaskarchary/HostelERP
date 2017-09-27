@@ -17,7 +17,7 @@ class _room:
         if len(tenants) > 0:
             self.tenant1 = tenants[0].first_name + " " + tenants[0].last_name
             if len(tenants) == 2:
-                self.tenant2 = tenants[1].first_name + tenants[1].last_name
+                self.tenant2 = tenants[1].first_name + " " + tenants[1].last_name
         self.rent = room_object.rent
         self.additional_charges = room_object.additional_charges
         self.need_maintenance = room_object.need_maintenance
