@@ -6,6 +6,7 @@ from .models import EmployeeInfo
 from payfees.views import deduct_fees
 from student.models import Studentinfo
 import datetime
+from payfees.models import TransactionDetails
 # Create your views here.
 
 
@@ -141,3 +142,7 @@ def deduct_fees(request):
             stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
                     balance = remaining_bal, total_dues = remaining_total_dues)
     return HttpResponse("<h1>Fees paid successfully<h1")
+
+
+def all_transactions(request):
+    return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all()})
