@@ -30,7 +30,7 @@ def show(request):
 
 def update_dues(request, stu_id):
     #stu_id = request.POST['student_id']
-    amount = float(request.GET['amount'])
+    amount = float(request.POST['amount'])
    #mess_fees = request.POST['mess_fees']
 
     if stu_id:
