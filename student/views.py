@@ -6,6 +6,17 @@ from Room.models import Room
 
 # Create your views here.
 
+def signin(request):
+    return render(request, 'loggedin.html')
+
+
+def accountlogs(request):
+    return render(request, 'accountlogs.html')
+
+
+def messageroom(request):
+    return render(request, 'messageroom.html')
+
 
 def studentinfo(request):
     if request.session.has_key('userid'):
