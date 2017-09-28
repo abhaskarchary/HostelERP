@@ -7,7 +7,7 @@
 <body>
 <h1><a href="/student/logout">Log out</a></h1>
 <div class="tab">
-    <a href="/student/accountlogs">Check Accounts</a>
+    <a href="/student/accountlogs/{{context.sid}}">View your transactions</a>
     <a href="/student/messageroom">Send a Message</a>
 </div>
 <h3>Personal Details</h3>
@@ -46,7 +46,7 @@
     </tr>
 </table>
 <br>
-<b>Balance: </b>Rs. <br><br>
-<b>Payments Due: </b>Rs.<br><br>
+<b>Balance: </b>Rs. {{context.balance}} <br><br>
+<b>Payments Due: </b>Rs. {{context.total_dues}}<br><br>
 </body>
 </html>

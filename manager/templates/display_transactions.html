@@ -10,16 +10,25 @@
     <table border="0" cellspacing="10" cellpadding="10" align="center">
         <tr>
 			<th>Transaction ID</th><th>Transaction Date</th><th>Student Id</th><th>Credit</th><th>Debit</th>
-			<th>Transaction Type</th><th>Updated Balance</th><th>Particulars</th>
+			<th>Transaction Type</th><th>Transaction Mode</th><th>Updated Balance</th><th>Particulars</th>
 		</tr>
 	{% for transaction in all_transactions %}
 		<tr>
 			<td align="center">{{transaction.transaction_id }}</td>
 			<td align="center">{{ transaction.transaction_date }}</td>
 			<td align="center">{{ transaction.sid }}</td>
-			<td align="center">{{ transaction.credit }}</td>
-			<td align="center">{{ transaction.debit }}</td>
+			{% if transaction.credit <= 0.0 %}
+				<td align="center"></td>
+			{% else %}
+				<td align="center">{{ transaction.credit }}</td>
+			{% endif %}
+			{% if transaction.debit <= 0.0 %}
+				<td align="center"></td>
+			{% else %}
+				<td align="center">{{ transaction.debit }}</td>
+			{% endif %}
 			<td align="center">{{ transaction.transaction_type }}</td>
+			<td align="center">{{ transaction.transaction_mode }}</td>
 			<td align="center">{{ transaction.balance }}</td>
 			<td align="center">{{ transaction.remarks }}</td>
 		</tr>

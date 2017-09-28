@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.shortcuts import redirect
 from django.views.generic import ListView
+from payfees.views import deduct_fees
 
 from manager.models import EmployeeInfo
 from . import views
@@ -14,6 +15,6 @@ urlpatterns = [
     url(r'^update/$', views.update, name='update'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
-    url(r'^deduct_fees/$', views.deduct_fees, name='deduct_fees'),
+    url(r'^deduct_fees/$', deduct_fees, name='deduct_fees'),
     url(r'^all_transactions/$', views.all_transactions, name='all_transactions')
 ]

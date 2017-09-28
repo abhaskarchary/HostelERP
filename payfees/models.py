@@ -35,6 +35,7 @@ class TransactionDetails(models.Model):
     remarks = models.CharField(max_length=400)
     balance = models.FloatField(max_length = 5)
     transaction_type = models.CharField(max_length=10)
+    transaction_mode = models.CharField(max_length=20)
 
     def __str__(self):
         return self.transaction_id

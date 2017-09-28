@@ -18,29 +18,54 @@
             }
 
         }*/
+        function validate(){
+             var r = document.due_form.amount.value;
+             var p_mode = document.due_form.payment_mode.value;
+             if(r<=0)
+             {
+                alert("Please enter a valid amount");
+                return false;
+             }
+             else if(p_mode==("Select payment mode")){
+                alert("Please select payment mode");
+                return false;
+             }
+        }
     </script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
 </head>
 <body>
     <center>
-        {% if attr %}
-        <table border="0" align="center" cellspacing="10" cellpadding="10">
-            <tr>
-                <th>Student ID</th><th>Running Dues</th><th>Running Fine</th><th>Total Dues</th><th>Wallet Balance</th>
-            </tr>
-            <tr>
-                {% for i in attr %}
-                <td align="center" id=> {{ i }}</td>
-                {% endfor %}
-            </tr>
-        </table>
-        <form name='due_form' action="/dues/update_dues/{{ attr.0 }}/" method="post" onsubmit="return validate()">
-            {% csrf_token %}
-            <input type="text" required="required" placeholder="Enter the amount to be paid" value="" name="amount" id="rf">
-            <input type="submit" value="Submit">
-        </form>
-        {% else %}
-        <h3>Student Id not found</h3>
-        {% endif %}
-    </center>
+        <div class="login-page">
+            <div class="form">
+                {% if attr %}
+                <table border="0" align="center" cellspacing="10" cellpadding="10">
+                    <tr>
+                        <th>Student ID</th><th>Running Dues</th><th>Running Fine</th><th>Total Dues</th><th>Wallet Balance</th>
+                    </tr>
+                    <tr>
+                        {% for i in attr %}
+                        <td align="center" id=> {{ i }}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <form name='due_form' action="/dues/update_dues/{{ attr.0 }}/" method="post" onsubmit="return validate()">
+                    {% csrf_token %}
+                    <input  class="i1" type="text" required="required" placeholder="Enter the amount to be paid" value="" name="amount" id="rf">
+                    <select class="i1" name="payment_mode">
+                      <option  value="Select payment mode">Select payment mode</option>
+                      <option  value="Cheque">Cheque</option>
+                      <option  value="Cash">Cash</option>
+                      <option  value="Demand Draft">Demand Draft</option>
+                    </select>
+                    <button type="submit" value="Submit">Submit</button>
+                </form>
+                {% else %}
+                <h3>Student Id not found</h3>
+                {% endif %}
+            </div>
+        </div>
+            </center>
 </body>
 </html>

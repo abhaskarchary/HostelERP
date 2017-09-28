@@ -32,6 +32,7 @@ def show(request):
 def update_dues(request, stu_id):
     #stu_id = request.POST['student_id']
     amount = float(request.POST['amount'])
+    p_mode = (request.POST['payment_mode'])
    #mess_fees = request.POST['mess_fees']
 
     if stu_id:
@@ -69,16 +70,18 @@ def update_dues(request, stu_id):
             credit_transaction.credit = amount
             credit_transaction.balance = bal+amount
             credit_transaction.transaction_type = 'Credit'
+            credit_transaction.transaction_mode = p_mode
             credit_transaction.save()
 
-            debit_transaction = TransactionDetails()
-            [debit_transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
-            debit_transaction.debit = bal + amount - remaining_bal
-            debit_transaction.remarks = 'Dues deduction'
-            debit_transaction.credit = 0.0
-            debit_transaction.balance = remaining_bal
-            debit_transaction.transaction_type = 'Debit'
-            debit_transaction.save()
+            if total>0:
+                debit_transaction = TransactionDetails()
+                [debit_transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+                debit_transaction.debit = bal + amount - remaining_bal
+                debit_transaction.remarks = 'Dues deduction'
+                debit_transaction.credit = 0.0
+                debit_transaction.balance = remaining_bal
+                debit_transaction.transaction_type = 'Debit'
+                debit_transaction.save()
 
 
 

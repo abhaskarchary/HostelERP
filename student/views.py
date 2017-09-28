@@ -4,12 +4,13 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
+from payfees.models import TransactionDetails
 
 # Create your views here.
 
 
-def accountlogs(request):
-    return render(request, 'accountlogs.html')
+def accountlogs(request, stu_id):
+    return render(request, 'accountlogs.html', {'student_transaction':TransactionDetails.objects.filter(sid = stu_id)})
 
 
 def messageroom(request):
@@ -176,6 +177,7 @@ def startsession(request):
 def login(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
+        context = Studentinfo.objects.get(sid=userid)
         context = Studentinfo.objects.get(sid=userid)
         response = HttpResponse(render(request, 'student_zone/loggedin.html', {"context": context}))
         _add_to_header(response, 'Cache-Control', 'no-store')
