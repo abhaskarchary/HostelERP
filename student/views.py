@@ -204,3 +204,23 @@ def logout(request):
     except:
         pass
         return render(request, 'student_zone/login.html', {'Message': 'You cannot logout without logging in!'})
+
+
+def change_password(request, sid):
+    if request.session.has_key('userid'):
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+        if pass1 == pass2:
+            student_object = Studentinfo.objects.get(sid=sid)
+            student_object.password = pass1
+            student_object.save()
+        else:
+            url = '<h1>Password Do no match </h1><br><a href="/student/changepass/'+str(sid)+'">Enter Again</a>'
+            return HttpResponse(url)
+        return HttpResponse('<h1>Password Changed </h1><br><a href="/student/login/">Goto Home</a>')
+    return render(request, 'error.html')
+
+def change_pass(request, sid):
+    if request.session.has_key('userid'):
+        return render(request, 'student_zone/changepass.html', {'context':sid,'message':'Change Password'})
+    return render(request, 'error.html')

@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^startsession/$', views.startsession, name='startsession'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^changepassword/(?P<sid>ETL[0-9]+)/$', views.change_password, name='change_password'),
+    url(r'^changepass/(?P<sid>ETL[0-9]+)/$', views.change_pass, name='change_pass'),
 ]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Login</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/style1.css' %}"/>
+</head>
+<body>
+<div class="login-page">
+    <h2>{{ Message }}</h2>
+  <div class="form">
+    <form method="post" action="/student/changepassword/{{ context }}/" class="login-form">
+        {% csrf_token %}
+        <input name="userid" value="{{ context }}" readonly>
+        <input type="password" name="pass1" placeholder="Enter Password" required>
+        <input type="password" name="pass2" placeholder="Confirm password" required>
+      <button>Login</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
