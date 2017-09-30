@@ -220,6 +220,7 @@ def change_password(request, sid):
         return HttpResponse('<h1>Password Changed </h1><br><a href="/student/login/">Goto Home</a>')
     return render(request, 'error.html')
 
+
 def change_pass(request, sid):
     if request.session.has_key('userid'):
         return render(request, 'student_zone/changepass.html', {'context':sid,'message':'Change Password'})

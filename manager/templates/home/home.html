@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>ERP | Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home/style.css' %}" type="text/css"/>
 </head>
 <body>
-
-<center><marquee><h1>S.M.A.R.T. ERP Solutions</h1></marquee></center>
-<hr>
-<table align="center" cellpadding="5 0">
-    <tr>
-        <td><a href="/student/login">Login as Student</a></td>
-        <td><a href="/manager/login/">Login as Employee</a></td>
-    </tr>
-</table>
+<div class="container">
+    <div class="main-text">
+        <div class="heading">
+            <b>S. M. A. R. T. ERP Solutions</b>
+        </div>
+        <div class="quote-text">
+            <p class="quote">
+                <span style="font-size:100px;line-height:0.6em;opacity:0.2;">&#10077;</span>
+                <i>Own a business? Let's do it a better way!</i>
+                <span style="font-size:100px;line-height:0.6em;opacity:0.2;">&#10080;</span>
+            </p>
+        </div>
+        <div class="button">
+            <a href="/student/login/" class="btn">Login as Student</a>
+        </div>
+        <div class="button">
+            <a href="/manager/login/" class="btn">Login as Manager</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
