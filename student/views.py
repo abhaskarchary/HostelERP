@@ -178,7 +178,7 @@ def login(request):
     if request.session.has_key('stdntid'):
         stdntid = request.session['stdntid']
         context = Studentinfo.objects.get(sid=stdntid)
-        response = HttpResponse(render(request, 'student_zone/loggedin.html', {"context": context}))
+        response = HttpResponse(render(request, 'student_zone/loggedin.html', {'context': context}))
         _add_to_header(response, 'Cache-Control', 'no-store')
         _add_to_header(response, 'Cache-Control', 'no-cache')
         _add_to_header(response, 'Pragma', 'no-store')
@@ -209,19 +209,19 @@ def change_password(request, sid):
     if request.session.has_key('stdntid'):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
+        student_object = Studentinfo.objects.get(sid=sid)
         if pass1 == pass2:
-            student_object = Studentinfo.objects.get(sid=sid)
             student_object.password = pass1
             student_object.save()
         else:
             #url = '<h1>Password Do no match </h1><br><a href="/student/changepass/'+str(sid)+'">Enter Again</a>'
             #return HttpResponse(url)
             return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Error Code 2 : Passwords do not match'})
-        return render(request, 'student_zone/login.html', {'Message':'Password changed successfully!'})
+        return render(request, 'student_zone/loggedin.html', {'context':student_object,'Message':'Password changed successfully'})
     return render(request, 'error.html')
 
 
 def change_pass(request, sid):
     if request.session.has_key('stdntid'):
-        return render(request, 'student_zone/changepass.html', {'context':sid,'message':'Change Password'})
+        return render(request, 'student_zone/changepass.html', {'context':sid,'Message':'Change Password'})
     return render(request, 'error.html')
