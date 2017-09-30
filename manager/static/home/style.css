@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Lato;
+}
+
+.container{
+    margin-left: auto;
+    margin-right: auto;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)), url(stu.jpeg);
+    height: 100vh;
+    background-size: cover;
+    
+}
+
+.main-text {
+    position:absolute;
+    width: 1140px;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%,-33%);
+    color: aliceblue;
+    
+}
+
+.heading {
+    font-size: 50px;
+    text-align: center;
+    padding-bottom: 50px;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+}
+
+.quote {
+    font-size: 30px;
+    text-align: center;
+}
+
+.quote-text {
+       
+
+}
+
+.btn:link,
+.btn:visited{
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: 300;
+    text-decoration: none;
+    border: 1px #e67e22 solid;
+    border-radius: 200px;
+    color: white;
+    background-color: #e67e22;
+}
+
+.btn:hover,
+.btn:active{
+    background-color: #b2611a;
+    border: 1px #b2611a solid;
+}
+
+.button{
+    float: left;
+    text-align: center;
+    width: 50%;
+    margin-top: 100px;
+}
+
+
+
