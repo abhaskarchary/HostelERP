@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Studentinfo
+from manager.models import EmployeeInfo
 from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
@@ -19,23 +20,35 @@ def messageroom(request):
 
 def studentinfo(request):
     if request.session.has_key('userid'):
-        return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+        else:
+            return render(request, 'error.html')
     else:
         return render(request, 'error.html')
 
 
 def form(request):
     if request.session.has_key('userid'):
-        return render(request, 'registration/form1.html', {'context':Room.objects.filter(room_number__gt=0)})
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'registration/form1.html', {'context': Room.objects.filter(room_number__gt=0)})
+        else:
+            return render(request, 'error.html')
     else:
         return render(request, 'error.html')
 
 
 def change_info(request):
     if request.session.has_key('userid'):
-        sid= request.POST['student_id']
-        [context] = Studentinfo.objects.filter(sid=sid)
-        return render(request, 'registration/change_details.html', {'student': context,'rooms':Room.objects.filter(vacancy__gt=0)})
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            sid = request.POST['student_id']
+            [context] = Studentinfo.objects.filter(sid=sid)
+            return render(request, 'registration/change_details.html', {'student': context, 'rooms': Room.objects.filter(vacancy__gt=0)})
+        else:
+            return render(request, 'error.html')
     return render(request, 'error.html')
 
 
@@ -158,6 +171,7 @@ def pay_init_fees(request):
 def change_std_info(request):
     return render(request, 'studentinfo/changes.html')
 
+
 def startsession(request):
     stdntid = request.POST['userid']
     userpass = request.POST['userpass']
@@ -167,22 +181,27 @@ def startsession(request):
             request.session['stdntid'] = stdntid
             attr = {'stdntid': stdntid}
             context = {'attr': attr}
+            object.sessionkey = request.session.session_key
+            object.save()
             return redirect('/student/login/')
-        else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1 : Invalid Userid or password!!!'})
+        else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1.1 : Invalid Userid or password!!!'})
     except:
         pass
-    return render(request,'student_zone/login.html', {'Message':'Error Code 1 : Invalid Userid or password!!!'})
+    return render(request,'student_zone/login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
 
 
 def login(request):
     if request.session.has_key('stdntid'):
         stdntid = request.session['stdntid']
-        context = Studentinfo.objects.get(sid=stdntid)
-        response = HttpResponse(render(request, 'student_zone/loggedin.html', {'context': context}))
-        _add_to_header(response, 'Cache-Control', 'no-store')
-        _add_to_header(response, 'Cache-Control', 'no-cache')
-        _add_to_header(response, 'Pragma', 'no-store')
-        return response
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            context = Studentinfo.objects.get(sid=stdntid)
+            response = HttpResponse(render(request, 'student_zone/loggedin.html', {'context': context}))
+            _add_to_header(response, 'Cache-Control', 'no-store')
+            _add_to_header(response, 'Cache-Control', 'no-cache')
+            _add_to_header(response, 'Pragma', 'no-store')
+            return response
+        else:
+            return render(request, 'student_zone/login.html', {'Message': 'Session terminated'})
     else:
         return render(request, 'student_zone/login.html')
 
@@ -207,21 +226,27 @@ def logout(request):
 
 def change_password(request, sid):
     if request.session.has_key('stdntid'):
-        pass1 = request.POST['pass1']
-        pass2 = request.POST['pass2']
-        student_object = Studentinfo.objects.get(sid=sid)
-        if pass1 == pass2:
-            student_object.password = pass1
-            student_object.save()
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            pass1 = request.POST['pass1']
+            pass2 = request.POST['pass2']
+            student_object = Studentinfo.objects.get(sid=sid)
+            if pass1 == pass2:
+                student_object.password = pass1
+                student_object.save()
+            else:
+                return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Error Code 2 : Passwords do not match'})
+            return render(request, 'student_zone/loggedin.html', {'context':student_object,'Message':'Password changed successfully'})
         else:
-            #url = '<h1>Password Do no match </h1><br><a href="/student/changepass/'+str(sid)+'">Enter Again</a>'
-            #return HttpResponse(url)
-            return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Error Code 2 : Passwords do not match'})
-        return render(request, 'student_zone/loggedin.html', {'context':student_object,'Message':'Password changed successfully'})
+            return render(request, 'error.html')
     return render(request, 'error.html')
 
 
 def change_pass(request, sid):
     if request.session.has_key('stdntid'):
-        return render(request, 'student_zone/changepass.html', {'context':sid,'Message':'Change Password'})
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            return render(request, 'student_zone/changepass.html', {'context':sid,'Message':'Change Password'})
+        else:
+            return render(request, 'error.html')
     return render(request, 'error.html')

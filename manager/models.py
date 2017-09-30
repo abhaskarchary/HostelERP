@@ -35,5 +35,7 @@ class EmployeeInfo(models.Model):
     empid = models.CharField(max_length=20, default=increment_id, editable=False, primary_key=True)
     password = models.CharField(max_length=20)
     employee_type = models.CharField(max_length=8)
+    session_key = models.CharField(max_length=100,null=True)
+
     def __str__(self):
         return self.empid

@@ -17,11 +17,14 @@ def manager(request):
 def login(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
-        response = HttpResponse(render(request, 'loggedin.html', {"userid": userid}))
-        _add_to_header(response, 'Cache-Control', 'no-store')
-        _add_to_header(response, 'Cache-Control', 'no-cache')
-        _add_to_header(response, 'Pragma', 'no-store')
-        return response
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            response = HttpResponse(render(request, 'loggedin.html', {"userid": userid}))
+            _add_to_header(response, 'Cache-Control', 'no-store')
+            _add_to_header(response, 'Cache-Control', 'no-cache')
+            _add_to_header(response, 'Pragma', 'no-store')
+            return response
+        else:
+            return render(request, 'login.html', {'Message' : 'Session terminated!'})
     else:
         return render(request, 'login.html')
 
@@ -37,7 +40,11 @@ def _add_to_header(response, key, value):
 
 def register(request):
     if request.session.has_key('userid'):
-        return render(request, 'registration1/register.html')
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'registration1/register.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
 
@@ -56,21 +63,27 @@ def startsession(request):
     userid = request.POST['userid']
     userpass = request.POST['userpass']
     try:
-        object = EmployeeInfo.objects.get(empid = userid, password = userpass)
+        [object] = EmployeeInfo.objects.filter(empid = userid, password = userpass)
         if object.first_name != "" and object.employee_type == "manager":
             request.session['userid'] = userid
             attr = {'userid': userid}
             context = {'attr': attr}
+            object.session_key = request.session.session_key
+            object.save()
             return redirect('/manager/login/')
-        else: return render(request, 'login.html', {})
+        else: return render(request, 'login.html', {'Message': 'Error Code 1.1 : Invalid Userid or password!!!'})
     except:
         pass
-    return render(request, 'login.html', {'Message':'Error Code 1 : Invalid Userid or password!!!'})
+    return render(request, 'login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
 
 
 def viewempdata(request):
     if request.session.has_key('userid'):
-        return render(request, 'displayaccounts.html', {'Employee':EmployeeInfo.objects.all()})
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'displayaccounts.html', {'Employee': EmployeeInfo.objects.all()})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
 
