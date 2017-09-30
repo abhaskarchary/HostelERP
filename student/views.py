@@ -159,13 +159,13 @@ def change_std_info(request):
     return render(request, 'studentinfo/changes.html')
 
 def startsession(request):
-    userid = request.POST['userid']
+    stdntid = request.POST['userid']
     userpass = request.POST['userpass']
     try:
-        [object] = Studentinfo.objects.filter(sid = userid, password = userpass)
+        [object] = Studentinfo.objects.filter(sid = stdntid, password = userpass)
         if object.first_name != "":
-            request.session['userid'] = userid
-            attr = {'userid': userid}
+            request.session['stdntid'] = stdntid
+            attr = {'stdntid': stdntid}
             context = {'attr': attr}
             return redirect('/student/login/')
         else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1 : Invalid Userid or password!!!'})
@@ -175,10 +175,9 @@ def startsession(request):
 
 
 def login(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        context = Studentinfo.objects.get(sid=userid)
-        context = Studentinfo.objects.get(sid=userid)
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        context = Studentinfo.objects.get(sid=stdntid)
         response = HttpResponse(render(request, 'student_zone/loggedin.html', {"context": context}))
         _add_to_header(response, 'Cache-Control', 'no-store')
         _add_to_header(response, 'Cache-Control', 'no-cache')
@@ -199,7 +198,7 @@ def _add_to_header(response, key, value):
 
 def logout(request):
     try:
-        del request.session['userid']
+        del request.session['stdntid']
         return render(request, 'student_zone/login.html', {'Message': 'You have been logged out successfully!'})
     except:
         pass
@@ -207,7 +206,7 @@ def logout(request):
 
 
 def change_password(request, sid):
-    if request.session.has_key('userid'):
+    if request.session.has_key('stdntid'):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
         if pass1 == pass2:
@@ -215,13 +214,14 @@ def change_password(request, sid):
             student_object.password = pass1
             student_object.save()
         else:
-            url = '<h1>Password Do no match </h1><br><a href="/student/changepass/'+str(sid)+'">Enter Again</a>'
-            return HttpResponse(url)
-        return HttpResponse('<h1>Password Changed </h1><br><a href="/student/login/">Goto Home</a>')
+            #url = '<h1>Password Do no match </h1><br><a href="/student/changepass/'+str(sid)+'">Enter Again</a>'
+            #return HttpResponse(url)
+            return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Error Code 2 : Passwords do not match'})
+        return render(request, 'student_zone/login.html', {'Message':'Password changed successfully!'})
     return render(request, 'error.html')
 
 
 def change_pass(request, sid):
-    if request.session.has_key('userid'):
+    if request.session.has_key('stdntid'):
         return render(request, 'student_zone/changepass.html', {'context':sid,'message':'Change Password'})
     return render(request, 'error.html')
