@@ -1,9 +1,7 @@
-jQuery(document).on('mouseover','a.hover',function(){
-    jQuery('div#back').stop().fadeOut() ;
-    jQuery('div#back2').stop().fadeIn() ;
-}) ;
+/*jslint browser: true*/
+/*global $, jQuery, alert*/
 
-jQuery(document).on('mouseout','a.hover',function(){
-    jQuery('div#back2').stop().fadeOut() ;
-    jQuery('div#back').stop().fadeIn() ;
-}) ;
+$('#btn1').on('mouseenter mouseleave', function (e) {
+    var image = e.type === 'mouseenter' ? 'emp.jpg' : 'stu.jpeg';
+    $(this).parent().parent().css('background-image', 'url(' + image + ')');
+});
