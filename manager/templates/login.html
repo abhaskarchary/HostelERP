@@ -7,8 +7,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'registration/style1.css' %}"/>
 </head>
 <body>
-<div class="login-page">
+
+<div class="login-page content">
+    <div class="message">
     <h2>{{ Message }}</h2>
+    </div>
     <div class="form">
         <form method="post" action="/manager/startsession/" class="login-form">
             {% csrf_token %}

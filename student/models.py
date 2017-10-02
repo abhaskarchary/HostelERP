@@ -7,6 +7,7 @@ import logging
 
 # Create your models here.
 
+
 def increment_id():
     last_booking = Studentinfo.objects.all().order_by('sid').last()
     if not last_booking:
