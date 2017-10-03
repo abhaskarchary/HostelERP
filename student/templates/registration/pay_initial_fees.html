@@ -14,12 +14,17 @@
                 return false;
             }
         }
+        window.history.forward();
+	    function noBack()
+	    {
+	        window.history.forward();
+        }
     </script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload=""pytho>
     <div class="login-page">
       <div class="form">
-        <form action="/student/pay_initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
+        <form action="/manager/initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
             <input class="i1" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
             <input  type="submit" name="submit"  value="Submit">

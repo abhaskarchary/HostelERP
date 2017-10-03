@@ -120,6 +120,27 @@ def update(request):
 
     return HttpResponse("<H1>Registered successfully</H1>")
 
+def pay_init_fees(request):
+    last_booking = Studentinfo.objects.all().order_by('sid').last()
+
+    stu = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    stu1 = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    initial_bal = float(request.POST['initial_balance'])
+    #stu['balance'] = stu['balance'] + initial_bal
+    #stu.update(balance = (stu['balance'] + initial_bal))
+    for s in stu:
+        #s.update(balance = (s['balance'] + initial_bal))
+        bal = s['balance'] + initial_bal
+        #s['balance'] = s['balance'] + initial_bal
+    stu1.update(balance = bal)
+    #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
+
+    #return render(request, 'registration/registration_complete.html')
+    return redirect('/manager/login/')
+    #return HttpResponse("<h1>"+stu.sid+"<h1>")
+    #return
+
+
 def deduct_fees(request):
     stu = Studentinfo.objects.all().values()
     y = datetime.date.today().year

@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^update/$', views.update, name='update'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^initial_fees/$', views.pay_init_fees, name='pay_init_fees'),
     url(r'^deduct_fees/$', deduct_fees, name='deduct_fees'),
     url(r'^all_transactions/$', views.all_transactions, name='all_transactions')
 ]
