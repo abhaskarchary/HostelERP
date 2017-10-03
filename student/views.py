@@ -33,7 +33,7 @@ def form(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-            return render(request, 'registration/form1.html', {'context': Room.objects.filter(room_number__gt=0)})
+            return render(request, 'registration/form1.html', {'context': Room.objects.filter(vacancy__gt=0)})
         else:
             return render(request, 'error.html')
     else:

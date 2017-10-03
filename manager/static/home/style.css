@@ -11,6 +11,11 @@
     text-transform: uppercase;
 }
 
+.header li a:hover, a:active{
+    padding-bottom: 3px;
+    border-bottom: 2px #e67e22 solid;
+}
+
 .header li{
     display: inline-block;
     margin: 40px;
