@@ -7,16 +7,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'registration/style1.css' %}"/>
 </head>
 <body>
-<div class="login-page">
+
+<div class="login-page content">
+    <div class="message">
     <h2>{{ Message }}</h2>
-  <div class="form">
-    <form method="post" action="/student/startsession/" class="login-form">
-        {% csrf_token %}
-      <input type="text" name="userid" id="userid" placeholder="Enter username" required="required">
-      <input type="password" name="userpass" id="userpass" placeholder="Enter password" required="required">
-      <button>Login</button>
-    </form>
-  </div>
+    </div>
+    <div class="form">
+        <form method="post" action="/student/startsession/" class="login-form">
+            {% csrf_token %}
+            <input type="text" name="userid" id="userid" placeholder="Enter username" required="required">
+            <input type="password" name="userpass" id="userpass" placeholder="Enter password" required="required">
+            <button>Login</button>
+        </form>
+    </div>
 </div>
 
 </body>
