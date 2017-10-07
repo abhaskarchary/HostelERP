@@ -179,7 +179,22 @@ def deduct_fees(request):
 
 
 def all_transactions(request):
-    return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all()})
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'display_transactions.html', {'all_transactions': TransactionDetails.objects.all()})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+    return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all().order_by('-transaction_id')})
 
 def all_messages(request):
-    return render(request, 'Inbox/inbox.html',{'context':message.objects.all()})
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'Inbox/inbox.html', {'context': message.objects.all().order_by('-time_sent')})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
