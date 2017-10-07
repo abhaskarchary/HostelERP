@@ -106,7 +106,7 @@
   z-index: -1;
 
   display: block;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url(../home/stu.jpeg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url(../home/emp.jpg);
   background-size:cover;
   width: 110%;
   height: 110%;

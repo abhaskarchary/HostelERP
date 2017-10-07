@@ -163,7 +163,8 @@ def pay_init_fees(request):
     stu1.update(balance = bal)
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
-    return render(request, 'registration/registration_complete.html')
+    #return render(request, 'registration/registration_complete.html')
+    return render(request, 'manager/loggedin.html', {'Message': 'Student Registered Successfully'})
     #return HttpResponse("<h1>"+stu.sid+"<h1>")
     #return
 
