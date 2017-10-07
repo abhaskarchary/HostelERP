@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from django.http import HttpResponse
 from .models import EmployeeInfo
 from payfees.views import deduct_fees
-from student.models import Studentinfo
+from student.models import Studentinfo, message
 import datetime
 from payfees.models import TransactionDetails
 # Create your views here.
@@ -180,3 +180,6 @@ def deduct_fees(request):
 
 def all_transactions(request):
     return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all()})
+
+def all_messages(request):
+    return render(request, 'Inbox/inbox.html',{'context':message.objects.all()})

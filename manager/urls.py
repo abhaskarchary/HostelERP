@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^initial_fees/$', views.pay_init_fees, name='pay_init_fees'),
     url(r'^deduct_fees/$', deduct_fees, name='deduct_fees'),
-    url(r'^all_transactions/$', views.all_transactions, name='all_transactions')
+    url(r'^all_transactions/$', views.all_transactions, name='all_transactions'),
+    url(r'^all_messages/$', views.all_messages, name='all_messages'),
 ]

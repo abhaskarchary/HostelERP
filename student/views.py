@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import Studentinfo
+from .models import Studentinfo, message
 from manager.models import EmployeeInfo
 from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
 from payfees.models import TransactionDetails
+
 
 # Create your views here.
 
@@ -248,6 +249,21 @@ def change_pass(request, sid):
         stdntid = request.session['stdntid']
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
             return render(request, 'student_zone/changepass.html', {'context':sid,'Message':'Change Password'})
+        else:
+            return render(request, 'error.html')
+    return render(request, 'error.html')
+
+
+def send_message(request):
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            new_message = message()
+            new_message.sender = Studentinfo.objects.get(sid=stdntid)
+            new_message.type_of_message = request.POST['subject']
+            new_message.body_of_message = request.POST['body']
+            new_message.save()
+            return HttpResponse('Message Sent!<br><a href="/student/login">go back</a>')
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')

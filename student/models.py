@@ -74,3 +74,25 @@ class Studentinfo(models.Model):
             self.room.vacancy = str(int(self.room.vacancy) - 1)
             self.room.save()
         super(Studentinfo, self).save(*args, **kwargs)
+
+
+def message_id():
+    last_booking = message.objects.all().order_by('message_id').last()
+    if not last_booking:
+        return 'SM' + str(datetime.date.today().year) + '0000'
+    if str(datetime.date.today().year) != last_booking.message_id[2:6]:
+        return 'SM' + str(datetime.date.today().year) + '0000'
+    booking_id = last_booking.message_id
+    booking_int = int(booking_id[6:10])
+    new_booking_int = booking_int + 1
+    new_booking_id = 'SM' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
+    return new_booking_id
+
+
+class message(models.Model):
+    message_id = models.CharField(max_length=15, default=message_id, editable=False, primary_key=True)
+    sender = models.ForeignKey(Studentinfo)
+    time_sent = models.DateTimeField(auto_now=True)
+    type_of_message = models.CharField(max_length=20)
+    body_of_message = models.CharField(max_length=200)
+
