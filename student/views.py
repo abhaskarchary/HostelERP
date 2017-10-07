@@ -191,9 +191,9 @@ def change_std_info(request):
 def startsession(request):
     stdntid = request.POST['userid']
     userpass = request.POST['userpass']
-    #try:
-    [object] = Studentinfo.objects.filter(sid = stdntid, password = userpass)
-    if object.first_name != "":
+    try:
+        [object] = Studentinfo.objects.filter(sid = stdntid, password = userpass)
+        if object.first_name != "":
             request.session['stdntid'] = stdntid
             attr = {'stdntid': stdntid}
             context = {'attr': attr}
@@ -203,10 +203,10 @@ def startsession(request):
             #object.sessionkey = request.session.session_key
             #object.save()
             return redirect('/student/login/')
-    else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1.1 : Invalid Userid or password!!!'})
-    #except:
-    #    pass
-    #return render(request,'student_zone/login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
+        else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1.1 : Invalid Userid or password!!!'})
+    except:
+        pass
+    return render(request,'student_zone/login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
 
 
 def login(request):
