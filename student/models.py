@@ -52,7 +52,7 @@ class Studentinfo(models.Model):
     refundable_security = models.FloatField(max_length=4)
     balance = models.FloatField(max_length=5)
     password = models.CharField(max_length=20, default='123456')
-    sessionkey = models.CharField(max_length=100,null=True)
+    sessionkey = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.sid
