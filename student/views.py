@@ -12,9 +12,9 @@ from payfees.models import TransactionDetails
 
 
 def accountlogs(request, stu_id):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
             return render(request, 'accountlogs.html',{'student_transaction': TransactionDetails.objects.filter(sid=stu_id)})
         else:
             return render(request, 'error.html')
@@ -23,9 +23,9 @@ def accountlogs(request, stu_id):
 
 
 def messageroom(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
             return render(request, 'messageroom.html')
         else:
             return render(request, 'error.html')
