@@ -68,8 +68,9 @@ def startsession(request):
             request.session['userid'] = userid
             attr = {'userid': userid}
             context = {'attr': attr}
-            object.session_key = request.session.session_key
-            object.save()
+            if not request.session.session_key:
+                request.session.save()
+            EmployeeInfo.objects.filter(empid=userid, password=userpass).update(session_key = request.session.session_key)
             return redirect('/manager/login/')
         else: return render(request, 'login.html', {'Message': 'Error Code 1.1 : Invalid Userid or password!!!'})
     except:
