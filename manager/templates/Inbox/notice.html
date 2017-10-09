@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+    <meta charset="UTF-8">
+    <title>Message Room</title>
+</head>
+<body>
+<div class="login-page">
+  <div class="form">
+
+        <B>Send Message to Authority</B><br>
+        <form action="/manager/send_notice/" method="post">
+            {% csrf_token %}
+            <label>Subject</label>
+            <select name="subject" class="i1">
+                <option value="urgent" selected>Urgent</option>
+                <option value="general">General</option>
+            </select><br>
+            <label>Message</label>
+            <textarea cols="100" rows="10" name="body" class="i1"></textarea><br>
+            <button type="submit">Submit</button>
+        </form>
+  </div>
+</div>
+</body>
+</html>

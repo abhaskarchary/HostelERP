@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Notice</title>
+</head>
+<body>
+<h1><center>Notices</center></h1>
+<table padding="10" width="100%" >
+    <tr><th>Type</th><th>Notice</th></tr><hr>
+    {% for e in context %}
+    <tr>
+        <td align="center">{{ e.type_of_notice }}</td>
+        <td align="center"><a href="/student/noticebox/{{ e.notice_id }}">{{ e.notice_id }}-{{ e.time_sent }}</a></td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
