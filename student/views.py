@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Studentinfo, message
+from .models import Studentinfo, message, Notice
 from manager.models import EmployeeInfo
 from payfees.models import Fees
 from Room.models import Room
@@ -281,6 +281,28 @@ def send_message(request):
             new_message.body_of_message = request.POST['body']
             new_message.save()
             return HttpResponse('Message Sent!<br><a href="/student/login">go back</a>')
+        else:
+            return render(request, 'error.html')
+    return render(request, 'error.html')
+
+
+def noticebox(request):
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            context = Notice.objects.all().order_by('-time_sent')
+            return render(request, 'student_zone/all_notice.html', {'context': context})
+        else:
+            return render(request, 'error.html')
+    return render(request, 'error.html')
+
+
+def notice(request, nid):
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            context = Notice.objects.get(notice_id=nid)
+            return render(request, 'student_zone/notice.html', {'context': context})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')

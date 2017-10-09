@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from django.http import HttpResponse
 from .models import EmployeeInfo
 from payfees.views import deduct_fees
-from student.models import Studentinfo, message
+from student.models import Studentinfo, message, Notice
 import datetime
 from payfees.models import TransactionDetails
 # Create your views here.
@@ -55,7 +55,7 @@ def logout(request):
         return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
     except:
         pass
-        return render(request, 'login.html', {'Message': 'You cannot logout without logging in!'})
+    return render(request, 'login.html', {'Message': 'You cannot logout without logging in!'})
     #return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
 
 
@@ -195,6 +195,31 @@ def all_messages(request):
         userid = request.session['userid']
         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
             return render(request, 'Inbox/inbox.html', {'context': message.objects.all().order_by('-time_sent')})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+def issue_notice(request):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'Inbox/notice.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def send_notice(request):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            new_notice = Notice()
+            new_notice.type_of_notice = request.POST['subject']
+            new_notice.body_of_notice = request.POST['body']
+            new_notice.save()
+            return HttpResponse('Notice Issued!<br><a href="/manager/login">go back</a>')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

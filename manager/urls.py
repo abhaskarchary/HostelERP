@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^deduct_fees/$', deduct_fees, name='deduct_fees'),
     url(r'^all_transactions/$', views.all_transactions, name='all_transactions'),
     url(r'^all_messages/$', views.all_messages, name='all_messages'),
+    url(r'^issue_notice/$', views.issue_notice, name='issue_notice'),
+    url(r'^send_notice/$', views.send_notice, name='send_notice'),
 ]
