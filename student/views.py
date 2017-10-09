@@ -187,26 +187,28 @@ def pay_init_fees(request):
 def change_std_info(request):
     return render(request, 'studentinfo/changes.html')
 
-
-def startsession(request):
-    stdntid = request.POST['userid']
-    userpass = request.POST['userpass']
-    try:
-        [object] = Studentinfo.objects.filter(sid = stdntid, password = userpass)
-        if object.first_name != "":
-            request.session['stdntid'] = stdntid
-            attr = {'stdntid': stdntid}
-            context = {'attr': attr}
-            if not request.session.session_key:
-                request.session.save()
-            Studentinfo.objects.filter(sid = stdntid, password = userpass).update(sessionkey = request.session.session_key)
-            #object.sessionkey = request.session.session_key
-            #object.save()
-            return redirect('/student/login/')
-        else: return render(request, 'student_zone/login.html', {'Error':'Error Code 1.1 : Invalid Userid or password!!!'})
-    except:
-        pass
-    return render(request,'student_zone/login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
+# """ No Longer Needed: Made Combined Login"""
+# def startsession(request):
+#     stdntid = request.POST['userid']
+#     userpass = request.POST['userpass']
+#     try:
+#         [object] = Studentinfo.objects.filter(sid = stdntid, password = userpass)
+#         if object.first_name != "":
+#             request.session['stdntid'] = stdntid
+#             attr = {'stdntid': stdntid}
+#             context = {'attr': attr}
+#             if not request.session.session_key:
+#                 request.session.save()
+#             Studentinfo.objects.filter(sid = stdntid, password = userpass).
+# update(sessionkey = request.session.session_key)
+#             #object.sessionkey = request.session.session_key
+#             #object.save()
+#             return redirect('/student/login/')
+#         else: return render(request, 'student_zone/login.html',
+# {'Error':'Error Code 1.1 : Invalid Userid or password!!!'})
+#     except:
+#         pass
+#     return render(request,'student_zone/login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
 
 
 def login(request):
@@ -220,9 +222,9 @@ def login(request):
             _add_to_header(response, 'Pragma', 'no-store')
             return response
         else:
-            return render(request, 'student_zone/login.html', {'Message': 'Session terminated'})
+            return render(request, 'login.html', {'Message': 'Session terminated'})
     else:
-        return render(request, 'student_zone/login.html')
+        return render(request, 'login.html')
 
 
 def _add_to_header(response, key, value):
@@ -237,10 +239,10 @@ def _add_to_header(response, key, value):
 def logout(request):
     try:
         del request.session['stdntid']
-        return render(request, 'student_zone/login.html', {'Message': 'You have been logged out successfully!'})
+        return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
     except:
         pass
-        return render(request, 'student_zone/login.html', {'Message': 'You cannot logout without logging in!'})
+        return render(request, 'login.html', {'Message': 'You cannot logout without logging in!'})
 
 
 def change_password(request, sid):

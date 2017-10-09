@@ -11,7 +11,7 @@ from payfees.models import TransactionDetails
 
 
 def manager(request):
-    return redirect('/manager/login/')
+    return redirect('/login/')
 
 
 def login(request):
@@ -58,24 +58,24 @@ def logout(request):
     return render(request, 'login.html', {'Message': 'You cannot logout without logging in!'})
     #return render(request, 'login.html', {'Message': 'You have been logged out successfully!'})
 
-
-def startsession(request):
-    userid = request.POST['userid']
-    userpass = request.POST['userpass']
-    try:
-        [object] = EmployeeInfo.objects.filter(empid = userid, password = userpass)
-        if object.first_name != "" and object.employee_type == "manager":
-            request.session['userid'] = userid
-            attr = {'userid': userid}
-            context = {'attr': attr}
-            if not request.session.session_key:
-                request.session.save()
-            EmployeeInfo.objects.filter(empid=userid, password=userpass).update(session_key = request.session.session_key)
-            return redirect('/manager/login/')
-        else: return render(request, 'login.html', {'Message': 'Error Code 1.1 : Invalid Userid or password!!!'})
-    except:
-        pass
-    return render(request, 'login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
+# """ No longer needed: Made Combined Login """
+# def startsession(request):
+#     userid = request.POST['userid']
+#     userpass = request.POST['userpass']
+#     try:
+#         [object] = EmployeeInfo.objects.filter(empid = userid, password = userpass)
+#         if object.first_name != "" and object.employee_type == "manager":
+#             request.session['userid'] = userid
+#             attr = {'userid': userid}
+#             context = {'attr': attr}
+#             if not request.session.session_key:
+#                 request.session.save()
+#             EmployeeInfo.objects.filter(empid=userid, password=userpass).update(session_key = request.session.session_key)
+#             return redirect('/manager/login/')
+#         else: return render(request, 'login.html', {'Message': 'Error Code 1.1 : Invalid Userid or password!!!'})
+#     except:
+#         pass
+#     return render(request, 'login.html', {'Message':'Error Code 1.2 : Invalid Userid or password!!!'})
 
 
 def viewempdata(request):
