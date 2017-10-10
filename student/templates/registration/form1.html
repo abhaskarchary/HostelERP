@@ -38,7 +38,7 @@
 
   Select Room:<select class="i1" name="room">
   {% for i in context %}
-    <option value="{{ i }}"> {{ i }}</option>
+    <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.room_type}}</option>
   {% endfor %}
 </select><br>
   <button type="submit">Submit</button>
