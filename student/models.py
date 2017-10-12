@@ -32,6 +32,7 @@ class Studentinfo(models.Model):
     room = models.ForeignKey(Room, limit_choices_to={'room_number__in': choices()})
     prev_room = None
     sex = models.CharField(max_length=6)
+    blood_grp = models.CharField(max_length=3, default='NA')
     adhaar = models.CharField(max_length=12)
     mobile_no = models.CharField(max_length=10)
     parent_name = models.CharField(max_length=50)
@@ -40,12 +41,13 @@ class Studentinfo(models.Model):
     address_l2 = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     pin_code = models.CharField(max_length=10)
-    guardian_name = models.CharField(max_length=50)
-    guardian_mobile = models.CharField(max_length=10)
+    guardian_name = models.CharField(max_length=50, default='NA')
+    guardian_mobile = models.CharField(max_length=10, default='NA')
     institution_name = models.CharField(max_length=30)
     hod_name = models.CharField(max_length=30)
     hod_mobile = models.CharField(max_length=10)
     registration_date = models.DateTimeField(auto_now=True)
+    room_allotment_date = models.DateTimeField(auto_now=True)
     running_dues = models.FloatField(max_length=4, null=False)
     running_fine = models.FloatField(max_length=4)
     total_dues = models.FloatField(max_length=4)
@@ -88,6 +90,7 @@ def message_id():
     new_booking_id = 'SM' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
     return new_booking_id
 
+
 def notice_id():
     last_booking = Notice.objects.all().order_by('notice_id').last()
     if not last_booking:
@@ -114,4 +117,3 @@ class Notice(models.Model):
     time_sent = models.DateTimeField(auto_now=True)
     type_of_notice = models.CharField(max_length=20)
     body_of_notice = models.CharField(max_length=200)
-
