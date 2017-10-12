@@ -6,42 +6,67 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
     <script>
-    window.history.forward();
+        window.history.forward();
 	    function noBack()
 	    {
 	        window.history.forward();
+        }
+        function validate_room_choice()
+        {
+            var r = document.student_registration_form.vacant_room_list.value;
+            if(r == ("Select Room"))
+            {
+              alert("Please select a room");
+              return false;
+            }
         }
   </script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <div class="login-page">
   <div class="form">
-<form action="/student/update/" method="post" class="login-form">
+<form action="/student/update/" method="post" class="login-form" name="student_registration_form" >
   {% csrf_token %}
-<input class="i1" type="text" name="name1" id="name" required="required" placeholder="Enter first name">
-<input class="i2" type="text" id="name2" name="name2" required="required" placeholder="Enter last name"><br>
-<div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px"><input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female</div><br>
-<input class="i1" type="number" required="required" placeholder="Enter Aadhaar number" max="999999999999" name="adhaar">
-<input class="i3" type="text" value="+91" readonly="readonly">
-<input class="i5" type="number" name="mobile" id="mobile" required="required" placeholder="Enter your mobile no." min="7000000000" max="9999999999"><br>
-<input class="i1" type="text" name="pname" id="parent" required="required" placeholder="Enter father's/mother's name">
-<input class="i2" type="number" name="pmobile" id="parentmobile" required="required" placeholder="Enter father's/mother's mobile no." min="7000000000" max="9999999999"><br>
-<input class="i1" type="text" required="required" placeholder="Address line 1" name = "ad1">
-<input class="i2" type="text" required="required" placeholder="Address line 2" name = "ad2"><br>
-<input class="i1" type="text" required="required" placeholder="Enter city" name = "city">
-<input class="i2" type="number" id="pincode" required="required" placeholder="Enter your pincode" max="999999" name = "pin"><br>
-<input class="i1" type="text" id="guardian" placeholder="Enter guardian's name" name ="gname">
-<input class="i2" type="number" id="guardianmobile" required="required" placeholder="Enter guardian's mobile no." min="7000000000" max="9999999999" name = "gmobile"><br>
-<input class="i4" type="text" id="institute" required="required" placeholder="Enter institute's name" name="iname"><br>
-<input class="i1" type="text" id="nameofHOD" required="required" placeholder="Enter name of HOD" name="hname">
-<input class="i2" type="number" id="HODmobile" required="required" placeholder="Enter mobile no. of HOD" min="7000000000" max="9999999999" name="hmobile"><br>
+  <input class="i1" type="text" name="name1" id="name" required="required" placeholder="Enter first name">
+  <input class="i2" type="text" id="name2" name="name2" required="required" placeholder="Enter last name"><br>
+  <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px">
+    <input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female
+  </div>
+  <br>
+  <input class="i1" type="Date" required="required" placeholder="Enter Date of Birth" max="999999999999" name="dob">
+  <input class="i3" type="text" value="+91" readonly="readonly">
+  <input class="i5" type="number" name="mobile" id="mobile" required="required" placeholder="Enter your mobile no." min="7000000000" max="9999999999">
+  <br/>
+  <input class="i1" type="number" required="required" placeholder="Enter Aadhaar number" max="999999999999" name="adhaar">
+  <input class="i2" type="text" name="blood_grp" id="blood_group" required="required" placeholder="Enter your  blood group">
+    <br/>
+    <input class="i1" type="text" name="pname" id="parent" required="required" placeholder="Enter father's/mother's name">
+  <input class="i2" type="number" name="pmobile" id="parentmobile" required="required" placeholder="Enter father's/mother's mobile no." min="7000000000" max="9999999999">
+    <br>
+  <input class="i1" type="text" required="required" placeholder="Address line 1" name = "ad1">
+  <input class="i2" type="text" required="required" placeholder="Address line 2" name = "ad2">
+    <br>
+  <input class="i1" type="text" required="required" placeholder="Enter city" name = "city">
+  <input class="i2" type="number" id="pincode" required="required" placeholder="Enter your pincode" max="999999" name = "pin">
+    <br>
+  <input class="i1" type="text" id="guardian" placeholder="Enter guardian's name" name ="gname">
+  <input class="i2" type="number" id="guardianmobile" required="required" placeholder="Enter guardian's mobile no." min="7000000000" max="9999999999" name = "gmobile">
+    <br>
+  <input class="i4" type="text" id="institute" required="required" placeholder="Enter institute's name" name="iname">
+    <br>
+  <input class="i1" type="text" id="nameofHOD" required="required" placeholder="Enter name of HOD" name="hname">
+  <input class="i2" type="number" id="HODmobile" required="required" placeholder="Enter mobile no. of HOD" min="7000000000" max="9999999999" name="hmobile">
+    <br>
 
-  Select Room:<select class="i1" name="room">
+  <select class="i1" name="vacant_room_list">
+    <option value="Select Room">Select Room</option>
   {% for i in context %}
-    <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.room_type}}</option>
+  <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.room_type}}</option>
   {% endfor %}
-</select><br>
-  <button type="submit">Submit</button>
+  </select>
+  <input class="i2" type="date" placeholder="Enter Room Allotment Date"/>
+  <br>
+  <button type="submit" onclick="return validate_room_choice()">Submit</button>
 </form>
 </div>
 </div>

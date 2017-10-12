@@ -29,6 +29,7 @@ class Studentinfo(models.Model):
     sid = models.CharField(max_length=20, default=increment_id, editable=False, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    #date_of_birth = models.DateTimeField(auto_now = False)
     room = models.ForeignKey(Room, limit_choices_to={'room_number__in': choices()})
     prev_room = None
     sex = models.CharField(max_length=6)
