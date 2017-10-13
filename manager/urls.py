@@ -2,7 +2,6 @@ from django.conf.urls import url, include
 from django.shortcuts import redirect
 from django.views.generic import ListView
 from payfees.views import deduct_fees
-
 from manager.models import EmployeeInfo
 from . import views
 
@@ -21,4 +20,5 @@ urlpatterns = [
     url(r'^all_messages/$', views.all_messages, name='all_messages'),
     url(r'^issue_notice/$', views.issue_notice, name='issue_notice'),
     url(r'^send_notice/$', views.send_notice, name='send_notice'),
+    url(r'^inventory/', views.inventory_logs, name='inventory_logs')
 ]

@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.http import HttpResponse
 from .models import EmployeeInfo
 from payfees.views import deduct_fees
+from Inventory.views import *
 from student.models import Studentinfo, message, Notice
 import datetime
 from payfees.models import TransactionDetails
