@@ -70,6 +70,7 @@ def change_info(request):
 def update(request,sid = None):
     first_name = request.POST['name1']
     last_name = request.POST['name2']
+    blood_grp = request.POST['blood_grp']
     sex = request.POST['sex']
     adhaar = request.POST['adhaar']
     mobile = request.POST['mobile']
@@ -84,7 +85,7 @@ def update(request,sid = None):
     iname = request.POST['iname']
     hname = request.POST['hname']
     hmobile = request.POST['hmobile']
-    room_number = request.POST['room']
+    room_number = request.POST['vacant_room_list']
             #print(first_name, last_name)
     if sid is None:
         student_info_object = Studentinfo()
