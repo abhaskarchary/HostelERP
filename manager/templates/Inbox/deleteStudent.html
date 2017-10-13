@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Delete Student</title>
+</head>
+<body>
+<h1><center>Deactivate Student</center></h1>
+<hr>
+<table cellpadding="10">
+    <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Room Number</th>
+        <th></th>
+    </tr>
+    {% for i in context %}
+
+
+    {% if not i.active %}
+        <tr bgcolor="#ff0000">
+            {% else %}
+        <tr>
+    {% endif %}
+        <td>{{ i.sid }}</td>
+            <td>{{ i.first_name }} {{ i.last_name }}</td>
+
+        <td>{{ i.room.room_number }}</td>
+        {% if i.active %}
+    <td><form action="/manager/deactivate_student/{{ i.sid }}/d"><input type="submit" value="Deactivate"></form></td>
+        {% else %}
+            <td>
+                <form action="/manager/deactivate_student/{{ i.sid }}/a" method="post">
+                    {% csrf_token %}
+                    <select name="room">
+                        {% for i in rooms %}
+                            <option value="{{ i.room_number }}">{{ i.room_number }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Activate">
+                </form>
+            </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -55,6 +55,8 @@ class Studentinfo(models.Model):
     balance = models.FloatField(max_length=5)
     password = models.CharField(max_length=20, default='123456')
     sessionkey = models.CharField(max_length=100, blank=True, null=True)
+    active = models.BooleanField(default=True)
+    activated = None
 
     def __str__(self):
         return self.sid
@@ -66,15 +68,20 @@ class Studentinfo(models.Model):
         except:
             self.prev_room = '000'
 
-    def save(self, *args, **kwargs):
-        if self.prev_room != self.room.room_number:
-            if self.prev_room != '000':
-                [prev] = Room.objects.filter(room_number=self.prev_room)
-                prev.vacancy = str(int(prev.vacancy) + 1)
-                prev.save()
+        self.activated = self.active
 
-            self.room.vacancy = str(int(self.room.vacancy) - 1)
-            self.room.save()
+    def save(self, *args, **kwargs):
+        try:
+            if self.activated and self.active:
+                if self.prev_room != self.room.room_number:
+                    if self.prev_room != '000':
+                        [prev] = Room.objects.filter(room_number=self.prev_room)
+                        prev.vacancy = str(int(prev.vacancy) + 1)
+                        self.room.vacancy = str(int(self.room.vacancy) - 1)
+                        prev.save()
+                    self.room.save()
+        except:
+            pass
         super(Studentinfo, self).save(*args, **kwargs)
 
 

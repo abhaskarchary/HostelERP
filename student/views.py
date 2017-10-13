@@ -267,7 +267,7 @@ def change_pass(request, sid):
     if request.session.has_key('stdntid'):
         stdntid = request.session['stdntid']
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-            return render(request, 'student_zone/changepass.html', {'context':sid,'Message':'Change Password'})
+            return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Change Password'})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')

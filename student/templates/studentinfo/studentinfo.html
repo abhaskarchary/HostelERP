@@ -29,26 +29,28 @@
         <!--<th>Edit</th>-->
     </tr>
     {% for c in context %}
-        <tr>
-            <td>{{ c.sid }}</td>
-            <td>{{ c.first_name }} {{ c.last_name }}</td>
-            <td>{{ c.sex }}</td>
-            <td>{{ c.registration_date }}</td>
-            <td>{{ c.room.room_number }}</td>
-            <td>{{ c.adhaar }}</td>
-            <td>{{ c.mobile_no }}</td>
-            <td>{{ c.parent_name }}</td>
-            <td>{{ c.parent_mobile }}</td>
-            <td>{{ c.address_l1 }}, {{ c.address_l2 }}</td>
-            <td>{{ c.city }}</td>
-            <td>{{ c.pin_code }}</td>
-            <td>{{ c.guardian_name }}</td>
-            <td>{{ c.guardian_mobile }}</td>
-            <td>{{ c.institution_name }}</td>
-            <td>{{ c.hod_name }}</td>
-            <td>{{ c.hod_mobile }}</td>
-            <!--<td><a href ="/student/change_info_student/{{ c.sid }}">Edit</a></td>-->
-        </tr>
+        {% if c.active %}
+            <tr>
+                <td>{{ c.sid }}</td>
+                <td>{{ c.first_name }} {{ c.last_name }}</td>
+                <td>{{ c.sex }}</td>
+                <td>{{ c.registration_date }}</td>
+                <td>{{ c.room.room_number }}</td>
+                <td>{{ c.adhaar }}</td>
+                <td>{{ c.mobile_no }}</td>
+                <td>{{ c.parent_name }}</td>
+                <td>{{ c.parent_mobile }}</td>
+                <td>{{ c.address_l1 }}, {{ c.address_l2 }}</td>
+                <td>{{ c.city }}</td>
+                <td>{{ c.pin_code }}</td>
+                <td>{{ c.guardian_name }}</td>
+                <td>{{ c.guardian_mobile }}</td>
+                <td>{{ c.institution_name }}</td>
+                <td>{{ c.hod_name }}</td>
+                <td>{{ c.hod_mobile }}</td>
+                <!--<td><a href ="/student/change_info_student/{{ c.sid }}">Edit</a></td>-->
+            </tr>
+        {% endif %}
     {% endfor %}
 </table>
 </body>

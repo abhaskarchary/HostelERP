@@ -2,11 +2,20 @@ from django.shortcuts import render, redirect
 from manager.models import EmployeeInfo
 from student.models import Studentinfo
 # Create your views here.
+
+
 def home(request):
     return render(request, 'home/home1.html')
 
+
 def login(request):
-    return render(request, 'login.html')
+    if request.session.has_key('stdntid'):
+        return redirect('/student/login/')
+    elif request.session.has_key('userid'):
+        return redirect('/manager/login/')
+    else:
+        return render(request, 'login.html')
+
 
 def start_session(request):
     userid = request.POST['userid']
@@ -23,11 +32,11 @@ def start_session(request):
         if sess_name == 'stdntid':
             [object] = Studentinfo.objects.filter(sid=userid, password=userpass)
         else:
-            here = "tatti"
-
             [object] = EmployeeInfo.objects.filter(empid=userid, password=userpass)
         if object.first_name != "":
             if sess_name == 'userid' and object.employee_type != "manager":
+                return render(request, 'login.html', {'Message': 'Error Code 1.3 : Invalid Userid or password!!!'} )
+            elif sess_name == 'stdntid' and not object.active:
                 return render(request, 'login.html', {'Message': 'Error Code 1.3 : Invalid Userid or password!!!'} )
 
             request.session[sess_name] = userid
@@ -45,4 +54,4 @@ def start_session(request):
         else:
             return render(request, 'login.html', {'Message': 'Error Code 1.1 : Invalid Userid or password!!!'})
     except:
-        return render(request, 'login.html', {'Message': here + 'Error Code 1.2 : Invalid Userid or password!!!'})
+        return render(request, 'login.html', {'Message': 'Error Code 1.2 : Invalid Userid or password!!!'})

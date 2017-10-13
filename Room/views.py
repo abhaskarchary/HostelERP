@@ -11,7 +11,7 @@ class _room:
         self.capacity = room_object.capacity
         self.vacancy = room_object.vacancy
         self.rent = room_object.rent
-        tenants = Studentinfo.objects.filter(room=room_object)
+        tenants = Studentinfo.objects.filter(room=room_object, active=True)
         self.tenant1 = '-'
         self.tenant2 = '-'
         if len(tenants) > 0:

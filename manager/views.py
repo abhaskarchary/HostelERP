@@ -7,6 +7,7 @@ from payfees.views import deduct_fees
 from student.models import Studentinfo, message, Notice
 import datetime
 from payfees.models import TransactionDetails
+from Room.models import Room
 # Create your views here.
 
 
@@ -220,6 +221,42 @@ def send_notice(request):
             new_notice.body_of_notice = request.POST['body']
             new_notice.save()
             return HttpResponse('Notice Issued!<br><a href="/manager/login">go back</a>')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def deactivate_student(request):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'Inbox/deleteStudent.html', {'context': Studentinfo.objects.all(), 'rooms':Room.objects.filter(vacancy__gt=0)})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def deactivate(request, sid, op):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            student = Studentinfo.objects.get(sid=sid)
+            if op == 'd':
+                student.active = False
+                room = Room.objects.get(room_number=student.room.room_number)
+                room.vacancy = str(int(room.vacancy)+1)
+                room.save()
+                # student.room = None
+            else:
+                student.active = True
+                room_number = request.POST['room']
+                student.room = Room.objects.get(room_number=room_number)
+                student.room.vacancy = str(int(student.room.vacancy)-1)
+                student.room.save()
+            student.save()
+            return redirect('/manager/deactivate_student/')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
