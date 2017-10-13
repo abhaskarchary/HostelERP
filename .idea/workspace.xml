@@ -17,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/student/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
-              <caret line="79" column="70" lean-forward="false" selection-start-line="79" selection-start-column="70" selection-end-line="79" selection-end-column="70" />
+              <caret line="80" column="70" lean-forward="false" selection-start-line="80" selection-start-column="70" selection-end-line="80" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -36,7 +36,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manager/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
+            <state relative-caret-position="256">
               <caret line="24" column="61" lean-forward="false" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
               <folding />
             </state>
@@ -50,6 +50,37 @@
               <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
+                <marker date="1507901762101" expanded="true" signature="2611:6343" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="3317:3596" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="4663:6036" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="6373:7246" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="6645:6749" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="6767:6917" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="6953:7086" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="7191:7246" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="7278:7333" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="7335:8391" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="8413:9128" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="8456:9073" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="8592:8975" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9172:9386" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9205:9346" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9409:9681" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9418:9557" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9569:9681" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9718:10556" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9761:10515" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="9897:10452" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="10074:10160" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="10589:10985" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="10632:10944" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11014:11652" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11057:11611" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11193:11548" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11678:12116" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11721:12075" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="11857:12012" ph="..." />
+                <marker date="1507901762101" expanded="true" signature="12323:12464" ph="..." />
               </folding>
             </state>
           </provider>
@@ -109,9 +140,51 @@
         <entry file="file://$PROJECT_DIR$/manager/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="683">
-              <caret line="256" column="35" lean-forward="false" selection-start-line="256" selection-start-column="35" selection-end-line="256" selection-end-column="35" />
+              <caret line="257" column="35" lean-forward="false" selection-start-line="257" selection-start-column="35" selection-end-line="257" selection-end-column="35" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+                <marker date="1507901762104" expanded="true" signature="432:463" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="485:1128" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="527:1073" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="664:973" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1172:1386" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1205:1346" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1411:1810" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1453:1755" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1833:2197" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="1842:1980" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="2199:3171" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="3199:3633" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="3241:3578" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="3656:4702" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="4731:5543" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5003:5107" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5125:5275" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5311:5444" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5488:5543" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5571:7271" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5743:7214" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5765:7214" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="5778:5913" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="6249:7047" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="6299:6448" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="6500:6976" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="6556:6725" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="6751:6976" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="7304:7896" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="7346:7702" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="7924:8371" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="7966:8316" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="8399:8788" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="8441:8733" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="8816:9428" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="8858:9373" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="8995:9274" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="9463:9943" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="9505:9888" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="10158:10853" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="10239:10478" ph="..." />
+                <marker date="1507901762104" expanded="true" signature="10496:10766" ph="..." />
               </folding>
             </state>
           </provider>
@@ -335,122 +408,76 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/admin.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/admin.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/models.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/models.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/urls.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/urls.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/views.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/__pycache__/views.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/0001_initial.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/0001_initial.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/0002_room_room_type.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/models.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/db.sqlite3</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/settings.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/settings.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/urls.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/urls.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/views.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/views.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/wsgi.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/__pycache__/wsgi.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/erp/settings.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/admin.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/admin.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/models.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/models.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/urls.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/urls.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/views.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/__pycache__/views.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0001_initial.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0001_initial.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0002_auto_20170930_2124.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0002_auto_20170930_2124.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0003_auto_20171008_0014.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0003_auto_20171008_0014.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/views.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/admin.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/admin.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/models.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/models.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/urls.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/urls.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/views.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/__pycache__/views.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0001_initial.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0001_initial.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0002_auto_20170918_2343.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0002_auto_20170918_2343.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0003_auto_20170920_2337.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0003_auto_20170920_2337.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0004_auto_20170920_2348.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0004_auto_20170920_2348.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0005_auto_20170921_0002.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0005_auto_20170921_0002.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0006_auto_20170922_0203.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0006_auto_20170922_0203.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0007_auto_20170923_1917.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0007_auto_20170923_1917.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0008_auto_20170923_1922.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0008_auto_20170923_1922.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0009_auto_20170923_1941.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0009_auto_20170923_1941.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0010_delete_dues.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0010_delete_dues.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0011_transactiondetails.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0011_transactiondetails.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0012_transactiondetails_transaction_mode.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0012_transactiondetails_transaction_mode.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0013_auto_20170928_1426.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0013_auto_20170928_1426.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0014_auto_20170928_1432.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0014_auto_20170928_1432.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0015_auto_20170928_1435.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0015_auto_20170928_1435.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/admin.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/admin.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/models.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/models.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/urls.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/urls.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/views.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/__pycache__/views.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0001_initial.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0001_initial.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0002_auto_20170923_2142.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0002_auto_20170923_2142.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0003_studentinfo_password.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0003_studentinfo_password.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0004_session.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0004_session.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0005_auto_20170930_1826.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0005_auto_20170930_1826.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0006_auto_20170930_1903.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0006_auto_20170930_1903.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0007_auto_20170930_1914.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0007_auto_20170930_1914.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0008_message.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0009_auto_20171007_2344.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0010_auto_20171008_0002.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0011_auto_20171008_0005.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0008_message.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0009_auto_20171007_2344.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0010_auto_20171008_0002.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0011_auto_20171008_0005.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0012_notice.cpython-35.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/__init__.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/models.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/student/templates/registration/form1.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/views.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -458,18 +485,72 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/0002_room_room_type.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/0002_room_room_type.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Room/migrations/__pycache__/0002_room_room_type.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/migrations/__pycache__/0003_auto_20171008_0014.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0013_auto_20171012_1153.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0008_message.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0009_auto_20171007_2344.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0010_auto_20171008_0002.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0011_auto_20171008_0005.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0012_notice.cpython-35.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0012_notice.cpython-36.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0013_auto_20171012_1153.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/erp.iml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/__init__.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/__pycache__/__init__.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/__pycache__/admin.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/__pycache__/models.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/__pycache__/views.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/admin.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/apps.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/migrations/0001_initial.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/migrations/__init__.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/migrations/__pycache__/0001_initial.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/models.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/templates/logs.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/tests.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/urls.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Inventory/views.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/__init__.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/__pycache__/__init__.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/__pycache__/admin.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/__pycache__/models.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/admin.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/apps.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/migrations/__init__.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/migrations/__pycache__/__init__.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/models.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/templates/add_items.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/templates/mess_home.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/tests.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/urls.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/MessMngr/views.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/static/registration/abc.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/static/registration/jquery.min.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/templates/home/style.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/manager/templates/registration1/registration_complete.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/0012_transactiondetails_transaction_type.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/0016_merge.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0012_transactiondetails_transaction_type.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0012_transactiondetails_transaction_type.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0016_merge.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/migrations/__pycache__/0016_merge.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/static/registration/abc.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/static/registration/jquery.min.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/static/registration/style.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/payfees/static/registration/style1.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0014_studentinfo_date_of_birth.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0015_remove_studentinfo_date_of_birth.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0016_studentinfo_date_of_birth.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0017_remove_studentinfo_date_of_birth.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0018_auto_20171013_1124.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/0019_studentinfo_date_of_birth.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0013_auto_20171012_1153.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0014_studentinfo_date_of_birth.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0014_studentinfo_date_of_birth.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0015_remove_studentinfo_date_of_birth.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0015_remove_studentinfo_date_of_birth.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0016_studentinfo_date_of_birth.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0016_studentinfo_date_of_birth.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0017_remove_studentinfo_date_of_birth.cpython-35.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0017_remove_studentinfo_date_of_birth.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0018_auto_20171013_1124.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/migrations/__pycache__/0019_studentinfo_date_of_birth.cpython-36.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/static/registration/abc.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/static/registration/jquery.min.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/static/registration/style.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/student/static/registration/style1.css</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -690,7 +771,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507901583079</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="student account can be deactivated">
+      <created>1507901753075</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1507901753075</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1065,10 +1153,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1114,7 +1199,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/manager/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="256">
           <caret line="24" column="61" lean-forward="false" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
           <folding />
         </state>
@@ -1150,6 +1235,37 @@
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
+            <marker date="1507901762101" expanded="true" signature="2611:6343" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="3317:3596" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="4663:6036" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="6373:7246" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="6645:6749" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="6767:6917" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="6953:7086" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="7191:7246" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="7278:7333" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="7335:8391" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="8413:9128" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="8456:9073" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="8592:8975" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9172:9386" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9205:9346" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9409:9681" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9418:9557" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9569:9681" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9718:10556" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9761:10515" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="9897:10452" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="10074:10160" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="10589:10985" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="10632:10944" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11014:11652" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11057:11611" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11193:11548" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11678:12116" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11721:12075" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="11857:12012" ph="..." />
+            <marker date="1507901762101" expanded="true" signature="12323:12464" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1157,9 +1273,51 @@
     <entry file="file://$PROJECT_DIR$/manager/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="683">
-          <caret line="256" column="35" lean-forward="false" selection-start-line="256" selection-start-column="35" selection-end-line="256" selection-end-column="35" />
+          <caret line="257" column="35" lean-forward="false" selection-start-line="257" selection-start-column="35" selection-end-line="257" selection-end-column="35" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+            <marker date="1507901762104" expanded="true" signature="432:463" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="485:1128" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="527:1073" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="664:973" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1172:1386" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1205:1346" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1411:1810" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1453:1755" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1833:2197" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="1842:1980" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="2199:3171" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="3199:3633" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="3241:3578" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="3656:4702" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="4731:5543" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5003:5107" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5125:5275" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5311:5444" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5488:5543" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5571:7271" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5743:7214" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5765:7214" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="5778:5913" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="6249:7047" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="6299:6448" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="6500:6976" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="6556:6725" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="6751:6976" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="7304:7896" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="7346:7702" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="7924:8371" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="7966:8316" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="8399:8788" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="8441:8733" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="8816:9428" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="8858:9373" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="8995:9274" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="9463:9943" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="9505:9888" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="10158:10853" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="10239:10478" ph="..." />
+            <marker date="1507901762104" expanded="true" signature="10496:10766" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1167,7 +1325,7 @@
     <entry file="file://$PROJECT_DIR$/student/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="79" column="70" lean-forward="false" selection-start-line="79" selection-start-column="70" selection-end-line="79" selection-end-column="70" />
+          <caret line="80" column="70" lean-forward="false" selection-start-line="80" selection-start-column="70" selection-end-line="80" selection-end-column="70" />
           <folding />
         </state>
       </provider>
