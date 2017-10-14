@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9526cee-82c8-49aa-9a7b-e1e96ff05797" name="Default" comment="student account can be deactivated">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/student/migrations/0013_auto_20171014_1822.py" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0013_auto_20171012_1153.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0013_studentinfo_active.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0014_merge_20171012_2105.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0014_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0015_remove_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0016_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0017_remove_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0018_auto_20171013_1124.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0019_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0020_merge_20171014_1446.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/student/migrations/0021_remove_studentinfo_date_of_birth.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/student/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
-              <caret line="82" column="36" lean-forward="true" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
+              <caret line="82" column="36" lean-forward="false" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -64,6 +54,7 @@
               <caret line="36" column="73" lean-forward="false" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
+                <marker date="1507985760988" expanded="true" signature="2210:2261" ph="..." />
               </folding>
             </state>
           </provider>
@@ -2275,7 +2266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507901753075</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="migrations fixed">
+      <created>1507985727744</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1507985727744</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2379,7 +2377,8 @@
     <MESSAGE value="stable" />
     <MESSAGE value="manager can broadcast notice" />
     <MESSAGE value="student account can be deactivated" />
-    <option name="LAST_COMMIT_MESSAGE" value="student account can be deactivated" />
+    <MESSAGE value="migrations fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrations fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2648,6 +2647,7 @@
           <caret line="36" column="73" lean-forward="false" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
+            <marker date="1507985760988" expanded="true" signature="2210:2261" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2704,7 +2704,7 @@
     <entry file="file://$PROJECT_DIR$/student/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
-          <caret line="82" column="36" lean-forward="true" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
+          <caret line="82" column="36" lean-forward="false" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
