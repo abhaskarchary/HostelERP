@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from .models import Room
 from student.models import Studentinfo
 # Create your views here.
+
+
 class _room:
     def __init__(self, room_object):
         self.room_number = room_object.room_number

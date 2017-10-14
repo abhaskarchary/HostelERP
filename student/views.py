@@ -113,7 +113,10 @@ def update(request,sid = None):
     student_info_object.hod_name = hname
     student_info_object.hod_mobile = hmobile
     if room_number != 'None':
-        [student_info_object.room] = Room.objects.filter(room_number=room_number)
+        [new_room] = Room.objects.filter(room_number=room_number)
+        student_info_object.room = new_room
+        new_room.vacancy = str(int(new_room.vacancy)-1)
+        new_room.save()
     if int(student_info_object.room.vacancy) < 1 and room_number != 'None':
         return redirect('/student/register')
     student_info_object.save()

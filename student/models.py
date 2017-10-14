@@ -31,7 +31,7 @@ class Studentinfo(models.Model):
     last_name = models.CharField(max_length=50)
     #date_of_birth = models.DateTimeField(default='NA',auto_now = False)
     room = models.ForeignKey(Room, limit_choices_to={'room_number__in': choices()})
-    prev_room = None
+    #prev_room = None
     sex = models.CharField(max_length=6)
     blood_grp = models.CharField(max_length=3, default='NA')
     adhaar = models.CharField(max_length=12)
@@ -57,33 +57,10 @@ class Studentinfo(models.Model):
     password = models.CharField(max_length=20, default='123456')
     sessionkey = models.CharField(max_length=100, blank=True, null=True)
     active = models.BooleanField(default=True)
-    activated = None
+    #activated = None
 
     def __str__(self):
         return self.sid
-
-    def __init__(self, *args, **kwargs):
-        super(Studentinfo, self).__init__(*args, **kwargs)
-        try:
-            self.prev_room = self.room.room_number
-        except:
-            self.prev_room = '000'
-
-        self.activated = self.active
-
-    def save(self, *args, **kwargs):
-        try:
-            if self.activated and self.active:
-                if self.prev_room != self.room.room_number:
-                    if self.prev_room != '000':
-                        [prev] = Room.objects.filter(room_number=self.prev_room)
-                        prev.vacancy = str(int(prev.vacancy) + 1)
-                        self.room.vacancy = str(int(self.room.vacancy) - 1)
-                        prev.save()
-                    self.room.save()
-        except:
-            pass
-        super(Studentinfo, self).save(*args, **kwargs)
 
 
 def message_id():
