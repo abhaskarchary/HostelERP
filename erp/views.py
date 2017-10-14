@@ -37,7 +37,7 @@ def start_session(request):
             if sess_name == 'userid' and object.employee_type != "manager":
                 return render(request, 'login.html', {'Message': 'Error Code 1.3 : Invalid Userid or password!!!'} )
             elif sess_name == 'stdntid' and not object.active:
-                return render(request, 'login.html', {'Message': 'Error Code 1.3 : Invalid Userid or password!!!'} )
+                return render(request, 'login.html', {'Message': 'Error Code 1.4 : Your Account is no longer active!!!'} )
 
             request.session[sess_name] = userid
 
