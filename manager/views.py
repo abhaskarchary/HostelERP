@@ -20,7 +20,7 @@ def login(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-            response = HttpResponse(render(request, 'loggedin.html', {"userid": userid}))
+            response = HttpResponse(render(request, 'index.html', {"userid": userid}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -262,3 +262,23 @@ def deactivate(request, sid, op):
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
+
+
+def userpanel(request):
+    return render(request, 'panel.html')
+
+
+def account(request):
+    return render(request, 'account.html')
+
+
+def fees(request):
+    return render(request, 'fees.html')
+
+
+def room(request):
+    return render(request, 'room.html')
+
+
+def inventory(request):
+    return render(request, 'inventory.html')
