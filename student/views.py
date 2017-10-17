@@ -220,7 +220,7 @@ def login(request):
         stdntid = request.session['stdntid']
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
             context = Studentinfo.objects.get(sid=stdntid)
-            response = HttpResponse(render(request, 'student_zone/loggedin.html', {'context': context}))
+            response = HttpResponse(render(request, 'studentindex.html', {'context': context}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -260,8 +260,8 @@ def change_password(request, sid):
                 student_object.password = pass1
                 student_object.save()
             else:
-                return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Error Code 2 : Passwords do not match'})
-            return render(request, 'student_zone/loggedin.html', {'context':student_object,'Message':'Password changed successfully'})
+                return render(request, 'studentindex.html', {'context': student_object,'Error':'true','Message':'Error Code 2 : Passwords do not match'})
+            return render(request, 'studentindex.html', {'context':student_object,'Error':'false','Message':'Password changed successfully'})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
@@ -271,7 +271,7 @@ def change_pass(request, sid):
     if request.session.has_key('stdntid'):
         stdntid = request.session['stdntid']
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-            return render(request, 'student_zone/changepass.html', {'context': sid,'Message':'Change Password'})
+            return render(request, 'student_zone/changepass.html', {'context': sid})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
@@ -309,6 +309,17 @@ def notice(request, nid):
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
             context = Notice.objects.get(notice_id=nid)
             return render(request, 'student_zone/notice.html', {'context': context})
+        else:
+            return render(request, 'error.html')
+    return render(request, 'error.html')
+
+
+def profile(request):
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            context = Studentinfo.objects.get(sid=stdntid)
+            return render(request, 'student_zone/loggedin.html', {'context': context})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')

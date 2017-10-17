@@ -5,15 +5,16 @@
     <title>Welcome Tenant</title>
 </head>
 <body>
-<h2>{{ Message }}</h2>
-<h1><a href="/student/logout">Log out</a></h1>
+<!--<h1><a href="/student/logout">Log out</a></h1>
 <div class="tab">
     <a href="/student/accountlogs/{{context.sid}}">View your transactions</a>
     <a href="/student/messageroom">Send a Message</a>
     <a href="/student/changepass/{{ context.sid }}/">Change Password</a>
     <a href="/student/noticebox/">Notice</a>
-</div>
-<h3>Personal Details</h3>
+</div>-->
+<div id="d1" style="width: 92%;padding-left:20px;padding-top: 1px;height: 530px;margin: 30px;border-radius: 5px;background-color: white;color: rgba(100,100,100,0.7);float:left;overflow-y:scroll;">
+<!--<h2>{{ Message }}</h2>-->
+    <h3>Personal Details</h3>
 <table cellpadding="15" align="center" width="60%" border="1">
     <tr>
         <td><b>Name:</b> {{context.first_name}} {{context.last_name}}</td>
@@ -51,5 +52,6 @@
 <br>
 <b>Balance: </b>Rs. {{context.balance}} <br><br>
 <b>Payments Due: </b>Rs. {{context.total_dues}}<br><br>
+</div>
 </body>
 </html>

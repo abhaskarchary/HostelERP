@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^messageroom/$', views.messageroom, name = 'messageroom'),
     #url(r'^startsession/$', views.startsession, name='startsession'), Not needed
     url(r'^login/$', views.login, name='login'),
+    url(r'^profile/$', views.profile, name='profile'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^changepassword/(?P<sid>ETL[0-9]+)/$', views.change_password, name='change_password'),
     url(r'^changepass/(?P<sid>ETL[0-9]+)/$', views.change_pass, name='change_pass'),
