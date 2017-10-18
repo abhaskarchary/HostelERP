@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import datetime
 from student.models import Studentinfo
-from . models import TransactionDetails
+# from . models import TransactionDetails
 # Create your views here.
 
 
@@ -63,25 +63,25 @@ def update_dues(request, stu_id):
             stu1.update(running_dues=remaining_dues, running_fine=remaining_fine,
                         balance=remaining_bal, total_dues=remaining_total_dues)
 
-            credit_transaction = TransactionDetails()
-            [credit_transaction.sid] = Studentinfo.objects.filter(sid = stu_id)
-            credit_transaction.debit = 0.0
-            credit_transaction.remarks = 'Deposited amount'
-            credit_transaction.credit = amount
-            credit_transaction.balance = bal+amount
-            credit_transaction.transaction_type = 'Credit'
-            credit_transaction.transaction_mode = p_mode
-            credit_transaction.save()
-
-            if total>0:
-                debit_transaction = TransactionDetails()
-                [debit_transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
-                debit_transaction.debit = bal + amount - remaining_bal
-                debit_transaction.remarks = 'Dues deduction'
-                debit_transaction.credit = 0.0
-                debit_transaction.balance = remaining_bal
-                debit_transaction.transaction_type = 'Debit'
-                debit_transaction.save()
+            # credit_transaction = TransactionDetails()
+            # [credit_transaction.sid] = Studentinfo.objects.filter(sid = stu_id)
+            # credit_transaction.debit = 0.0
+            # credit_transaction.remarks = 'Deposited amount'
+            # credit_transaction.credit = amount
+            # credit_transaction.balance = bal+amount
+            # credit_transaction.transaction_type = 'Credit'
+            # credit_transaction.transaction_mode = p_mode
+            # credit_transaction.save()
+            #
+            # if total>0:
+            #     debit_transaction = TransactionDetails()
+            #     [debit_transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+            #     debit_transaction.debit = bal + amount - remaining_bal
+            #     debit_transaction.remarks = 'Dues deduction'
+            #     debit_transaction.credit = 0.0
+            #     debit_transaction.balance = remaining_bal
+            #     debit_transaction.transaction_type = 'Debit'
+            #     debit_transaction.save()
 
 
 
@@ -135,14 +135,14 @@ def deduct_fees(request):
                         remaining_bal=0.0
                 remaining_total_dues = remaining_dues + remaining_fine
 
-                debit_transaction = TransactionDetails()
-                [debit_transaction.sid] = Studentinfo.objects.filter(sid = s['sid'])
-                debit_transaction.debit = bal-remaining_bal
-                debit_transaction.remarks = 'Dues and Fee deduction'
-                debit_transaction.credit = 0.0
-                debit_transaction.balance = remaining_bal
-                debit_transaction.transaction_type = 'Debit'
-                debit_transaction.save()
+                # debit_transaction = TransactionDetails()
+                # [debit_transaction.sid] = Studentinfo.objects.filter(sid = s['sid'])
+                # debit_transaction.debit = bal-remaining_bal
+                # debit_transaction.remarks = 'Dues and Fee deduction'
+                # debit_transaction.credit = 0.0
+                # debit_transaction.balance = remaining_bal
+                # debit_transaction.transaction_type = 'Debit'
+                # debit_transaction.save()
 
             stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
                     balance = remaining_bal, total_dues = remaining_total_dues)

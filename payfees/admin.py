@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Fees,TransactionDetails
+from .models import Fees
 # Register your models here.
 
 #admin.site.register(Dues)
 admin.site.register(Fees)
-admin.site.register(TransactionDetails)
+# admin.site.register(TransactionDetails)

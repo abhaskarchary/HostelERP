@@ -7,7 +7,7 @@ from payfees.views import deduct_fees
 from Inventory.views import *
 from student.models import Studentinfo, message, Notice
 import datetime
-from payfees.models import TransactionDetails
+# from payfees.models import TransactionDetails
 from Room.models import Room
 # Create your views here.
 
@@ -144,53 +144,53 @@ def pay_init_fees(request):
     #return
 
 
-def deduct_fees(request):
-    stu = Studentinfo.objects.all().values()
-    y = datetime.date.today().year
-    m = datetime.date.today().month
-    d = datetime.date.today().month
-    if d>1 and d<5:
-        for s in stu:
-            # total = s['total_dues']
-            # bal = s['balance']
-            # fine = s['running_fine']
-            # due = s['running_dues']
-            remaining_dues=s['running_dues']
-            remaining_fine=s['running_fine']
-            remaining_total_dues=s['total_dues']
-            remaining_bal=s['balance']
-            stu1 = Studentinfo.objects.filter(sid = s['sid']).values()
-            if((s['running_dues']>0.0 or s['running_fine']>0.0) and s['balance']>0.0):
-                if s['total_dues']<=s['balance']:
-                    remaining_dues = 0.0
-                    remaining_fine = 0.0
-                    remaining_bal = s['balance'] - s['total_dues']
-                elif(s['total_dues']>s['balance']):
-                    if(s['running_dues']>s['balance']):
-                        remaining_dues=s['running_dues']-s['balance']
-                        remaining_fine=s['running_fine']
-                        remaining_bal=0.0
-                    else:
-                        remaining_dues=0.0
-                        remaining_bal=s['balance']-s['running_dues']
-                        remaining_fine=s['running_fine']-remaining_bal
-                        remaining_bal=0.0
-                remaining_total_dues = remaining_dues + remaining_fine
-            stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
-                    balance = remaining_bal, total_dues = remaining_total_dues)
-    return HttpResponse("<h1>Fees paid successfully<h1")
+# def deduct_fees(request):
+#     stu = Studentinfo.objects.all().values()
+#     y = datetime.date.today().year
+#     m = datetime.date.today().month
+#     d = datetime.date.today().month
+#     if d>1 and d<5:
+#         for s in stu:
+#             # total = s['total_dues']
+#             # bal = s['balance']
+#             # fine = s['running_fine']
+#             # due = s['running_dues']
+#             remaining_dues=s['running_dues']
+#             remaining_fine=s['running_fine']
+#             remaining_total_dues=s['total_dues']
+#             remaining_bal=s['balance']
+#             stu1 = Studentinfo.objects.filter(sid = s['sid']).values()
+#             if((s['running_dues']>0.0 or s['running_fine']>0.0) and s['balance']>0.0):
+#                 if s['total_dues']<=s['balance']:
+#                     remaining_dues = 0.0
+#                     remaining_fine = 0.0
+#                     remaining_bal = s['balance'] - s['total_dues']
+#                 elif(s['total_dues']>s['balance']):
+#                     if(s['running_dues']>s['balance']):
+#                         remaining_dues=s['running_dues']-s['balance']
+#                         remaining_fine=s['running_fine']
+#                         remaining_bal=0.0
+#                     else:
+#                         remaining_dues=0.0
+#                         remaining_bal=s['balance']-s['running_dues']
+#                         remaining_fine=s['running_fine']-remaining_bal
+#                         remaining_bal=0.0
+#                 remaining_total_dues = remaining_dues + remaining_fine
+#             stu1.update(running_dues = remaining_dues, running_fine = remaining_fine ,
+#                     balance = remaining_bal, total_dues = remaining_total_dues)
+#     return HttpResponse("<h1>Fees paid successfully<h1")
 
 
-def all_transactions(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-            return render(request, 'display_transactions.html', {'all_transactions': TransactionDetails.objects.all()})
-        else:
-            return render(request, 'login.html', {'Message': 'Session terminated!'})
-    else:
-        return render(request, 'error.html')
-    return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all().order_by('-transaction_id')})
+# def all_transactions(request):
+#     if request.session.has_key('userid'):
+#         userid = request.session['userid']
+#         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+#             return render(request, 'display_transactions.html', {'all_transactions': TransactionDetails.objects.all()})
+#         else:
+#             return render(request, 'login.html', {'Message': 'Session terminated!'})
+#     else:
+#         return render(request, 'error.html')
+#     return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all().order_by('-transaction_id')})
 
 def all_messages(request):
     if request.session.has_key('userid'):

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from payfees.models import Fees
 # Create your models here.
 
 room_types = (
@@ -13,7 +13,8 @@ room_types = (
 
 class Room(models.Model):
     room_number = models.CharField(max_length=5, primary_key=True, default=None)
-    room_type = models.CharField(max_length=20, choices  = room_types)
+    # room_type = models.CharField(max_length=20, choices  = room_types)
+    roomType = models.ForeignKey(Fees)
     capacity = models.CharField(max_length=5, default= '2')
     vacancy = models.CharField(max_length=5, default= '2')
     rent = models.CharField(max_length=5, default= '6000')
