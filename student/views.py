@@ -84,7 +84,10 @@ def update(request,sid = None):
     iname = request.POST['iname']
     hname = request.POST['hname']
     hmobile = request.POST['hmobile']
-    room_number = request.POST['vacant_room_list']
+    room_number = request.POST['vacant_room_list'].split()[0]
+    room_type = Room.objects.get(room_number=room_number).roomType
+    print(room_number)
+    print(room_type)
             #print(first_name, last_name)
     if sid is None:
         student_info_object = Studentinfo()
@@ -159,10 +162,12 @@ def update(request,sid = None):
         return render(request, 'registration/registration_complete.html')
 
     l=[]
-    fee = Fees.objects.filter(id = 1).values()
+    fee = Fees.objects.filter(room_type = room_type).values()
     for f in fee:
-        l = [f['security_money']]
+        total = (f['fees']/f['parts_per_year']) + f['security_money']
+        l = [f['security_money'],f['fees'],total, room_number, room_type]
     context = {'attr': l}
+    # fee = Fees.objects.get(room_type = room_type).values()
     return render(request, 'registration/pay_initial_fees.html',context)
 
 

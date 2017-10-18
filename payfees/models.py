@@ -10,6 +10,7 @@ from django.shortcuts import render
 
 class Fees(models.Model):
     room_type = models.CharField(max_length = 20, primary_key = True)
+    parts_per_year = models.IntegerField()
     fees = models.FloatField(max_length = 20)
     security_money = models.FloatField(max_length = 5)
     fine = models.FloatField(max_length = 5)

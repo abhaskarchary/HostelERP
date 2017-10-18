@@ -9,8 +9,8 @@
         function check_initial_fees(){
             var attr = {{ attr|safe }}
             var initial_fees = document.payfees_form.initial_balance.value;
-            if(initial_fees < attr[0]){
-                alert('Initial fee cannot be less than the security deposit');
+            if(initial_fees < attr[2]){
+                alert('Initial fee cannot be less than the required minimum amount');
                 return false;
             }
         }
@@ -24,10 +24,26 @@
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
     <div class="login-page">
       <div class="form">
+          <!--{% for i in context %}-->
+          <!--<h1>{{i}}</h1>-->
+          <!--<h1>{{i.fees}}</h1>-->
+          <!--<h2>{{i.security_money}}</h2>-->
+          <!--<h3>{{i.fine}}</h3>-->
+          <!--{% endfor %}-->
+          <p>Room Selected - {{attr.3}}</p>
+          <p>Room Type - {{attr.4}}</p>
+          <br/>
+          <p>Yearly Fees - {{attr.1}}</p>
+          <p>Security Money - {{attr.0}}</p>
+          <br/>
+          <p>Minimum amount to be paid as first installment  - {{attr.2}}</p>
+          <!--<h1>{{attr.0}}</h1>-->
+          <!--<h1>{{attr.1}}</h1>-->
+          <!--<h1>{{attr.2}}</h1>-->
         <form action="/manager/initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
-            <input class="i1" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
-            <input  type="submit" name="submit"  value="Submit">
+            <input class="i4" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
+            <button  type="submit" name="submit"  value="Submit">Submit</button>
         </form>
       </div>
     </div>

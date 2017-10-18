@@ -33,7 +33,7 @@
     <input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female
   </div>
   <br>
-  <input class="i1" type="Date" required="required" placeholder="Enter Date of Birth" max="999999999999" name="dob">
+  <input class="i1" type="text" onfocus="this.type='date'" onblur="this.type='text'" required="required" placeholder="Enter Date of Birth"  name="dob">
   <input class="i3" type="text" value="+91" readonly="readonly">
   <input class="i5" type="number" name="mobile" id="mobile" required="required" placeholder="Enter your mobile no." min="7000000000" max="9999999999">
   <br/>
@@ -61,10 +61,10 @@
   <select class="i1" name="vacant_room_list">
     <option value="Select Room">Select Room</option>
   {% for i in context %}
-  <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.room_type}}</option>
+  <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.roomType}}</option>
   {% endfor %}
   </select>
-  <input class="i2" type="date" placeholder="Enter Room Allotment Date"/>
+  <input class="i2" type="text" onfocus="this.type='date'" onblur="this.type='text'" placeholder="Enter Room Allotment Date"/>
   <br>
   <button type="submit" onclick="return validate_room_choice()">Submit</button>
 </form>
