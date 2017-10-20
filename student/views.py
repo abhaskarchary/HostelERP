@@ -5,6 +5,7 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
+import json
 # from payfees.models import TransactionDetails
 
 # Create your views here.
@@ -161,12 +162,14 @@ def update(request,sid = None):
     if sid is not None:
         return render(request, 'registration/registration_complete.html')
 
-    l=[]
+    l={}
     fee = Fees.objects.filter(room_type = room_type).values()
     for f in fee:
         total = (f['fees']/f['parts_per_year']) + f['security_money']
-        l = [f['security_money'],f['fees'],total, room_number, room_type]
-    context = {'attr': l}
+        # l = [f['security_money'],f['fees'],total]
+        l=[f['fees'], f['security_money'], total]
+        l1=[room_number, room_type]
+    context = {'attr': l, "attr1":l1}
     # fee = Fees.objects.get(room_type = room_type).values()
     return render(request, 'registration/pay_initial_fees.html',context)
 

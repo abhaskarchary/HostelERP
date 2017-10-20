@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <title>ERP | Registration</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
     <script>
         function check_initial_fees(){
-            var attr = {{ attr|safe }}
+            var attr = {{ attr | safe }}
             var initial_fees = document.payfees_form.initial_balance.value;
+            <!--alert(attr[0]+" "+attr[1]+" "+attr[2]);-->
+            <!--return false;-->
             if(initial_fees < attr[2]){
                 alert('Initial fee cannot be less than the required minimum amount');
                 return false;
             }
         }
         window.history.forward();
+	    function noBack()
+	    {
+	        window.history.forward();
+        }
+    </script>
+    <script>
+    function hello(){
+        alert("hello");
+        return false;
+        }
+
+      window.history.forward();
 	    function noBack()
 	    {
 	        window.history.forward();
@@ -30,11 +44,11 @@
           <!--<h2>{{i.security_money}}</h2>-->
           <!--<h3>{{i.fine}}</h3>-->
           <!--{% endfor %}-->
-          <p>Room Selected - {{attr.3}}</p>
-          <p>Room Type - {{attr.4}}</p>
+          <p>Room Selected - {{attr1.0}}</p>
+          <p>Room Type - {{attr1.1}}</p>
           <br/>
-          <p>Yearly Fees - {{attr.1}}</p>
-          <p>Security Money - {{attr.0}}</p>
+          <p>Yearly Fees - {{attr.0}}</p>
+          <p>Security Money - {{attr.1}}</p>
           <br/>
           <p>Minimum amount to be paid as first installment  - {{attr.2}}</p>
           <!--<h1>{{attr.0}}</h1>-->
@@ -43,7 +57,7 @@
         <form action="/manager/initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
             <input class="i4" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
-            <button  type="submit" name="submit"  value="Submit">Submit</button>
+            <input  type="submit" name="submit"  value="Submit" />
         </form>
       </div>
     </div>
