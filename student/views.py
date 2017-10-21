@@ -5,7 +5,6 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
-import json
 # from payfees.models import TransactionDetails
 
 # Create your views here.
@@ -83,12 +82,14 @@ def update(request,sid = None):
     gname = request.POST['gname']
     gmobile = request.POST['gmobile']
     iname = request.POST['iname']
-    hname = request.POST['hname']
-    hmobile = request.POST['hmobile']
+    # hname = request.POST['hname']
+    # hmobile = request.POST['hmobile']
+    # if sid is None:
     room_number = request.POST['vacant_room_list'].split()[0]
+
     room_type = Room.objects.get(room_number=room_number).roomType
-    print(room_number)
-    print(room_type)
+    # print(room_number)
+    # print(room_type)
             #print(first_name, last_name)
     if sid is None:
         student_info_object = Studentinfo()
@@ -113,14 +114,23 @@ def update(request,sid = None):
     student_info_object.guardian_name = gname
     student_info_object.guardian_mobile = gmobile
     student_info_object.institution_name = iname
-    student_info_object.hod_name = hname
-    student_info_object.hod_mobile = hmobile
+    # student_info_object.hod_name = hname
+    # student_info_object.hod_mobile = hmobile
     if room_number != 'None':
         [new_room] = Room.objects.filter(room_number=room_number)
+
+        # in case there is room change request increase the vacancy of old room by one
+        try:
+            old_room = student_info_object.room
+            old_room.vacancy = str(int(old_room.vacancy) + 1)
+            old_room.save()
+        except:
+            pass
+
         student_info_object.room = new_room
         new_room.vacancy = str(int(new_room.vacancy)-1)
         new_room.save()
-    if int(student_info_object.room.vacancy) < 1 and room_number != 'None':
+    elif int(student_info_object.room.vacancy) < 1 and room_number != 'None':
         return redirect('/student/register')
     student_info_object.save()
 
