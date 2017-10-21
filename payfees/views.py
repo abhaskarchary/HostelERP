@@ -53,8 +53,9 @@ def show(request):
                     b1 = 0
             l1 = [b.sid, b.first_name + " " + b.last_name]
             # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
-            l = [b.running_dues, b.running_fine, b.total_dues,b.balance,installment, b1]
-            context = {'attr': l, 'attr1': l1}
+            l = [b.running_dues, b.running_fine, b.balance, b.total_dues, ]
+            l2= [installment, b1]
+            context = {'attr': l, 'attr1': l1, 'attr2':l2}
             return render(request, 'payfees/show_individual_dues.html', context)
     else:
         return render(request, 'error.html')
@@ -74,25 +75,26 @@ def update_dues(request, stu_id):
             bal = s['balance']
             fine = s['running_fine']
             due = s['running_dues']
-            if total<amount:
-                remaining_dues=0.0
-                remaining_fine=0.0
-                remaining_amount=amount-total
-            elif amount<total and amount<due:
-                remaining_dues=due-amount
-                remaining_fine=fine
-                remaining_amount=0.0
-            elif amount<total and amount>due:
-                remaining_dues=0.0
-                remaining_amount=amount-due
-                remaining_fine=fine-remaining_amount
-                remaining_amount=0.0
+            # if total<amount:
+            #     remaining_dues=0.0
+            #     remaining_fine=0.0
+            #     remaining_amount=amount-total
+            # elif amount<total and amount<due:
+            #     remaining_dues=due-amount
+            #     remaining_fine=fine
+            #     remaining_amount=0.0
+            # elif amount<total and amount>due:
+            #     remaining_dues=0.0
+            #     remaining_amount=amount-due
+            #     remaining_fine=fine-remaining_amount
+            #     remaining_amount=0.0
 
-            remaining_total_dues = remaining_dues + remaining_fine
-            remaining_bal = bal + remaining_amount
 
-            stu1.update(running_dues=remaining_dues, running_fine=remaining_fine,
-                        balance=remaining_bal, total_dues=remaining_total_dues)
+            # remaining_total_dues = remaining_dues + remaining_fine
+            # remaining_bal = bal + remaining_amount
+
+            remaining_bal = s['balance']-amount
+            stu1.update(balance=remaining_bal)
 
             # credit_transaction = TransactionDetails()
             # [credit_transaction.sid] = Studentinfo.objects.filter(sid = stu_id)

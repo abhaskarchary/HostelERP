@@ -19,12 +19,30 @@
 
         }*/
         function validate(){
+             var attr = {{ attr|safe }}
+             var attr2 = {{ attr2|safe }}
              var r = document.due_form.amount.value;
              var p_mode = document.due_form.payment_mode.value;
              if(r<=0)
              {
                 alert("Please enter a valid amount");
                 return false;
+             }
+             else if(attr[2]==0){
+                alert("This student don't have any dues");
+                    return false;
+             }
+             else if(attr[2]>attr2[0]){
+                if(r<attr2[0]){
+                    alert("Please pay more than the minimum amount");
+                    return false;
+                }
+             }
+             else if(attr[2]<=attr2[0]){
+                if(r>attr[3]){
+                    alert("You cannot pay more than your balance");
+                    return false;
+                }
              }
              else if(p_mode==("Select payment mode")){
                 alert("Please select payment mode");
@@ -42,24 +60,25 @@
                 {% if attr %}
                 <table border="0" align="center" cellspacing="10" cellpadding="10">
                     <tr>
-                        <th>Student ID</th><th>Student Name</th><th>Running Dues</th><th>Running Fine</th><th>Total Dues</th><th>Balance</th>
+                        <th>Student ID</th><th>Student Name</th><th>Running Dues</th><th>Running Fine</th><th>Balance Fee</th>><th>Total Dues</th>
                     </tr>
                     <tr>
                         {% for i in attr1 %}
                         <td align="center"> {{ i }}</td>
                         {% endfor %}
                         {% for i in attr %}
-                            {% ifnotequal loop.index0 4%}
                                 <td align="center"> {{ i }}</td>
-                            {% endifnotequal %}
                         {% endfor %}
                     </tr>
                 </table>
-                {% ifequal attr.5 1%}
-                    <p>Minimum amount to be paid - {{attr.4}}</p>
+                {% ifequal attr.2 0%}
+                    <p>This student does not have any dues.</p>
                 {% endifequal %}
-                {% ifnotequal attr.5 1 %}
-                    <p>Amount to be paid - {{attr.3}}</p>
+                {% ifequal attr2.1 1%}
+                    <p>Minimum amount to be paid - {{attr2.0}}</p>
+                {% endifequal %}
+                {% ifnotequal attr2.1 1 %}
+                    <p>Amount to be paid - {{attr.2}}</p>
                 {% endifnotequal %}
                 <form name='due_form' action="/dues/update_dues/{{ attr1.0 }}/" method="post" onsubmit="return validate()">
                     {% csrf_token %}
