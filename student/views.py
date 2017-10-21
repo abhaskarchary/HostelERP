@@ -173,27 +173,29 @@ def update(request,sid = None):
         return render(request, 'registration/registration_complete.html')
 
     l={}
+    last_booking = Studentinfo.objects.all().order_by('sid').last()
     fee = Fees.objects.filter(room_type = room_type).values()
     for f in fee:
         total = (f['fees']/f['parts_per_year']) + f['security_money']
         # l = [f['security_money'],f['fees'],total]
         l=[f['fees'], f['security_money'], total]
-        l1=[room_number, room_type]
+        l1=[last_booking.sid, room_number, room_type]
     context = {'attr': l, "attr1":l1}
     # fee = Fees.objects.get(room_type = room_type).values()
     return render(request, 'registration/pay_initial_fees.html',context)
 
 
-def pay_init_fees(request):
+def pay_init_fees(request, stu_id):
     last_booking = Studentinfo.objects.all().order_by('sid').last()
 
-    stu = Studentinfo.objects.filter(sid = last_booking.sid).values()
-    stu1 = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    stu = Studentinfo.objects.filter(sid = stu_id).values()
+    stu1 = Studentinfo.objects.filter(sid = stu_id).values()
     initial_bal = float(request.POST['initial_balance'])
     #stu['balance'] = stu['balance'] + initial_bal
     #stu.update(balance = (stu['balance'] + initial_bal))
     for s in stu:
         #s.update(balance = (s['balance'] + initial_bal))
+
         bal = s['balance'] + initial_bal
         #s['balance'] = s['balance'] + initial_bal
     stu1.update(balance = bal)

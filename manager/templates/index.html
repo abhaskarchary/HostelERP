@@ -81,9 +81,14 @@ $(document).ready(
     <div class="a3" style="background: linear-gradient(rgba(0,0,0, 0.5), rgba(249, 91, 12,0.5) ) center top;
     width:78%;height:590px;float:left;overflow-x:hidden;overflow-y:scroll;">
         <div class="b1" style="width:100%;height:60px;margin-top:30px;">
+
             <a href="/manager/logout/" style="float:right;margin-left:20px;margin-right: 30px;text-decoration: none;font-size: 20px">Logout</a>
 			<a href="/manager/all_messages/" style="float:right;margin-left:20px;text-decoration: none;font-size: 20px;">View Messages</a>
             <a class="x1" href="/manager/issue_notice/" style="float:right;margin-left: 20px;text-decoration: none;font-size: 20px;">Issue Notice</a>
+			<br/>
+			{%if Message%}
+			<h3>{{Message}}</h3>
+			{%endif%}
         </div>
         <div class="b2" style="width:100%;background-color: rgba(242,242,242,0.7);height: 100%">
     <!-- 	Include here -->

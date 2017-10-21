@@ -22,18 +22,6 @@
 	        window.history.forward();
         }
     </script>
-    <script>
-    function hello(){
-        alert("hello");
-        return false;
-        }
-
-      window.history.forward();
-	    function noBack()
-	    {
-	        window.history.forward();
-        }
-    </script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
     <div class="login-page">
@@ -44,8 +32,9 @@
           <!--<h2>{{i.security_money}}</h2>-->
           <!--<h3>{{i.fine}}</h3>-->
           <!--{% endfor %}-->
-          <p>Room Selected - {{attr1.0}}</p>
-          <p>Room Type - {{attr1.1}}</p>
+          <p>Generated Student ID - {{attr1.0}}</p>
+          <p>Room Selected - {{attr1.1}}</p>
+          <p>Room Type - {{attr1.2}}</p>
           <br/>
           <p>Yearly Fees - {{attr.0}}</p>
           <p>Security Money - {{attr.1}}</p>
@@ -54,7 +43,7 @@
           <!--<h1>{{attr.0}}</h1>-->
           <!--<h1>{{attr.1}}</h1>-->
           <!--<h1>{{attr.2}}</h1>-->
-        <form action="/manager/initial_fees/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
+        <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
             <input class="i4" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
             <input  type="submit" name="submit"  value="Submit" />

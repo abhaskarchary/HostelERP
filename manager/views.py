@@ -9,6 +9,7 @@ from student.models import Studentinfo, message, Notice
 import datetime
 # from payfees.models import TransactionDetails
 from Room.models import Room
+from payfees.models import Fees
 # Create your views here.
 
 
@@ -123,26 +124,32 @@ def update(request):
 
     return HttpResponse("<H1>Registered successfully</H1>")
 
-def pay_init_fees(request):
+def pay_init_fees(request, stu_id):
     last_booking = Studentinfo.objects.all().order_by('sid').last()
 
-    stu = Studentinfo.objects.filter(sid = last_booking.sid).values()
-    stu1 = Studentinfo.objects.filter(sid = last_booking.sid).values()
+    stu = Studentinfo.objects.filter(sid = stu_id).values()
+    stu1 = Studentinfo.objects.filter(sid = stu_id).values()
     initial_bal = float(request.POST['initial_balance'])
     #stu['balance'] = stu['balance'] + initial_bal
     #stu.update(balance = (stu['balance'] + initial_bal))
     for s in stu:
         #s.update(balance = (s['balance'] + initial_bal))
-        bal = s['balance'] + initial_bal
+        room_number = Studentinfo.objects.get(sid = stu_id).room
+        room_type = Room.objects.get(room_number = room_number).roomType
+        room = Fees.objects.filter(room_type = room_type).values()
+        for rt in room:
+            bal = (rt['fees'])+rt['security_money']-initial_bal
+        # bal = s['balance'] + initial_bal
         #s['balance'] = s['balance'] + initial_bal
     stu1.update(balance = bal)
+
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
     #return render(request, 'registration/registration_complete.html')
-    return redirect('/manager/login/')
+    return render(request, 'index.html', {'Message': 'Student Registered Successfully'})
+    # return redirect('/manager/login/', {'Message': 'Student Registered Successfully'})
     #return HttpResponse("<h1>"+stu.sid+"<h1>")
     #return
-
 
 # def deduct_fees(request):
 #     stu = Studentinfo.objects.all().values()

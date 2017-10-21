@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import datetime
 from student.models import Studentinfo
+from Room.models import Room
+from .models import Fees
 # from . models import TransactionDetails
 # Create your views here.
 
@@ -20,10 +22,39 @@ def show(request):
         counter = 0
         l=[]
         if stu_id:
-            stu = Studentinfo.objects.filter(sid = stu_id).values()
-            for b in stu:
-                l = [b['sid'], b['running_dues'], b['running_fine'], b['total_dues'], b['balance']]
-            context = {'attr': l}
+            # stu = Studentinfo.objects.filter(sid = stu_id).values()
+            # for b in stu:
+            #     print(b['sid']+""+b['room'])
+            #     room_number = b['room']
+            #     room_type = Room.objects.get(room_number = room_number).roomType
+            #     room = Fees.objects.filter(room_type = room_type).values()
+            #     for rt in room:
+            #         installment = rt['fees']/rt['parts_per_year']
+            #         if(b['balance']>installment):
+            #             b=1
+            #         else:
+            #             b=0
+            #     l1 = [b['sid'], b['first_name']+" "+b['last_name']]
+            #     l = [b['running_dues'], b['running_fine'], b['total_dues'], b['balance'], installment, b]
+            # context = {'attr': l,'attr1': l1}
+            # return render(request, 'payfees/show_individual_dues.html', context)
+
+            stu = Studentinfo.objects.filter(sid=stu_id).values()
+            b=Studentinfo.objects.get(sid = stu_id)
+            print(b.sid + " " + str(b.room))
+            room_number = b.room
+            room_type = Room.objects.get(room_number=room_number).roomType
+            room = Fees.objects.filter(room_type=room_type).values()
+            for rt in room:
+                installment = rt['fees'] / rt['parts_per_year']
+                if (b.balance > installment):
+                    b1 = 1
+                else:
+                    b1 = 0
+            l1 = [b.sid, b.first_name + " " + b.last_name]
+            # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
+            l = [b.running_dues, b.running_fine, b.total_dues,b.balance,installment, b1]
+            context = {'attr': l, 'attr1': l1}
             return render(request, 'payfees/show_individual_dues.html', context)
     else:
         return render(request, 'error.html')
