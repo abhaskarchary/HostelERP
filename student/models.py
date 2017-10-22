@@ -89,6 +89,19 @@ def notice_id():
     return new_booking_id
 
 
+def msg_id():
+    last_booking = ContactUsMessage.objects.all().order_by('msg_id').last()
+    if not last_booking:
+        return 'CMSG' + str(datetime.date.today().year) + '0001'
+    if str(datetime.date.today().year) != last_booking.msg_id[2:6]:
+        return 'CMSG' + str(datetime.date.today().year) + '0001'
+    booking_id = last_booking.msg_id
+    booking_int = int(booking_id[6:10])
+    new_booking_int = booking_int + 1
+    new_booking_id = 'CMSG' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
+    return new_booking_id
+
+
 class message(models.Model):
     message_id = models.CharField(max_length=15, default=message_id, editable=False, primary_key=True)
     sender = models.ForeignKey(Studentinfo)
@@ -108,3 +121,14 @@ class Notice(models.Model):
 
     def __str__(self):
         return self.notice_id
+
+
+class ContactUsMessage(models.Model):
+    msg_id = models.CharField(max_length=15, default=msg_id, editable=False, primary_key=True)
+    sender_name = models.CharField(max_length=30)
+    sender_email = models.CharField(max_length=30)
+    time_sent = models.DateTimeField(auto_now=True)
+    body_of_message = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.msg_id

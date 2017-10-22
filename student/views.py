@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Studentinfo, message, Notice
+from .models import Studentinfo, message, Notice, ContactUsMessage
 from manager.models import EmployeeInfo
 from payfees.models import Fees
 from Room.models import Room
@@ -344,3 +344,12 @@ def profile(request):
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
+
+
+def send_contact_message(request):
+    new_message = ContactUsMessage()
+    new_message.sender_name = request.POST['contact_name']
+    new_message.sender_email = request.POST['contact_email']
+    new_message.body_of_message = request.POST['contact_message']
+    new_message.save()
+    return render(request, 'home/home1.html', {'Message': 'Message Sent Successfully!!'})

@@ -232,7 +232,7 @@ def send_notice(request):
             new_notice.type_of_notice = request.POST['subject']
             new_notice.body_of_notice = request.POST['body']
             new_notice.save()
-            return HttpResponse('Notice Issued!<br><a href="/manager/login">go back</a>')
+            return render(request, 'index.html', {'userid': userid,'Message': 'Notice Sent Successfully!'} )
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
