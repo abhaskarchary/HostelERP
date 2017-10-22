@@ -10,6 +10,7 @@ import datetime
 # from payfees.models import TransactionDetails
 from Room.models import Room
 from payfees.models import Fees
+from transactions.models import Transaction_Details
 # Create your views here.
 
 
@@ -188,16 +189,16 @@ def pay_init_fees(request, stu_id):
 #     return HttpResponse("<h1>Fees paid successfully<h1")
 
 
-# def all_transactions(request):
-#     if request.session.has_key('userid'):
-#         userid = request.session['userid']
-#         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-#             return render(request, 'display_transactions.html', {'all_transactions': TransactionDetails.objects.all()})
-#         else:
-#             return render(request, 'login.html', {'Message': 'Session terminated!'})
-#     else:
-#         return render(request, 'error.html')
-#     return render(request, 'display_transactions.html', {'all_transactions':TransactionDetails.objects.all().order_by('-transaction_id')})
+def all_transactions(request):
+    if request.session.has_key('userid'):
+        userid = request.session['userid']
+        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+            return render(request, 'display_transactions.html', {'all_transactions': Transaction_Details.objects.all()})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+    return render(request, 'display_transactions.html', {'all_transactions':Transaction_Details.objects.all().order_by('-transaction_id')})
 
 def all_messages(request):
     if request.session.has_key('userid'):

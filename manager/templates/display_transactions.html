@@ -9,28 +9,21 @@
 	<hr></hr>
     <table border="0" cellspacing="10" cellpadding="10" align="center">
         <tr>
-			<th>Transaction ID</th><th>Transaction Date</th><th>Student Id</th><th>Credit</th><th>Debit</th>
-			<th>Transaction Type</th><th>Transaction Mode</th><th>Updated Balance</th><th>Particulars</th>
+			<th>Transaction ID</th><th>Transaction Date</th><th>Student Id</th><th>Payment Mode</th><th>Fees paid</th>
+			<th>Fine paid(If any)</th><th>Balance Fee</th><th>Balance Fine(If any)</th><th>Total Dues</th><th>Particulars</th>
 		</tr>
 	{% for transaction in all_transactions %}
 		<tr>
 			<td align="center">{{transaction.transaction_id }}</td>
 			<td align="center">{{ transaction.transaction_date }}</td>
 			<td align="center">{{ transaction.sid }}</td>
-			{% if transaction.credit <= 0.0 %}
-				<td align="center"></td>
-			{% else %}
-				<td align="center">{{ transaction.credit }}</td>
-			{% endif %}
-			{% if transaction.debit <= 0.0 %}
-				<td align="center"></td>
-			{% else %}
-				<td align="center">{{ transaction.debit }}</td>
-			{% endif %}
-			<td align="center">{{ transaction.transaction_type }}</td>
-			<td align="center">{{ transaction.transaction_mode }}</td>
-			<td align="center">{{ transaction.balance }}</td>
-			<td align="center">{{ transaction.remarks }}</td>
+			<td align="center">{{ transaction.payment_mode }}</td>
+			<td align="center">{{ transaction.fees_paid }}</td>
+			<td align="center">{{ transaction.fine_paid }}</td>
+			<td align="center">{{ transaction.remaining_fees }}</td>
+			<td align="center">{{ transaction.remaining_fine }}</td>
+			<td align="center">{{ transaction.remaining_total }}</td>
+			<td align="center">{{ transaction.particulars }}</td>
 		</tr>
 	{% endfor %}
 	</table>

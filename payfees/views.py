@@ -68,6 +68,7 @@ def update_dues(request, stu_id):
     #stu_id = request.POST['student_id']
     amount = float(request.POST['amount'])
     p_mode = (request.POST['payment_mode'])
+    particulars = request.POST['particulars']
    #mess_fees = request.POST['mess_fees']
 
     if stu_id:
@@ -113,6 +114,8 @@ def update_dues(request, stu_id):
             transaction.remaining_fees = remaining_fees
             transaction.remaining_fine = remaining_fine
             transaction.remaining_total = remaining_total
+            transaction.particulars = particulars
+
             transaction.save()
 
 

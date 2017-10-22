@@ -36,12 +36,13 @@ class Transaction_Details(models.Model):
     transaction_id = models.CharField(max_length=20, default=increment_transaction_id, editable=False, primary_key=True)
     transaction_date = models.DateTimeField(auto_now=True)
     sid = models.ForeignKey(Studentinfo)
-    payment_mode = models.CharField(max_length=20, editable=False)
+    payment_mode = models.CharField(max_length=20)
     fees_paid = models.FloatField(max_length = 7)
     fine_paid = models.FloatField(max_length = 7)
     remaining_fees = models.FloatField(max_length = 7)
     remaining_fine = models.FloatField(max_length = 7)
     remaining_total = models.FloatField(max_length = 7)
+    particulars = models.CharField(max_length=150)
 
     def __str__(self):
         return self.transaction_id

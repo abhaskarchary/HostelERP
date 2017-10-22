@@ -5,20 +5,21 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
+from transactions.models import Transaction_Details
 # from payfees.models import TransactionDetails
 
 # Create your views here.
 
 
-# def accountlogs(request, stu_id):
-#     if request.session.has_key('stdntid'):
-#         stdntid = request.session['stdntid']
-#         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-#             return render(request, 'accountlogs.html',{'student_transaction': TransactionDetails.objects.filter(sid=stu_id)})
-#         else:
-#             return render(request, 'error.html')
-#     else:
-#             return render(request, 'error.html')
+def accountlogs(request, stu_id):
+    if request.session.has_key('stdntid'):
+        stdntid = request.session['stdntid']
+        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            return render(request, 'accountlogs.html',{'student_transaction': Transaction_Details.objects.filter(sid=stu_id)})
+        else:
+            return render(request, 'error.html')
+    else:
+            return render(request, 'error.html')
 
 
 def messageroom(request):
