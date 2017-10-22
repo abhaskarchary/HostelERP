@@ -139,7 +139,6 @@ body {
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   /*background: linear-gradient(to left, #76b852, #8DC26F);*/
   background: linear-gradient(to right, #f46653, #f5f9ef, #f46653);
-  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
