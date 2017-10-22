@@ -46,7 +46,9 @@ def show(request):
                 # context = {'attr': l,'attr1': l1}
                 # return render(request, 'payfees/show_individual_dues.html', context)
                 c=0
-                stu = Studentinfo.objects.filter(sid=stu_id).values()
+                stu = Studentinfo.objects.filter(sid=stu_id)
+                if not stu.exists():
+                    return HttpResponse("<h3>Student ID not found</h3>")
                 b=Studentinfo.objects.get(sid = stu_id)
                 print(b.sid + " " + str(b.room))
                 room_number = b.room
