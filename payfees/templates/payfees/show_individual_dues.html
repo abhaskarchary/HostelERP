@@ -32,15 +32,15 @@
                 alert("This student don't have any dues");
                     return false;
              }
-             else if(attr[2]>attr2[0]){
-                if(r<attr2[0]){
+             else if(attr[2]>attr[4]){
+                if(r<attr2[1]){
                     alert("Please pay more than the minimum amount");
                     return false;
                 }
              }
-             else if(attr[2]<=attr2[0]){
-                if(r>attr[3]){
-                    alert("You cannot pay more than your balance");
+             else if(attr[2]<=attr[4]){
+                if(r>attr2[1] || r<attr2[1]){
+                    alert("You have to pay the exact amount");
                     return false;
                 }
              }
@@ -60,7 +60,7 @@
                 {% if attr %}
                 <table border="0" align="center" cellspacing="10" cellpadding="10">
                     <tr>
-                        <th>Student ID</th><th>Student Name</th><th>Running Dues</th><th>Running Fine</th><th>Balance Fee</th>><th>Total Dues</th>
+                        <th>Student ID</th><th>Student Name</th><th>Running Dues</th><th>Running Fine</th><th>Balance Fee</th>><th>Total Dues</th><th>Rent per installment</th>
                     </tr>
                     <tr>
                         {% for i in attr1 %}
@@ -74,11 +74,11 @@
                 {% ifequal attr.2 0%}
                     <p>This student does not have any dues.</p>
                 {% endifequal %}
-                {% ifequal attr2.1 1%}
-                    <p>Minimum amount to be paid - {{attr2.0}}</p>
+                {% ifequal attr2.0 1%}
+                    <p>Minimum amount to be paid(Room rent + Fine) - {{attr2.1}}</p>
                 {% endifequal %}
-                {% ifnotequal attr2.1 1 %}
-                    <p>Amount to be paid - {{attr.2}}</p>
+                {% ifnotequal attr2.0 1 %}
+                    <p>Amount to be paid(Remaining balance + Fine) - {{attr2.1}}</p>
                 {% endifnotequal %}
                 <form name='due_form' action="/dues/update_dues/{{ attr1.0 }}/" method="post" onsubmit="return validate()">
                     {% csrf_token %}

@@ -4,6 +4,7 @@ import datetime
 from student.models import Studentinfo
 from Room.models import Room
 from .models import Fees
+from transactions.models import Transaction_Details
 # from . models import TransactionDetails
 # Create your views here.
 
@@ -49,12 +50,14 @@ def show(request):
                 installment = rt['fees'] / rt['parts_per_year']
                 if (b.balance > installment):
                     b1 = 1
+                    total = installment + b.running_fine
                 else:
                     b1 = 0
+                    total = b.balance + b.running_fine
             l1 = [b.sid, b.first_name + " " + b.last_name]
             # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
-            l = [b.running_dues, b.running_fine, b.balance, b.total_dues, ]
-            l2= [installment, b1]
+            l = [b.running_dues, b.running_fine, b.balance, b.total_dues, installment]
+            l2= [b1, total]
             context = {'attr': l, 'attr1': l1, 'attr2':l2}
             return render(request, 'payfees/show_individual_dues.html', context)
     else:
@@ -92,9 +95,27 @@ def update_dues(request, stu_id):
 
             # remaining_total_dues = remaining_dues + remaining_fine
             # remaining_bal = bal + remaining_amount
+            remaining_amount = amount - fine
+            remaining_fine = 0.0
+            remaining_bal = s['balance']-remaining_amount
+            remaining_total = remaining_fine + remaining_bal
+            stu1.update(balance=remaining_bal, running_fine = remaining_fine, total_dues = remaining_total)
 
-            remaining_bal = s['balance']-amount
-            stu1.update(balance=remaining_bal)
+            fine_paid = fine
+            fees_paid = remaining_amount
+            remaining_fees = remaining_bal
+
+            transaction = Transaction_Details()
+            [transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+            transaction.payment_mode = p_mode
+            transaction.fees_paid = fees_paid
+            transaction.fine_paid = fine_paid
+            transaction.remaining_fees = remaining_fees
+            transaction.remaining_fine = remaining_fine
+            transaction.remaining_total = remaining_total
+            transaction.save()
+
+
 
             # credit_transaction = TransactionDetails()
             # [credit_transaction.sid] = Studentinfo.objects.filter(sid = stu_id)
