@@ -45,7 +45,7 @@
           <!--<h1>{{attr.2}}</h1>-->
         <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
-            <input class="i4" type="text" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
+            <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
             <input  type="submit" name="submit"  value="Submit" />
         </form>
       </div>

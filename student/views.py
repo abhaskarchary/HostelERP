@@ -301,12 +301,13 @@ def send_message(request):
     if request.session.has_key('stdntid'):
         stdntid = request.session['stdntid']
         if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+            student_object = Studentinfo.objects.get(sid=stdntid)
             new_message = message()
             new_message.sender = Studentinfo.objects.get(sid=stdntid)
             new_message.type_of_message = request.POST['subject']
             new_message.body_of_message = request.POST['body']
             new_message.save()
-            return HttpResponse('Message Sent!<br><a href="/student/login">go back</a>')
+            return render(request, 'studentindex.html', {'context': student_object,'Message': 'Message Sent Successfully!!!'})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')

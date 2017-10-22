@@ -11,8 +11,8 @@
   <div class="form">
 <form action="/student/update/{{ student.sid }}/" method="post" class="login-form">
   {% csrf_token %}
-First name:<input class="i1" type="text" name="name1" id="name" required="required" value="{{student.first_name}}">
-Last name:<input class="i2" type="text" id="name2" name="name2" required="required" value="{{student.last_name}}"><br>
+<input class="i1" type="text" name="name1" id="name" required="required" value="{{student.first_name}}">
+<input class="i2" type="text" id="name2" name="name2" required="required" value="{{student.last_name}}"><br>
   {% if student.sex == 'male' %}
     <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px"><input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female</div><br>
   {% else %}
@@ -33,7 +33,7 @@ Last name:<input class="i2" type="text" id="name2" name="name2" required="requir
   Blood Group:<input class="i2" type="text" name="blood_grp" id="blood_group" required="required" value="{{ student.blood_grp }}">
 
   Room : <input class="i3" type="text" value="{{ student.room.room_number }}" readonly="readonly">
-  Change Room : <select class="i1" name="vacant_room_list">
+  <select class="i1" name="vacant_room_list">
   {% for i in rooms %}
     <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.roomType}}</option>
   {% endfor %}

@@ -123,7 +123,8 @@ def update(request):
 
     Manager_info_object.save()
 
-    return HttpResponse("<H1>Registered successfully</H1>")
+    return render(request, 'index.html', {'Message': 'Employee Registered Successfully!!!'})
+
 
 def pay_init_fees(request, stu_id):
     last_booking = Studentinfo.objects.all().order_by('sid').last()
@@ -147,7 +148,7 @@ def pay_init_fees(request, stu_id):
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
     #return render(request, 'registration/registration_complete.html')
-    return render(request, 'index.html', {'Message': 'Student Registered Successfully'})
+    return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!'})
     # return redirect('/manager/login/', {'Message': 'Student Registered Successfully'})
     #return HttpResponse("<h1>"+stu.sid+"<h1>")
     #return
@@ -200,6 +201,7 @@ def all_transactions(request):
         return render(request, 'error.html')
     return render(request, 'display_transactions.html', {'all_transactions':Transaction_Details.objects.all().order_by('-transaction_id')})
 
+
 def all_messages(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
@@ -209,6 +211,7 @@ def all_messages(request):
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
+
 
 def issue_notice(request):
     if request.session.has_key('userid'):

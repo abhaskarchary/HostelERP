@@ -96,9 +96,15 @@ class message(models.Model):
     type_of_message = models.CharField(max_length=20)
     body_of_message = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.message_id
+
 
 class Notice(models.Model):
     notice_id = models.CharField(max_length=15, default=notice_id, editable=False, primary_key=True)
     time_sent = models.DateTimeField(auto_now=True)
     type_of_notice = models.CharField(max_length=20)
     body_of_notice = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.notice_id
