@@ -11,6 +11,7 @@ import datetime
 from Room.models import Room
 from payfees.models import Fees
 from transactions.models import Transaction_Details
+from datetime import datetime, timezone
 # Create your views here.
 
 
@@ -132,6 +133,8 @@ def pay_init_fees(request, stu_id):
     stu = Studentinfo.objects.filter(sid = stu_id).values()
     stu1 = Studentinfo.objects.filter(sid = stu_id).values()
     initial_bal = float(request.POST['initial_balance'])
+    p_mode = (request.POST['payment_mode'])
+    particulars = request.POST['particulars']
     #stu['balance'] = stu['balance'] + initial_bal
     #stu.update(balance = (stu['balance'] + initial_bal))
     for s in stu:
@@ -140,10 +143,40 @@ def pay_init_fees(request, stu_id):
         room_type = Room.objects.get(room_number = room_number).roomType
         room = Fees.objects.filter(room_type = room_type).values()
         for rt in room:
+            next_installment_amount=0.0
+            fee_per_installment=rt['fees']/rt['parts_per_year']
             bal = (rt['fees'])+rt['security_money']-initial_bal
+            fee_paid=initial_bal-rt['security_money']
+            no_of_installments_cleared = int(fee_paid / fee_per_installment)
+            if(bal>0):
+                next_installment_amount_cleared=fee_paid-no_of_installments_cleared*fee_per_installment
+                next_installment_amount=fee_per_installment-next_installment_amount_cleared
+            duration_bw_succ_installments=12/rt['parts_per_year']
+            today=datetime.now()
+            month=today.month
+            next_installment_month=int(month+no_of_installments_cleared*duration_bw_succ_installments)
+            if(next_installment_month>12):
+                next_installment_month=next_installment_month-12
+                next_due_date=str((today.year)+1)+"-"+str(next_installment_month)+"-05"
+            else:
+                next_due_date = str(today.year)+ "-" + str(next_installment_month) + "-05"
+            d = datetime.strptime(next_due_date, "%Y-%m-%d").date()
         # bal = s['balance'] + initial_bal
         #s['balance'] = s['balance'] + initial_bal
-    stu1.update(balance = bal)
+    stu1.update(balance = bal, next_due_date=d, next_installment=next_installment_amount, total_dues=next_installment_amount)
+
+    transaction = Transaction_Details()
+    [transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+    transaction.transaction_date=datetime.now()
+    transaction.payment_mode = p_mode
+    transaction.fees_paid = initial_bal
+    transaction.fine_paid = 0.0
+    transaction.remaining_fees = 0.0
+    transaction.remaining_fine = 0.0
+    transaction.remaining_total = bal
+    transaction.particulars = particulars
+
+    transaction.save()
 
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
@@ -293,3 +326,28 @@ def room(request):
 
 def inventory(request):
     return render(request, 'inventory.html')
+
+def checkfines(request):
+    count=0
+    current_date=datetime.now(timezone.utc)
+    students=Studentinfo.objects.filter(next_due_date__lt=current_date, next_installment__gt=0.0)
+    #students1=Studentinfo.objects.filter(next_due_date__lte=current_date)
+    for s in students:
+        stu_id=s.sid
+        room_number = Studentinfo.objects.get(sid=stu_id).room
+        room_type = Room.objects.get(room_number=room_number).roomType
+        room = Fees.objects.filter(room_type=room_type).values()
+        #print(current_date)
+        #print(s.next_due_date)
+        diff_in_days=(current_date-s.next_due_date).days
+        diff_in_weeks=int(diff_in_days/7.0)+1
+        for rt in room:
+            total_fine=diff_in_weeks*rt['fine']
+        s.running_fine=total_fine
+        s.total_dues=s.next_installment+s.running_fine
+        #print(s.next_installment)
+        print(s.sid)
+        s.save()
+        count+=1
+    print("Number of fines deducted "+str(count))
+    return HttpResponse("<h1>"+str(count)+" Fines deducted successfully</h1>")

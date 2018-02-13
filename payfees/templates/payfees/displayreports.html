@@ -9,15 +9,15 @@
     <center><h1>STUDENT DUES</h1></center>
 	<hr></hr>
     <table border="0" cellspacing="10" cellpadding="10" align="center">
-		<tr><th>StudentID</th><th>Name</th><th>Running Dues</th><th>Running Fine</th><th>Total Dues</th><th>Wallet Balance</th>
+		<tr><th>StudentID</th><th>Name</th><th>Running Installment</th><th>Running Fine</th><th>Total</th><th>Due Date</th>
 		</tr>
 	{% for student in FeesDetails %}
 		<tr><td align="center">{{student.sid }}</td>
 			<td align="center">{{ student.first_name }} &nbsp; {{student.last_name}}</td>
-			<td align="center">{{ student.running_dues }}</td>
+			<td align="center">{{ student.next_installment }}</td>
 			<td align="center">{{ student.running_fine }}</td>
 			<td align="center">{{ student.total_dues }}</td>
-			<td align="center">{{ student.balance }}</td>
+			<td align="center">{{ student.next_due_date }}</td>
 		</tr>
 	{% endfor %}
 	</table>

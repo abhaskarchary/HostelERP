@@ -12,7 +12,7 @@ class _room:
         self.room_number = room_object.room_number
         self.capacity = room_object.capacity
         self.vacancy = room_object.vacancy
-        self.rent = room_object.rent
+        self.roomType = room_object.roomType
         tenants = Studentinfo.objects.filter(room=room_object, active=True)
         self.tenant1 = '-'
         self.tenant2 = '-'
@@ -20,7 +20,7 @@ class _room:
             self.tenant1 = tenants[0].first_name + " " + tenants[0].last_name
             if len(tenants) == 2:
                 self.tenant2 = tenants[1].first_name + " " + tenants[1].last_name
-        self.rent = room_object.rent
+        #self.rent = room_object.rent
         self.additional_charges = room_object.additional_charges
         self.need_maintenance = room_object.need_maintenance
         self.repairs = room_object.repairs

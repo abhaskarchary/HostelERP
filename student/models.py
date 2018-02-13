@@ -57,6 +57,8 @@ class Studentinfo(models.Model):
     password = models.CharField(max_length=20, default='123456')
     sessionkey = models.CharField(max_length=100, blank=True, null=True)
     active = models.BooleanField(default=True)
+    next_due_date=models.DateTimeField(auto_now=False)
+    next_installment=models.FloatField(max_length=5)
     #activated = None
 
     def __str__(self):

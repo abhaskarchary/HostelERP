@@ -34,7 +34,7 @@ def increment_transaction_id():
 
 class Transaction_Details(models.Model):
     transaction_id = models.CharField(max_length=20, default=increment_transaction_id, editable=False, primary_key=True)
-    transaction_date = models.DateTimeField(auto_now=True)
+    transaction_date = models.DateTimeField(auto_now=False)
     sid = models.ForeignKey(Studentinfo)
     payment_mode = models.CharField(max_length=20)
     fees_paid = models.FloatField(max_length = 7)

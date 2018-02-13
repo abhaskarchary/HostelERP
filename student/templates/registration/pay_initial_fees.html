@@ -46,6 +46,13 @@
         <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
           {% csrf_token %}
             <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
+            <select class="i2" name="payment_mode">
+                      <option  value="Select payment mode">Select payment mode</option>
+                      <option  value="Cheque">Cheque</option>
+                      <option  value="Cash">Cash</option>
+                      <option  value="Demand Draft">Demand Draft</option>
+            </select>
+            <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
             <input  type="submit" name="submit"  value="Submit" />
         </form>
       </div>

@@ -17,7 +17,7 @@ class Room(models.Model):
     roomType = models.ForeignKey(Fees)
     capacity = models.CharField(max_length=5, default= '2')
     vacancy = models.CharField(max_length=5, default= '2')
-    rent = models.CharField(max_length=5, default= '6000')
+    #rent = models.CharField(max_length=5, default= '6000')
     additional_charges = models.BooleanField(default= False)
     need_maintenance = models.BooleanField(default= False)
     repairs = models.CharField(max_length=8, default= '0')

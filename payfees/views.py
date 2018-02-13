@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-import datetime
+from datetime import datetime, timezone
 from student.models import Studentinfo
 from Room.models import Room
 from .models import Fees
@@ -55,19 +55,20 @@ def show(request):
                 room_type = Room.objects.get(room_number=room_number).roomType
                 room = Fees.objects.filter(room_type=room_type).values()
                 for rt in room:
-                    installment = rt['fees'] / rt['parts_per_year']
-                    if (b.balance > installment):
-                        b1 = 1
-                        total = installment + b.running_fine
-                    else:
-                        b1 = 0
-                        total = b.balance + b.running_fine
+                    rent_per_installment = rt['fees'] / rt['parts_per_year']
+                    # if (b.balance > installment):
+                    #     b1 = 1
+                    #     total = installment + b.running_fine
+                    # else:
+                    #     b1 = 0
+                    #     total = b.balance + b.running_fine
+                    minimum_pay=b.total_dues
+                    #maximum_pay=b.balance
                 l1 = [b.sid, b.first_name + " " + b.last_name]
                 # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
-                l = [b.running_dues, b.running_fine, b.balance, b.total_dues, installment]
-                l2= [b1, total]
-                context = {'attr': l, 'attr1': l1, 'attr2':l2}
-                return render(request, 'payfees/show_individual_dues.html', context)
+                l = [b.next_installment , b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
+                context = {'attr': l, 'attr1': l1}
+                return render(request, 'payfees/show_student_dues.html', context)
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
@@ -85,13 +86,13 @@ def update_dues(request, stu_id):
            #mess_fees = request.POST['mess_fees']
 
             if stu_id:
-                stu = Studentinfo.objects.filter(sid = stu_id).values()
+                stu = Studentinfo.objects.filter(sid = stu_id)
                 stu1 = Studentinfo.objects.filter(sid = stu_id).values()
                 for s in stu:
-                    total = s['total_dues']
-                    bal = s['balance']
-                    fine = s['running_fine']
-                    due = s['running_dues']
+                    total = s.total_dues
+                    bal = s.balance
+                    fine = s.running_fine
+                    #due = s.running_dues
                     # if total<amount:
                     #     remaining_dues=0.0
                     #     remaining_fine=0.0
@@ -109,27 +110,64 @@ def update_dues(request, stu_id):
 
                     # remaining_total_dues = remaining_dues + remaining_fine
                     # remaining_bal = bal + remaining_amount
-                    remaining_amount = amount - fine
-                    remaining_fine = 0.0
-                    remaining_bal = s['balance']-remaining_amount
-                    remaining_total = remaining_fine + remaining_bal
-                    stu1.update(balance=remaining_bal, running_fine = remaining_fine, total_dues = remaining_total)
+                    total_fee = amount - fine
+                    #remaining_fine = 0.0
+                    s.running_fine=0.0
+                    remaining_amount=total_fee-s.next_installment
+                    rem_bal=bal-total_fee
+                    room_number = Studentinfo.objects.get(sid=stu_id).room
+                    room_type = Room.objects.get(room_number=room_number).roomType
+                    room = Fees.objects.filter(room_type=room_type).values()
+                    for rt in room:
+                        next_installment_amount = 0.0
+                        next_installment_year=s.next_due_date.year
+                        fee_per_installment = rt['fees'] / rt['parts_per_year']
+                        next_installment_month=s.next_due_date.month+int(12/rt['parts_per_year'])
+                        if (next_installment_month > 12):
+                            next_installment_month = next_installment_month - 12
+                            next_installment_year=s.next_due_date.year+1
+                        #rem_bal = bal - remaining_amount
+                        #fee_paid = initial_bal - rt['security_money']
+                        no_of_installments_cleared = int(remaining_amount / fee_per_installment)
+                        if (rem_bal > 0):
+                            next_installment_amount_cleared = remaining_amount - no_of_installments_cleared * fee_per_installment
+                            next_installment_amount = fee_per_installment - next_installment_amount_cleared
+                        duration_bw_succ_installments = 12 / rt['parts_per_year']
+                        next_installment_month = int(next_installment_month + no_of_installments_cleared * duration_bw_succ_installments)
+                        if (next_installment_month > 12):
+                            next_installment_month = next_installment_month - 12
+                            next_installment_year=next_installment_year+1
+                        next_due_date = str(next_installment_year) + "-" + str(next_installment_month) + "-05"
+                        d = datetime.strptime(next_due_date, "%Y-%m-%d").date()
+                        # bal = s['balance'] + initial_bal
+                        # s['balance'] = s['balance'] + initial_bal
+                    s.balance=rem_bal
+                    s.next_due_date=d
+                    s.next_installment=next_installment_amount
+                    s.total_dues=s.next_installment+s.running_fine
+                    s.save()
+                #stu1.update(balance=bal, next_due_date=d, next_installment=next_installment_amount)
 
-                    fine_paid = fine
-                    fees_paid = remaining_amount
-                    remaining_fees = remaining_bal
+                # remaining_bal = bal-remaining_amount
+                # remaining_total = remaining_fine + remaining_bal
+                # stu1.update(balance=remaining_bal, running_fine = remaining_fine, total_dues = remaining_total)
 
-                    transaction = Transaction_Details()
-                    [transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
-                    transaction.payment_mode = p_mode
-                    transaction.fees_paid = fees_paid
-                    transaction.fine_paid = fine_paid
-                    transaction.remaining_fees = remaining_fees
-                    transaction.remaining_fine = remaining_fine
-                    transaction.remaining_total = remaining_total
-                    transaction.particulars = particulars
+                # fine_paid = fine
+                # fees_paid = remaining_amount
+                # remaining_fees = remaining_bal
 
-                    transaction.save()
+                transaction = Transaction_Details()
+                [transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+                transaction.transaction_date=datetime.now()
+                transaction.payment_mode = p_mode
+                transaction.fees_paid = total_fee
+                transaction.fine_paid = fine
+                transaction.remaining_fees = rem_bal
+                transaction.remaining_fine = 0.0
+                transaction.remaining_total = rem_bal
+                transaction.particulars = particulars
+
+                transaction.save()
 
 
 
@@ -156,7 +194,8 @@ def update_dues(request, stu_id):
 
 
 
-                return HttpResponse("<h3>Existing Dues deducted according to amount and balance successfully updated<h3>")
+                #return HttpResponse("<h3>Existing Dues deducted according to amount and balance successfully updated<h3>")
+                return render(request, 'index.html', {'Message': 'Fee paid successfully'})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

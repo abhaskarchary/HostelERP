@@ -5,6 +5,7 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
+import datetime
 from transactions.models import Transaction_Details
 # from payfees.models import TransactionDetails
 
@@ -115,6 +116,8 @@ def update(request,sid = None):
     student_info_object.guardian_name = gname
     student_info_object.guardian_mobile = gmobile
     student_info_object.institution_name = iname
+    student_info_object.next_due_date=datetime.datetime.now()
+    student_info_object.next_installment=0.0
     # student_info_object.hod_name = hname
     # student_info_object.hod_mobile = hmobile
     if room_number != 'None':

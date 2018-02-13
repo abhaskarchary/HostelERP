@@ -9,12 +9,12 @@
     <center><h1>ROOM STATUS</h1></center>
 	<hr></hr>
     <table border="0" cellspacing="10" cellpadding="10" align="center">
-		<tr><th>Room No.</th><th>No. of Beds</th><th>Tenant1</th><th>Tenant2</th><th>Vacancies</th><th>Rent (per head)</th><th>Additional Charges (AC)</th>
+		<tr><th>Room No.</th><th>No. of Beds</th><th>Tenant1</th><th>Tenant2</th><th>Vacancies</th><th>Room Type</th><th>Additional Charges (AC)</th>
             <th>Maintenance Needed</th><th>Repairs Made</th>
 		</tr>
 	{% for student in object_list %}
 		<tr><td align="center">{{student.room_number}}</td><td align="center">{{ student.capacity }}</td><td align="center"> {{ student.tenant1 }}</td><td align="center"> {{ student.tenant2 }}</td>
-			<td align="center">{{ student.vacancy }}</td></td><td align="center">{{ student.rent }}</td>
+			<td align="center">{{ student.vacancy }}</td></td><td align="center">{{ student.roomType }}</td>
 			<td align="center">{{ student.additional_charges }}</td><td align="center">{{student.need_maintenance}}</td>
             <td align="center">{{student.repairs}}</td>
 		</tr>

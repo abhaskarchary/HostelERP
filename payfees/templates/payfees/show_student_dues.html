@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Dues</title>
+    <script>
+        /*function validate(){
+            var attr = {{ attr|safe }}
+            var r = document.due_form.room_fees.value;
+            //var m = document.due_form.mess_fees.value;
+            if(r > attr[3]){
+                alert('Amount can not be greater than Dues');
+                return false;
+            }
+            else if(r>attr[4]){
+                alert("You don't have enough balance");
+                return false;
+            }
+
+        }*/
+        /* validate(){
+             var attr = {{ attr|safe }}
+             var attr2 = {{ attr2|safe }}
+             var r = document.due_form.amount.value;
+             var p_mode = document.due_form.payment_mode.value;
+             if(r<=0)
+             {
+                alert("Please enter a valid amount");
+                return false;
+             }
+             else if(attr[2]==0){
+                alert("This student don't have any dues");
+                    return false;
+             }
+             else if(attr[2]>attr[4]){
+                if(r<attr2[1]){
+                    alert("Please pay more than the minimum amount");
+                    return false;
+                }
+             }
+             else if(attr[2]<=attr[4]){
+                if(r>attr2[1] || r<attr2[1]){
+                    alert("You have to pay the exact amount");
+                    return false;
+                }
+             }
+             else if(p_mode==("Select payment mode")){
+                alert("Please select payment mode");
+                return false;
+             }
+        }*/
+        function validate_amount(){
+            var attr = {{ attr|safe }}
+            var attr1 = {{ attr1|safe }}
+            var r = document.due_form.amount.value;
+            var p_mode = document.due_form.payment_mode.value;
+            if(r<=0)
+            {
+               alert("Please enter a valid amount");
+               return false;
+            }
+            else if(attr[2]==0){
+               alert("This student don't have any dues");
+                   return false;
+            }
+            else if(r<attr[2]){
+                alert("Please pay more than minimum amount-"+attr[2]);
+                return false;
+            }
+            else if(r>attr[3]){
+                alert("Please pay less than the total balance fee-"+attr[3]);
+                return false;
+            }
+        }
+    </script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+</head>
+<body>
+
+        <div class="login-page">
+            <div class="form">
+                <table cellpadding="5" cellspacing="10">
+                    <tr>
+                        <th>Student ID</th><th>Student Name</th><th>Fee Installment</th><th>Running Fine</th><th>Total</th>
+                        <th>Balance Fee</th><th>Rent per installment</th><th>Due Date</th>
+                    </tr>
+                    <tr>
+                        {% for i in attr1 %}
+                        <td align="center"> {{ i }}</td>
+                        {% endfor %}
+                        {% for i in attr %}
+                                <td align="center"> {{ i }}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                {% ifequal attr.2 0%}
+                    <p>This student does not have any dues.</p>
+                {% else %}
+                    <p>Minimum amount to be paid-{{attr.2}}</p>
+                {% endifequal %}
+                <form name='due_form' action="/dues/update_dues/{{ attr1.0 }}/" method="post" onsubmit="return validate_amount()">
+                    {% csrf_token %}
+                    <input  class="i1" type="text" required="required" placeholder="Enter the amount to be paid" value="" name="amount" id="rf">
+                    <select class="i2" name="payment_mode">
+                      <option  value="Select payment mode">Select payment mode</option>
+                      <option  value="Cheque">Cheque</option>
+                      <option  value="Cash">Cash</option>
+                      <option  value="Demand Draft">Demand Draft</option>
+                    </select>
+                    <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
+                    <button type="submit" value="Submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+</body>
+</html>

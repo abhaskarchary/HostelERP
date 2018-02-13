@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^send_notice/$', views.send_notice, name='send_notice'),
     url(r'^deactivate_student/$', views.deactivate_student, name='deactivate_student'),
     url(r'^deactivate_student/(?P<sid>ETL[0-9]+)/(?P<op>[a-d])$', views.deactivate, name='deactivate'),
+    url(r'^checkfines/$', views.checkfines, name='checkfines'),
 ]
