@@ -2,6 +2,8 @@ import re
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.http import HttpResponse
+
+from smartadmin.models import AdminInfo
 from .models import EmployeeInfo
 from payfees.views import deduct_fees
 from Inventory.views import *
@@ -20,10 +22,9 @@ def manager(request):
 
 
 def login(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-            response = HttpResponse(render(request, 'index.html', {"userid": userid}))
+    if checkuser(request):
+        if checkusersession(request):
+            response = HttpResponse(render(request, 'index.html', {"userid": request.session['userid']}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -44,9 +45,13 @@ def _add_to_header(response, key, value):
 
 
 def register(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'registration1/register.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    elif checkadmin(request):
+        if checkadminsession(request):
             return render(request, 'registration1/register.html')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -84,9 +89,13 @@ def logout(request):
 
 
 def viewempdata(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'displayaccounts.html', {'Employee': EmployeeInfo.objects.all()})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    elif checkadmin(request):
+        if checkadminsession(request):
             return render(request, 'displayaccounts.html', {'Employee': EmployeeInfo.objects.all()})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -224,9 +233,13 @@ def pay_init_fees(request, stu_id):
 
 
 def all_transactions(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'display_transactions.html', {'all_transactions': Transaction_Details.objects.all()})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    elif checkadmin(request):
+        if checkadminsession(request):
             return render(request, 'display_transactions.html', {'all_transactions': Transaction_Details.objects.all()})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -236,9 +249,8 @@ def all_transactions(request):
 
 
 def all_messages(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             return render(request, 'Inbox/inbox.html', {'context': message.objects.all().order_by('-time_sent')})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -247,9 +259,8 @@ def all_messages(request):
 
 
 def issue_notice(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             return render(request, 'Inbox/notice.html')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -258,14 +269,13 @@ def issue_notice(request):
 
 
 def send_notice(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             new_notice = Notice()
             new_notice.type_of_notice = request.POST['subject']
             new_notice.body_of_notice = request.POST['body']
             new_notice.save()
-            return render(request, 'index.html', {'userid': userid,'Message': 'Notice Sent Successfully!'} )
+            return render(request, 'index.html', {'userid': request.session['userid'],'Message': 'Notice Sent Successfully!'} )
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
@@ -273,9 +283,13 @@ def send_notice(request):
 
 
 def deactivate_student(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'Inbox/deleteStudent.html', {'context': Studentinfo.objects.all(), 'rooms':Room.objects.filter(vacancy__gt=0)})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    elif checkadmin(request):
+        if checkadminsession(request):
             return render(request, 'Inbox/deleteStudent.html', {'context': Studentinfo.objects.all(), 'rooms':Room.objects.filter(vacancy__gt=0)})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
@@ -284,9 +298,27 @@ def deactivate_student(request):
 
 
 def deactivate(request, sid, op):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
+            student = Studentinfo.objects.get(sid=sid)
+            if op == 'd':
+                student.active = False
+                room = Room.objects.get(room_number=student.room.room_number)
+                room.vacancy = str(int(room.vacancy)+1)
+                room.save()
+                # student.room = None
+            else:
+                student.active = True
+                room_number = request.POST['room']
+                student.room = Room.objects.get(room_number=room_number)
+                student.room.vacancy = str(int(student.room.vacancy)-1)
+                student.room.save()
+            student.save()
+            return redirect('/manager/deactivate_student/')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    elif checkadmin(request):
+        if checkadminsession(request):
             student = Studentinfo.objects.get(sid=sid)
             if op == 'd':
                 student.active = False
@@ -351,3 +383,31 @@ def checkfines(request):
         count+=1
     print("Number of fines deducted "+str(count))
     return HttpResponse("<h1>"+str(count)+" Fines deducted successfully</h1>")
+
+
+def checkuser(request):
+    if request.session.has_key('userid'):
+        return True
+    else:
+        return False
+
+
+def checkusersession(request):
+    if request.session.session_key == EmployeeInfo.objects.get(empid=request.session['userid']).session_key:
+        return True
+    else:
+        return False
+
+
+def checkadmin(request):
+    if request.session.has_key('adminid'):
+        return True
+    else:
+        return False
+
+
+def checkadminsession(request):
+    if request.session.session_key == AdminInfo.objects.get(adminid=request.session['adminid']).session_key:
+        return True
+    else:
+        return False
