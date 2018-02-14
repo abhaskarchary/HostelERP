@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^smartadmin/', include('smartadmin.urls')),
     url(r'^student/', include('student.urls')),
     url(r'^manager/', include('manager.urls')),
     url(r'^dues/', include('payfees.urls')),

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'student',
     'payfees',
     'manager',
+    'smartadmin',
     'Room',
     'transactions',
     'django.contrib.admin',
