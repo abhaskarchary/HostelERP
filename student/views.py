@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from smartadmin.models import AdminInfo
 from .models import Studentinfo, message, Notice, ContactUsMessage
 from manager.models import EmployeeInfo
 from payfees.models import Fees
@@ -13,9 +15,8 @@ from transactions.models import Transaction_Details
 
 
 def accountlogs(request, stu_id):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             return render(request, 'accountlogs.html',{'student_transaction': Transaction_Details.objects.filter(sid=stu_id)})
         else:
             return render(request, 'error.html')
@@ -24,9 +25,8 @@ def accountlogs(request, stu_id):
 
 
 def messageroom(request):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             return render(request, 'messageroom.html')
         else:
             return render(request, 'error.html')
@@ -35,10 +35,14 @@ def messageroom(request):
 
 
 def studentinfo(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             return render(request, 'studentinfo/studentinfo.html', {'context':Studentinfo.objects.all()})
+        else:
+            return render(request, 'error.html')
+    elif checkadmin(request):
+        if checkadminsession(request):
+            return render(request, 'studentinfo/studentinfo.html', {'context': Studentinfo.objects.all()})
         else:
             return render(request, 'error.html')
     else:
@@ -46,9 +50,8 @@ def studentinfo(request):
 
 
 def form(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             return render(request, 'registration/form1.html', {'context': Room.objects.filter(vacancy__gt=0)})
         else:
             return render(request, 'error.html')
@@ -57,9 +60,8 @@ def form(request):
 
 
 def change_info(request):
-    if request.session.has_key('userid'):
-        userid = request.session['userid']
-        if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
+    if checkuser(request):
+        if checkusersession(request):
             sid = request.POST['student_id']
             [context] = Studentinfo.objects.filter(sid=sid)
             return render(request, 'registration/change_details.html', {'student': context, 'rooms': Room.objects.filter(vacancy__gt=0)})
@@ -239,10 +241,9 @@ def change_std_info(request):
 
 
 def login(request):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-            context = Studentinfo.objects.get(sid=stdntid)
+    if checkstdnt(request):
+        if checkstdntsession(request):
+            context = Studentinfo.objects.get(sid=request.session['stdntid'])
             response = HttpResponse(render(request, 'studentindex.html', {'context': context}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
@@ -273,9 +274,8 @@ def logout(request):
 
 
 def change_password(request, sid):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             pass1 = request.POST['pass1']
             pass2 = request.POST['pass2']
             student_object = Studentinfo.objects.get(sid=sid)
@@ -291,9 +291,8 @@ def change_password(request, sid):
 
 
 def change_pass(request, sid):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             return render(request, 'student_zone/changepass.html', {'context': sid})
         else:
             return render(request, 'error.html')
@@ -301,12 +300,11 @@ def change_pass(request, sid):
 
 
 def send_message(request):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-            student_object = Studentinfo.objects.get(sid=stdntid)
+    if checkstdnt(request):
+        if checkstdntsession(request):
+            student_object = Studentinfo.objects.get(sid=request.session['stdntid'])
             new_message = message()
-            new_message.sender = Studentinfo.objects.get(sid=stdntid)
+            new_message.sender = Studentinfo.objects.get(sid=request.session['stdntid'])
             new_message.type_of_message = request.POST['subject']
             new_message.body_of_message = request.POST['body']
             new_message.save()
@@ -317,9 +315,8 @@ def send_message(request):
 
 
 def noticebox(request):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             context = Notice.objects.all().order_by('-time_sent')
             return render(request, 'student_zone/all_notice.html', {'context': context})
         else:
@@ -328,9 +325,8 @@ def noticebox(request):
 
 
 def notice(request, nid):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
+    if checkstdnt(request):
+        if checkstdntsession(request):
             context = Notice.objects.get(notice_id=nid)
             return render(request, 'student_zone/notice.html', {'context': context})
         else:
@@ -339,10 +335,9 @@ def notice(request, nid):
 
 
 def profile(request):
-    if request.session.has_key('stdntid'):
-        stdntid = request.session['stdntid']
-        if request.session.session_key == Studentinfo.objects.get(sid=stdntid).sessionkey:
-            context = Studentinfo.objects.get(sid=stdntid)
+    if checkstdnt(request):
+        if checkstdntsession(request):
+            context = Studentinfo.objects.get(sid=request.session['stdntid'])
             return render(request, 'student_zone/loggedin.html', {'context': context})
         else:
             return render(request, 'error.html')
@@ -356,3 +351,45 @@ def send_contact_message(request):
     new_message.body_of_message = request.POST['contact_message']
     new_message.save()
     return render(request, 'home/home1.html', {'Message': 'Message Sent Successfully!!'})
+
+
+def checkstdnt(request):
+    if request.session.has_key('stdntid'):
+        return True
+    else:
+        return False
+
+
+def checkstdntsession(request):
+    if request.session.session_key == Studentinfo.objects.get(sid=request.session['stdntid']).sessionkey:
+        return True
+    else:
+        return
+
+
+def checkuser(request):
+    if request.session.has_key('userid'):
+        return True
+    else:
+        return False
+
+
+def checkusersession(request):
+    if request.session.session_key == EmployeeInfo.objects.get(empid=request.session['userid']).session_key:
+        return True
+    else:
+        return False
+
+
+def checkadmin(request):
+    if request.session.has_key('adminid'):
+        return True
+    else:
+        return False
+
+
+def checkadminsession(request):
+    if request.session.session_key == AdminInfo.objects.get(adminid=request.session['adminid']).session_key:
+        return True
+    else:
+        return False

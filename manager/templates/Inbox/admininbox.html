@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Inbox | S.M.A.R.T. ERP</title>
+</head>
+<body>
+<h1><center>Inbox</center></h1>
+<hr>
+<table cellpadding="10" width="100%" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Time</th>
+        <th>Body</th>
+    </tr>
+    {% for i in context %}
+    <tr>
+        <td>{{ i.msg_id }}</td>
+        <td>{{ i.sender_name }}</td>
+        <td>{{ i.sender_email }}</td>
+        <td>{{ i.time_sent }}</td>
+        <td>{{ i.body_of_message }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+</body>
+</html>

@@ -4,6 +4,7 @@ from smartadmin.models import AdminInfo
 import re
 
 # Create your views here.
+from student.models import ContactUsMessage
 
 
 def admin(request):
@@ -11,10 +12,10 @@ def admin(request):
 
 
 def login(request):
-    if request.session.has_key('adminid'):
-        userid = request.session['adminid']
-        if request.session.session_key == AdminInfo.objects.get(adminid=userid).session_key:
-            response = HttpResponse(render(request, 'adminindex.html', {"userid": userid}))
+    if checkadmin(request):
+        adminid = request.session['adminid']
+        if checkadminsession(request):
+            response = HttpResponse(render(request, 'adminindex.html', {"userid": adminid}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -35,7 +36,17 @@ def _add_to_header(response, key, value):
 
 
 def register(request):
-    return render(request, 'register.html')
+    if checkadmin(request):
+        adminid = request.session['adminid']
+        if checkadminsession(request):
+            response = HttpResponse(render(request, 'register.html'))
+            _add_to_header(response, 'Cache-Control', 'no-store')
+            _add_to_header(response, 'Cache-Control', 'no-cache')
+            _add_to_header(response, 'Pragma', 'no-store')
+            return response
+        else:
+            return render(request, 'error.html')
+    return render(request, 'error.html')
 
 
 def logout(request):
@@ -74,3 +85,35 @@ def update(request):
     Admin_info_object.save()
 
     return render(request, 'adminindex.html', {'Message': 'Admin Registered Successfully!!!'})
+
+
+def messages(request):
+    if checkadmin(request):
+        if checkadminsession(request):
+            return render(request, 'Inbox/admininbox.html', {'context': ContactUsMessage.objects.all().order_by('-time_sent')})
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def userpanel(request):
+    return render(request, 'adminpanel.html')
+
+
+def account(request):
+    return render(request, 'account1.html')
+
+
+def checkadmin(request):
+    if request.session.has_key('adminid'):
+        return True
+    else:
+        return False
+
+
+def checkadminsession(request):
+    if request.session.session_key == AdminInfo.objects.get(adminid=request.session['adminid']).session_key:
+        return True
+    else:
+        return False
