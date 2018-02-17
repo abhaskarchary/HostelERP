@@ -27,6 +27,7 @@ urlpatterns = [
     #url(r'^change_info_student/(?P<sid>ETL[0-9]+)/$', views.change_info, name = 'change_info'),
     url(r'^change_student_info/$', views.change_info, name = 'change_info'),
     url(r'^accountlogs/(?P<stu_id>ETL[0-9]+)/$', views.accountlogs, name = 'account_logs'),
+    url(r'^view_balance_fee/(?P<stu_id>ETL[0-9]+)/$', views.view_balance_fee, name = 'view_balance_fee'),
     url(r'^messageroom/$', views.messageroom, name = 'messageroom'),
     #url(r'^startsession/$', views.startsession, name='startsession'), Not needed
     url(r'^login/$', views.login, name='login'),

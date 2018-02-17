@@ -33,6 +33,10 @@ $(document).ready(
 					{
 						$(".b2").load('/student/accountlogs/{{context.sid}}/');
 					});
+			$(".x6").click(function()
+					{
+						$(".b2").load('/student/view_balance_fee/{{context.sid}}/');
+					});
 			var y= '{{Message}}';
 			if(y!="")
 			    window.setTimeout(function() {
@@ -68,6 +72,10 @@ $(document).ready(
                 <li>
 					<img class="img1" src="{% static 'img/fees.jpg' %}">
 					<a class="x5" href="#5" style="vertical-align: middle;">View Transactions</a>
+				</li>
+				<li>
+					<img class="img1" src="{% static 'img/fees.jpg' %}">
+					<a class="x6" href="#6" style="vertical-align: middle;">Balance Fee Details</a>
 				</li>
 
 			</ul>

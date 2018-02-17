@@ -24,6 +24,38 @@ def accountlogs(request, stu_id):
             return render(request, 'error.html')
 
 
+def view_balance_fee(request, stu_id):
+    if checkstdnt(request):
+        if checkstdntsession(request):
+            stu = Studentinfo.objects.filter(sid=stu_id)
+            if not stu.exists():
+                return HttpResponse("<h3>Student ID not found</h3>")
+            b = Studentinfo.objects.get(sid=stu_id)
+            print(b.sid + " " + str(b.room))
+            room_number = b.room
+            room_type = Room.objects.get(room_number=room_number).roomType
+            room = Fees.objects.filter(room_type=room_type).values()
+            for rt in room:
+                rent_per_installment = rt['fees'] / rt['parts_per_year']
+                # if (b.balance > installment):
+                #     b1 = 1
+                #     total = installment + b.running_fine
+                # else:
+                #     b1 = 0
+                #     total = b.balance + b.running_fine
+                minimum_pay = b.total_dues
+                # maximum_pay=b.balance
+            l1 = [b.sid, b.first_name + " " + b.last_name]
+            # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
+            l = [b.next_installment, b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
+            context = {'attr': l, 'attr1': l1}
+            return render(request, 'show_student_dues.html', context)
+        else:
+            return render(request, 'error.html')
+    else:
+            return render(request, 'error.html')
+
+
 def messageroom(request):
     if checkstdnt(request):
         if checkstdntsession(request):
