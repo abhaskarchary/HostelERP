@@ -14,6 +14,8 @@ from Room.models import Room
 from payfees.models import Fees
 from transactions.models import Transaction_Details
 from datetime import datetime, timezone
+from .utils import render_to_pdf
+from django.template.loader import get_template
 # Create your views here.
 
 
@@ -184,13 +186,32 @@ def pay_init_fees(request, stu_id):
     transaction.remaining_fine = 0.0
     transaction.remaining_total = bal
     transaction.particulars = particulars
-
+    transID=transaction.transaction_id
+    print("Latest transaction id= "+transID)
     transaction.save()
 
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
     #return render(request, 'registration/registration_complete.html')
-    return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!'})
+    template=get_template('receipt.html')
+    context={
+        "sid":stu_id,
+        "trans_id":transID,
+        "trans_date":transaction.transaction_date,
+        "pmode" : p_mode,
+        "fees_paid": transaction.fees_paid,
+        "fine":transaction.fine_paid,
+        "balance":transaction.remaining_total,
+        "total":transaction.remaining_total,
+        "particulars":particulars,
+        "next_due_date": d
+    }
+    html=template.render(context)
+    pdf=render_to_pdf('receipt.html', context)
+    return HttpResponse(pdf, content_type="application/pdf")
+    #return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!'})
+
+
     # return redirect('/manager/login/', {'Message': 'Student Registered Successfully'})
     #return HttpResponse("<h1>"+stu.sid+"<h1>")
     #return
