@@ -2,56 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ERP | Dues</title>
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
     <script>
-        /*function validate(){
-            var attr = {{ attr|safe }}
-            var r = document.due_form.room_fees.value;
-            //var m = document.due_form.mess_fees.value;
-            if(r > attr[3]){
-                alert('Amount can not be greater than Dues');
-                return false;
+        function hello(){
+            alert("Hello");
+            return false;
+        }
+        function check_amount(){
+            //alert("Hello guys ");
+            var attr={{ attr | safe }}
+            var attr1={{ attr | safe }}
+            var max=0.0
+            if(attr[2]<attr[3]){
+                max=attr[3];
             }
-            else if(r>attr[4]){
-                alert("You don't have enough balance");
-                return false;
+            else{
+                max=attr[2];
             }
-
-        }*/
-        /* validate(){
-             var attr = {{ attr|safe }}
-             var attr2 = {{ attr2|safe }}
-             var r = document.due_form.amount.value;
-             var p_mode = document.due_form.payment_mode.value;
-             if(r<=0)
-             {
-                alert("Please enter a valid amount");
-                return false;
-             }
-             else if(attr[2]==0){
-                alert("This student don't have any dues");
-                    return false;
-             }
-             else if(attr[2]>attr[4]){
-                if(r<attr2[1]){
-                    alert("Please pay more than the minimum amount");
-                    return false;
-                }
-             }
-             else if(attr[2]<=attr[4]){
-                if(r>attr2[1] || r<attr2[1]){
-                    alert("You have to pay the exact amount");
-                    return false;
-                }
-             }
-             else if(p_mode==("Select payment mode")){
-                alert("Please select payment mode");
-                return false;
-             }
-        }*/
-        function validate_amount(){
-            var attr = {{ attr|safe }}
-            var attr1 = {{ attr1|safe }}
             var r = document.due_form.amount.value;
             var p_mode = document.due_form.payment_mode.value;
             if(r<=0)
@@ -67,17 +36,15 @@
                 alert("Please pay more than minimum amount-"+attr[2]);
                 return false;
             }
-            else if(r>attr[3]){
-                alert("Please pay less than the total balance fee-"+attr[3]);
+            else if(r>max){
+                alert("Please pay less than the total balance fee or total dues-"+max);
                 return false;
             }
         }
     </script>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
 </head>
 <body>
-
+<body>
         <div class="login-page">
             <div class="form">
                 <table cellpadding="5" cellspacing="10">
@@ -92,6 +59,9 @@
                         {% for i in attr %}
                                 <td align="center"> {{ i }}</td>
                         {% endfor %}
+                        {% for i in next %}
+                                <td align="center"> {{ i }}</td>
+                        {% endfor %}
                     </tr>
                 </table>
                 {% ifequal attr.2 0%}
@@ -99,7 +69,7 @@
                 {% else %}
                     <p>Minimum amount to be paid-{{attr.2}}</p>
                 {% endifequal %}
-                <form name='due_form' action="/dues/update_dues/{{ attr1.0 }}/" method="post" onsubmit="return validate_amount()">
+               <form name="due_form" onsubmit="return check_amount()" action="/dues/update_dues/{{ attr1.0 }}/" method="post">
                     {% csrf_token %}
                     <input  class="i1" type="text" required="required" placeholder="Enter the amount to be paid" value="" name="amount" id="rf">
                     <select class="i2" name="payment_mode">
@@ -113,6 +83,6 @@
                 </form>
             </div>
         </div>
-
+</body>
 </body>
 </html>

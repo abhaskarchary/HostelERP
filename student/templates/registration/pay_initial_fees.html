@@ -1,61 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>ERP | Registration</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
-    <script>
-        function check_initial_fees(){
-            var attr = {{ attr | safe }}
-            var initial_fees = document.payfees_form.initial_balance.value;
-            <!--alert(attr[0]+" "+attr[1]+" "+attr[2]);-->
-            <!--return false;-->
-            if(initial_fees < attr[2]){
-                alert('Initial fee cannot be less than the required minimum amount');
-                return false;
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>ERP | Registration</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+        <script>
+            function check_initial_fees(){
+                var attr = {{ attr | safe }}
+                var initial_fees = document.payfees_form.initial_balance.value;
+                <!--alert(attr[0]+" "+attr[1]+" "+attr[2]);-->
+                <!--return false;-->
+                if(initial_fees < attr[2]){
+                    alert('Initial fee cannot be less than the required minimum amount');
+                    return false;
+                }
             }
-        }
-        window.history.forward();
-	    function noBack()
-	    {
-	        window.history.forward();
-        }
-    </script>
-</head>
-<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-    <div class="login-page">
-      <div class="form">
-          <!--{% for i in context %}-->
-          <!--<h1>{{i}}</h1>-->
-          <!--<h1>{{i.fees}}</h1>-->
-          <!--<h2>{{i.security_money}}</h2>-->
-          <!--<h3>{{i.fine}}</h3>-->
-          <!--{% endfor %}-->
-          <p>Generated Student ID - {{attr1.0}}</p>
-          <p>Room Selected - {{attr1.1}}</p>
-          <p>Room Type - {{attr1.2}}</p>
-          <br/>
-          <p>Yearly Fees - {{attr.0}}</p>
-          <p>Security Money - {{attr.1}}</p>
-          <br/>
-          <p>Minimum amount to be paid as first installment  - {{attr.2}}</p>
-          <!--<h1>{{attr.0}}</h1>-->
-          <!--<h1>{{attr.1}}</h1>-->
-          <!--<h1>{{attr.2}}</h1>-->
-        <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
-          {% csrf_token %}
-            <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
-            <select class="i2" name="payment_mode">
-                      <option  value="Select payment mode">Select payment mode</option>
-                      <option  value="Cheque">Cheque</option>
-                      <option  value="Cash">Cash</option>
-                      <option  value="Demand Draft">Demand Draft</option>
-            </select>
-            <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
-            <input  type="submit" name="submit"  value="Submit" />
-        </form>
-      </div>
-    </div>
-</body>
+            window.history.forward();
+            function noBack()
+            {
+                window.history.forward();
+            }
+        </script>
+    </head>
+    <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+        <div class="login-page">
+          <div class="form">
+              <!--{% for i in context %}-->
+              <!--<h1>{{i}}</h1>-->
+              <!--<h1>{{i.fees}}</h1>-->
+              <!--<h2>{{i.security_money}}</h2>-->
+              <!--<h3>{{i.fine}}</h3>-->
+              <!--{% endfor %}-->
+              <p>Generated Student ID - {{attr1.0}}</p>
+              <p>Room Selected - {{attr1.1}}</p>
+              <p>Room Type - {{attr1.2}}</p>
+              <br/>
+              <p>Yearly Fees - {{attr.0}}</p>
+              <p>Security Money - {{attr.1}}</p>
+              <br/>
+              <p>Minimum amount to be paid as first installment  - {{attr.2}}</p>
+              <!--<h1>{{attr.0}}</h1>-->
+              <!--<h1>{{attr.1}}</h1>-->
+              <!--<h1>{{attr.2}}</h1>-->
+            <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
+              {% csrf_token %}
+                <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
+                <select class="i2" name="payment_mode">
+                          <option  value="Select payment mode">Select payment mode</option>
+                          <option  value="Cheque">Cheque</option>
+                          <option  value="Cash">Cash</option>
+                          <option  value="Demand Draft">Demand Draft</option>
+                </select>
+                <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
+                <button  type="submit" name="submit"  value="Submit">Submit</button>
+            </form>
+          </div>
+        </div>
+    </body>
 </html>

@@ -5,14 +5,38 @@
     <title>ERP | Dues</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+    function validate_amount(){
+            var attr = {{ attr|safe }}
+            var attr1 = {{ attr1|safe }}
+            var r = document.due_form.amount.value;
+            var p_mode = document.due_form.payment_mode.value;
+            if(r<=0)
+            {
+               alert("Please enter a valid amount");
+               return false;
+            }
+            else if(attr[2]==0){
+               alert("This student don't have any dues");
+                   return false;
+            }
+            else if(r<attr[2]){
+                alert("Please pay more than minimum amount-"+attr[2]);
+                return false;
+            }
+            else if(r>attr[3]){
+                alert("Please pay less than the total balance fee-"+attr[3]);
+                return false;
+            }
+        }
 </head>
 <body>
+
         <div class="login-page">
             <div class="form">
                 <table cellpadding="5" cellspacing="10">
                     <tr>
                         <th>Student ID</th><th>Student Name</th><th>Current Installment</th><th>Running Fine</th><th>Total</th>
-                        <th>Balance Fee</th><th>Rent per installment</th><th>Due Date</th>
+                        <th>Balance Fee</th><th>Rent per installment</th><th>Due Date</th><th>hello</th>
                     </tr>
                     <tr>
                         {% for i in attr1 %}

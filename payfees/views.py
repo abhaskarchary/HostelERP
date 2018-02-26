@@ -8,6 +8,7 @@ from transactions.models import Transaction_Details
 from manager.models import EmployeeInfo
 from .utils import render_to_pdf
 from django.template.loader import get_template
+import json
 # Create your views here.
 
 
@@ -67,9 +68,11 @@ def show(request):
                     minimum_pay=b.total_dues
                     #maximum_pay=b.balance
                 l1 = [b.sid, b.first_name + " " + b.last_name]
+
                 # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
-                l = [b.next_installment , b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
-                context = {'attr': l, 'attr1': l1}
+                l = [b.next_installment , b.running_fine, minimum_pay, b.balance, rent_per_installment]
+                next=[b.next_due_date]
+                context = {'attr': l, 'attr1': l1, 'next': next}
                 return render(request, 'payfees/show_student_dues.html', context)
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
