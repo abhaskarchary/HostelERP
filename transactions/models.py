@@ -7,13 +7,13 @@ import datetime
 def increment_transaction_id():
     last_booking = Transaction_Details.objects.all().order_by('transaction_id').last()
     if not last_booking:
-        return 'Trans#' + str(datetime.date.today().year) + '0000'
-    if str(datetime.date.today().year) != last_booking.transaction_id[6:10]:
-        return 'Trans#' + str(datetime.date.today().year) + '0000'
+        return 'Trans' + str(datetime.date.today().year) + '0000'
+    if str(datetime.date.today().year) != last_booking.transaction_id[5:9]:
+        return 'Trans' + str(datetime.date.today().year) + '0000'
     booking_id = last_booking.transaction_id
-    booking_int = int(booking_id[10:14])
+    booking_int = int(booking_id[9:13])
     new_booking_int = booking_int + 1
-    new_booking_id = 'Trans#' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
+    new_booking_id = 'Trans' + str(str(datetime.date.today().year)) + str(new_booking_int).zfill(4)
     return new_booking_id
 #
 #

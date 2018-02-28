@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime, timezone
 from student.models import Studentinfo
 from Room.models import Room
@@ -9,6 +9,7 @@ from manager.models import EmployeeInfo
 from .utils import render_to_pdf
 from django.template.loader import get_template
 import json
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -198,25 +199,24 @@ def update_dues(request, stu_id):
 
 
 
-                template = get_template('receipt.html')
-                context = {
-                    "sid": stu_id,
-                    "trans_id": transaction.transaction_id,
-                    "trans_date": transaction.transaction_date,
-                    "pmode": p_mode,
-                    "fees_paid": transaction.fees_paid,
-                    "fine": transaction.fine_paid,
-                    "balance": transaction.remaining_total,
-                    "total": transaction.remaining_total,
-                    "particulars": particulars,
-                    "next_due_date": d
-                }
-                html = template.render(context)
-                pdf = render_to_pdf('receipt.html', context)
-                return HttpResponse(pdf, content_type="application/pdf")
-                #return HttpResponse("<h3>Existing Dues deducted according to amount and balance successfully updated<h3>")
-
-                #return render(request, 'index.html', {'Message': 'Fee paid successfully'})
+                # template = get_template('receipt.html')
+                # context = {
+                #     "sid": stu_id,
+                #     "trans_id": transaction.transaction_id,
+                #     "trans_date": transaction.transaction_date,
+                #     "pmode": p_mode,
+                #     "fees_paid": transaction.fees_paid,
+                #     "fine": transaction.fine_paid,
+                #     "balance": transaction.remaining_total,
+                #     "total": transaction.remaining_total,
+                #     "particulars": particulars,
+                #     "next_due_date": d
+                # }
+                # html = template.render(context)
+                # pdf = render_to_pdf('receipt.html', context)
+                # return HttpResponse(pdf, content_type="application/pdf")
+                #return HttpResponse("<h3>Existing Dues deducted according to amount and balance successfully updated<h3>"
+                return render(request, 'index.html', {'Message': 'Fee paid successfully', 'trans_id':transaction.transaction_id })
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

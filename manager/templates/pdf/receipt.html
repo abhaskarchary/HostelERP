@@ -5,15 +5,19 @@
     <title>{{trans_id}}</title>
 </head>
 <body>
-    <center><h1>S.M.A.R.T Fee Receipt</h1></center>
+	<div style="height=20%">
+		<center><h1>S.M.A.R.T E.R.P Fee Receipt</h1></center>
+		<h3 align="right">Print Date-{{ print_date }}</h3>
+	</div>
+
 	<hr></hr>
+	<h1>Student Id - {{sid}}</h1>
     <table border="0" cellspacing="10" cellpadding="10" align="center">
         <tr>
-			<th>Student Id</th><th>Transaction ID</th><th>Transaction Date</th><th>Payment Mode</th><th>Fees paid</th>
+			<th>Transaction ID</th><th>Transaction Date</th><th>Payment Mode</th><th>Fees paid</th>
 			<th>Fine paid(If any)</th><th>Balance Fee</th><th>Total Dues</th><th>Particulars</th><th>Next Due Date</th>
 		</tr>
 		<tr>
-			<td align="center">{{ sid }}</td>
 			<td align="center">{{ trans_id }}</td>
 			<td align="center">{{ trans_date }}</td>
 			<td align="center">{{ pmode }}</td>
@@ -23,7 +27,9 @@
 			<td align="center">{{ total }}</td>
 			<td align="center">{{ particulars }}</td>
 			<td align="center">{{ next_due_date }}</td>
+			<!--<td align="center">{{ print_date }}</td>-->
 		</tr>
 	</table>
+
 </body>
 </html>

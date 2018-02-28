@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Manager | Display Accounts</title>
+	<script>
+		function generate_receipt(val){
+			//alert("hello "+val);
+			var url = "/manager/generatereceipt/"+val;
+			window.open(url, '_blank');
+		}
+	</script>
 </head>
 <body>
     <center><h1>Transaction Details</h1></center>
@@ -23,6 +30,7 @@
 			<td align="center">{{ transaction.remaining_total }}</td>
 			<td align="center">{{ transaction.remaining_total }}</td>
 			<td align="center">{{ transaction.particulars }}</td>
+			<td align="center"><button value={{transaction.transaction_id }} onclick="return generate_receipt(this.value)">Print</button></td>
 		</tr>
 	{% endfor %}
 	</table>

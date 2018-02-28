@@ -20,6 +20,7 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
 $(document).ready(
 		function()
 		{
+			//window.open("www.google.com",'_blank');
 			$(".b2").load('/manager/userpanel/');
 			$(".x1").click(function()
 					{
@@ -42,12 +43,20 @@ $(document).ready(
 						$(".b2").load('/manager/inventory/');
 					});
 			var y= '{{Message}}';
-			if(y!="")
+			var t='{{trans_id}}';
+			if(y!=""){
+				//alert(y);
+				if(t!=""){
+					//alert(t);
+					var url = "/manager/generatereceipt/"+t;
+					window.open(url, '_blank');
+				}
 			    window.setTimeout(function() {
   					$("#Msg").fadeTo(500, 0).slideUp(500, function(){
     				$(this).remove();
   				});
 				}, 5000);
+			}
 		}
 		);
 </script>

@@ -193,23 +193,23 @@ def pay_init_fees(request, stu_id):
     #return HttpResponse("<h1>" +"Fee paid successfully"+ "<h1>")
 
     #return render(request, 'registration/registration_complete.html')
-    template=get_template('receipt.html')
-    context={
-        "sid":stu_id,
-        "trans_id":transID,
-        "trans_date":transaction.transaction_date,
-        "pmode" : p_mode,
-        "fees_paid": transaction.fees_paid,
-        "fine":transaction.fine_paid,
-        "balance":transaction.remaining_total,
-        "total":transaction.remaining_total,
-        "particulars":particulars,
-        "next_due_date": d
-    }
-    html=template.render(context)
-    pdf=render_to_pdf('receipt.html', context)
-    return HttpResponse(pdf, content_type="application/pdf")
-    #return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!'})
+    # template=get_template('receipt.html')
+    # context={
+    #     "sid":stu_id,
+    #     "trans_id":transID,
+    #     "trans_date":transaction.transaction_date,
+    #     "pmode" : p_mode,
+    #     "fees_paid": transaction.fees_paid,
+    #     "fine":transaction.fine_paid,
+    #     "balance":transaction.remaining_total,
+    #     "total":transaction.remaining_total,
+    #     "particulars":particulars,
+    #     "next_due_date": d
+    # }
+    # html=template.render(context)
+    # pdf=render_to_pdf('receipt.html', context)
+    # return HttpResponse(pdf, content_type="application/pdf")
+    return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': transID})
 
 
     # return redirect('/manager/login/', {'Message': 'Student Registered Successfully'})
@@ -381,29 +381,35 @@ def inventory(request):
     return render(request, 'inventory.html')
 
 def checkfines(request):
-    count=0
-    current_date=datetime.now(timezone.utc)
-    students=Studentinfo.objects.filter(next_due_date__lt=current_date, next_installment__gt=0.0)
-    #students1=Studentinfo.objects.filter(next_due_date__lte=current_date)
-    for s in students:
-        stu_id=s.sid
-        room_number = Studentinfo.objects.get(sid=stu_id).room
-        room_type = Room.objects.get(room_number=room_number).roomType
-        room = Fees.objects.filter(room_type=room_type).values()
-        #print(current_date)
-        #print(s.next_due_date)
-        diff_in_days=(current_date-s.next_due_date).days
-        diff_in_weeks=int(diff_in_days/7.0)+1
-        for rt in room:
-            total_fine=diff_in_weeks*rt['fine']
-        s.running_fine=total_fine
-        s.total_dues=s.next_installment+s.running_fine
-        #print(s.next_installment)
-        print(s.sid)
-        s.save()
-        count+=1
-    print("Number of fines deducted "+str(count))
-    return HttpResponse("<h1>"+str(count)+" Fines deducted successfully</h1>")
+    if checkuser(request):
+        if checkusersession(request):
+            count=0
+            current_date=datetime.now(timezone.utc)
+            students=Studentinfo.objects.filter(next_due_date__lt=current_date, next_installment__gt=0.0)
+            #students1=Studentinfo.objects.filter(next_due_date__lte=current_date)
+            for s in students:
+                stu_id=s.sid
+                room_number = Studentinfo.objects.get(sid=stu_id).room
+                room_type = Room.objects.get(room_number=room_number).roomType
+                room = Fees.objects.filter(room_type=room_type).values()
+                #print(current_date)
+                #print(s.next_due_date)
+                diff_in_days=(current_date-s.next_due_date).days
+                diff_in_weeks=int(diff_in_days/7.0)+1
+                for rt in room:
+                    total_fine=diff_in_weeks*rt['fine']
+                s.running_fine=total_fine
+                s.total_dues=s.next_installment+s.running_fine
+                #print(s.next_installment)
+                print(s.sid)
+                s.save()
+                count+=1
+            print("Number of fines deducted "+str(count))
+            return HttpResponse("<h1>"+str(count)+" Fines deducted successfully</h1>")
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
 
 
 def checkuser(request):
@@ -432,3 +438,34 @@ def checkadminsession(request):
         return True
     else:
         return False
+
+
+def generate_receipt(request, trans_id):
+    if checkuser(request):
+        if checkusersession(request):
+            transaction=Transaction_Details.objects.filter(transaction_id=trans_id)
+            template = get_template('pdf/receipt.html')
+            for t in transaction:
+                stu=Studentinfo.objects.filter(sid=t.sid)
+                for s in stu:
+                    context = {
+                        "sid": t.sid,
+                        "trans_id": t.transaction_id,
+                        "trans_date": t.transaction_date,
+                        "pmode": t.payment_mode,
+                        "fees_paid": t.fees_paid,
+                        "fine": t.fine_paid,
+                        "balance": t.remaining_total,
+                        "total": t.remaining_total,
+                        "particulars": t.particulars,
+                        "next_due_date": s.next_due_date,
+                        "print_date" : datetime.now()
+                    }
+                #print(context['print_date'])
+            #html = template.render(context)
+            pdf = render_to_pdf('pdf/receipt.html', context)
+            return HttpResponse(pdf, content_type="application/pdf")
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
