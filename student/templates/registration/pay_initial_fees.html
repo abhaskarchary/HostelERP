@@ -9,8 +9,25 @@
             function check_initial_fees(){
                 var attr = {{ attr | safe }}
                 var initial_fees = document.payfees_form.initial_balance.value;
+                var p_mode = document.payfees_form.payment_mode.value;
+                var cheque_no=document.payfees_form.cheque_no.value;
+                if(p_mode=="Select payment mode"){
+                    alert("Please select a payment mode");
+                    return false;
+                }
+                if(p_mode=="Cheque" || p_mode=="Demand Draft"){
+                    if(cheque_no==''){
+                        alert("Enter Cheque or Demand Draft Number");
+                        return false;
+                    }
+                }
                 <!--alert(attr[0]+" "+attr[1]+" "+attr[2]);-->
                 <!--return false;-->
+                if(initial_fees<=0)
+                {
+                   alert("Please enter a valid amount");
+                   return false;
+                }
                 if(initial_fees < attr[2]){
                     alert('Initial fee cannot be less than the required minimum amount');
                     return false;
@@ -52,7 +69,8 @@
                           <option  value="Cash">Cash</option>
                           <option  value="Demand Draft">Demand Draft</option>
                 </select>
-                <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
+                <input class="i1" type="text" placeholder="Enter Cheque or DD Number" name="cheque_no">
+                <input  class="i2" type="text" required="required" placeholder="Particulars" name="particulars">
                 <button  type="submit" name="submit"  value="Submit">Submit</button>
             </form>
           </div>

@@ -89,6 +89,7 @@ def update_dues(request, stu_id):
             amount = float(request.POST['amount'])
             p_mode = (request.POST['payment_mode'])
             particulars = request.POST['particulars']
+            cheque_no=request.POST['cheque_no']
            #mess_fees = request.POST['mess_fees']
 
             if stu_id:
@@ -172,7 +173,8 @@ def update_dues(request, stu_id):
                 transaction.remaining_fine = 0.0
                 transaction.remaining_total = rem_bal
                 transaction.particulars = particulars
-
+                transaction.cheque_dd_no = cheque_no
+        
                 transaction.save()
 
 

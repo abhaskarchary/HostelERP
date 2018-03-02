@@ -15,6 +15,18 @@
             var attr={{ attr | safe }}
             var attr1={{ attr | safe }}
             var max=0.0
+            var p_mode = document.due_form.payment_mode.value;
+            var cheque_no=document.due_form.cheque_no.value;
+            if(p_mode=="Select payment mode"){
+                alert("Please select a payment mode");
+                return false;
+            }
+            if(p_mode=="Cheque" || p_mode=="Demand Draft"){
+                if(cheque_no==''){
+                    alert("Enter Cheque or Demand Draft Number");
+                    return false;
+                }
+            }
             if(attr[2]<attr[3]){
                 max=attr[3];
             }
@@ -22,7 +34,6 @@
                 max=attr[2];
             }
             var r = document.due_form.amount.value;
-            var p_mode = document.due_form.payment_mode.value;
             if(r<=0)
             {
                alert("Please enter a valid amount");
@@ -78,7 +89,8 @@
                       <option  value="Cash">Cash</option>
                       <option  value="Demand Draft">Demand Draft</option>
                     </select>
-                    <input  class="i4" type="text" required="required" placeholder="Particulars" name="particulars">
+                    <input class="i1" type="text" placeholder="Enter Cheque or DD Number" name="cheque_no">
+                    <input  class="i2" type="text" required="required" placeholder="Particulars" name="particulars">
                     <button type="submit" value="Submit">Submit</button>
                 </form>
             </div>

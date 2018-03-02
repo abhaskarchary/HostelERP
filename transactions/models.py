@@ -42,6 +42,7 @@ class Transaction_Details(models.Model):
     remaining_fees = models.FloatField(max_length = 7)
     remaining_fine = models.FloatField(max_length = 7)
     remaining_total = models.FloatField(max_length = 7)
+    cheque_dd_no=models.CharField(max_length=50, null=True, blank=True)
     particulars = models.CharField(max_length=150)
 
     def __str__(self):

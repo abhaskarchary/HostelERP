@@ -146,6 +146,7 @@ def pay_init_fees(request, stu_id):
     initial_bal = float(request.POST['initial_balance'])
     p_mode = (request.POST['payment_mode'])
     particulars = request.POST['particulars']
+    cheque_no = request.POST['cheque_no']
     #stu['balance'] = stu['balance'] + initial_bal
     #stu.update(balance = (stu['balance'] + initial_bal))
     for s in stu:
@@ -186,6 +187,7 @@ def pay_init_fees(request, stu_id):
     transaction.remaining_fine = 0.0
     transaction.remaining_total = bal
     transaction.particulars = particulars
+    transaction.cheque_dd_no = cheque_no
     transID=transaction.transaction_id
     print("Latest transaction id= "+transID)
     transaction.save()
@@ -444,26 +446,49 @@ def generate_receipt(request, trans_id):
     if checkuser(request):
         if checkusersession(request):
             transaction=Transaction_Details.objects.filter(transaction_id=trans_id)
-            template = get_template('pdf/receipt.html')
+
             for t in transaction:
                 stu=Studentinfo.objects.filter(sid=t.sid)
                 for s in stu:
-                    context = {
-                        "sid": t.sid,
-                        "trans_id": t.transaction_id,
-                        "trans_date": t.transaction_date,
-                        "pmode": t.payment_mode,
-                        "fees_paid": t.fees_paid,
-                        "fine": t.fine_paid,
-                        "balance": t.remaining_total,
-                        "total": t.remaining_total,
-                        "particulars": t.particulars,
-                        "next_due_date": s.next_due_date,
-                        "print_date" : datetime.now()
-                    }
+                    if(t.cheque_dd_no!=''):
+                        template = get_template('pdf/receipt.html')
+                        context = {
+                            "sid": t.sid,
+                            "trans_id": t.transaction_id,
+                            "trans_date": t.transaction_date,
+                            "pmode": t.payment_mode,
+                            "fees_paid": t.fees_paid,
+                            "fine": t.fine_paid,
+                            "balance": t.remaining_total,
+                            "total": t.remaining_total,
+                            "particulars": t.particulars,
+                            "next_due_date": s.next_due_date,
+                            "cheque_no": t.cheque_dd_no,
+                            "print_date" : datetime.now()
+                        }
+                        flag=1
+                    elif(t.cheque_dd_no==''):
+                        template = get_template('pdf/receipt1.html')
+                        context = {
+                            "sid": t.sid,
+                            "trans_id": t.transaction_id,
+                            "trans_date": t.transaction_date,
+                            "pmode": t.payment_mode,
+                            "fees_paid": t.fees_paid,
+                            "fine": t.fine_paid,
+                            "balance": t.remaining_total,
+                            "total": t.remaining_total,
+                            "particulars": t.particulars,
+                            "next_due_date": s.next_due_date,
+                            "print_date": datetime.now()
+                        }
+                        flag = 2
                 #print(context['print_date'])
             #html = template.render(context)
-            pdf = render_to_pdf('pdf/receipt.html', context)
+            if flag==1:
+                pdf = render_to_pdf('pdf/receipt.html', context)
+            elif flag==2:
+                pdf = render_to_pdf('pdf/receipt1.html', context)
             return HttpResponse(pdf, content_type="application/pdf")
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
