@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'^deactivate_student/(?P<sid>ETL[0-9]+)/(?P<op>[a-d])$', views.deactivate, name='deactivate'),
     url(r'^generatereceipt/(?P<trans_id>Trans[0-9]+)/$', views.generate_receipt, name='generate_receipt'),
     url(r'^checkfines/$', views.checkfines, name='checkfines'),
+   
+    
 ]
