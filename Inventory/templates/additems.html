@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ERP | Inventory</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+    <script>
+        window.history.forward();
+	    function noBack()
+	    {
+	        window.history.forward();
+        }
+        function validate_choices()
+        {
+            var c = document.add_item_form.category.value;
+            var i = document.add_item_form.item.value;
+            if(c == ("Select Category")||i == ("Select Item"))
+            {
+              alert("Please select valid Category and item");
+              return false;
+            }
+        }
+        function changeoption()
+        {
+            var c=document.add_item_form.category.value;
+            var i=document.add_item_form.item;
+        }
+  </script>
+</head>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+<div class="login-page">
+  <div class="form">
+<form action="/inventory/add_items/" method="post" class="login-form" name="add_item_form" >
+  {% csrf_token %}
+
+  <select class="i1" name="category" onchange="changeoption()">
+      <option value="Select Category">Select Category</option>
+      <option value="daily purchased">Daily Purchased Items</option>
+      <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
+      <option value="other">Other Items</option>
+  </select>
+  <select class="i2" name="item">
+    <option value="Select Item">Select Item</option>
+  {% for i in context %}
+  <option value="{{ i }}">{{ i.name }}</option>
+  {% endfor %}
+  </select>
+  <input class="i1" type="number" name="quantity" id="quantity" required placeholder="Enter quantity">
+  <input class="i2" type="number" id="price" name="price" required placeholder="Enter price per unit item"><br>
+  <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px">
+    <input type="radio" name="unit" value="kg" checked="checked">Kilo gram<input type="radio" name="unit" value="gm" style="margin-left: 200px">Gram
+    <input type="radio" name="unit" value="lt" style="margin-left: 200px">Litre
+  </div>
+    <br>
+  <input class="i4" type="text" id="desc" placeholder="Enter Description" name="desc">
+    <br>
+  <button type="submit" onclick="return validate_choices()">Submit</button>
+</form>
+</div>
+</div>
+</body>
+</html>

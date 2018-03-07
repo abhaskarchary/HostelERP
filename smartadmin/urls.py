@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^userpanel/$',views.userpanel, name='userpanel'),
     url(r'^account/$',views.account, name='account'),
     url(r'^messages/$',views.messages, name='messages'),
+    url(r'^inventory/$',views.inventory, name='inventory'),
 ]

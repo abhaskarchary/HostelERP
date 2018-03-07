@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inventory Logs</title>
+    <title>ERP | Inventory Logs</title>
 </head>
 <body>
 <center><h1>Inventory Logs</h1></center>
 <table border="0" cellspacing="10" cellpadding="10" align="center">
-<tr><th>Transaction ID</th><th>Date of Purchase</th><th>Item Category</th><th>Item Name</th><th>Quantity</th>
+<tr><th>Transaction ID</th><th>Date of Purchase</th><th>Item ID</th><th>Quantity</th>
     <th>Units (g/kg/l)</th><th>Price</th><th>Description</th>
 </tr>
+    {% for i in context %}
+    <tr><td>{{ i.inv_log_id }}</td><td>{{ i.date }}</td><td>{{ i.item}}</td><td>{{i.quantity }}</td><td>{{ i.unit }}</td>
+    <td>{{i.price}}</td><td>{{i.desc}}</td>
+    {% endfor %}
+</tr>
+
+
 </table>
 </body>
 </html>

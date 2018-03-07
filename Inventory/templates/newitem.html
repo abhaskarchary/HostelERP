@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Change Password</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/style1.css' %}"/>
+</head>
+<body>
+<div class="login-page">
+    <h2>{{ Message }}</h2>
+    <h2 align="center">Add New Item</h2>
+  <div class="form">
+    <form method="post" action="/inventory/newitem/" class="login-form">
+        {% csrf_token %}
+        <select name="category" class="x1">
+            <option value="Select">Select Category</option>
+            <option value="daily purchased">Daily Purchase Items</option>
+            <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
+            <option value="other">Other Items</option>
+        </select>
+        <input type="text" name="item" placeholder="Enter Item Name" required>
+      <button>Add new item</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

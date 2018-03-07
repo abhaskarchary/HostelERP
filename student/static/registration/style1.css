@@ -14,6 +14,17 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+.x1 {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 270px;
+  border: 0;
+  margin: 0 40px 15px 0;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
 .form input {
   outline: 0;
   background: #f2f2f2;

@@ -105,6 +105,10 @@ def account(request):
     return render(request, 'account1.html')
 
 
+def inventory(request):
+    return render(request, 'inventory1.html')
+
+
 def checkadmin(request):
     if request.session.has_key('adminid'):
         return True
