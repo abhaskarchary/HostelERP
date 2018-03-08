@@ -7,10 +7,10 @@
 <body>
 <center><h1>Inventory Logs</h1></center>
 <table border="0" cellspacing="10" cellpadding="10" align="center">
-<tr><th>Item ID</th><th>Category</th><th>Item name</th>
+<tr><th>Item ID</th><th>Category</th><th>Item name</th><th>Quantity</th><th>Unit</th>
 </tr>
     {% for i in context %}
-    <tr><td>{{ i.item_id }}</td><td>{{ i.category }}</td><td>{{ i.name }}</td>
+    <tr><td>{{ i.item_id }}</td><td>{{ i.category }}</td><td>{{ i.name }}</td><td>{{ i.quantity }}</td><td>{{ i.unit }}</td>
     {% endfor %}
 </tr>
 

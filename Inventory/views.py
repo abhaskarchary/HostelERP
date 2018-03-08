@@ -12,6 +12,10 @@ def add(request):
     return render(request, 'additems.html', {'context': InventoryItems.objects.all()})
 
 
+def update(request):
+    return render(request, 'update.html', {'context': InventoryItems.objects.all()})
+
+
 def new(request):
     return render(request, 'newitem.html')
 
@@ -23,10 +27,12 @@ def view_items(request):
 def new_item(request):
     category = request.POST['category']
     item = request.POST['item']
+    unit = request.POST['unit']
 
     New_item = InventoryItems()
     New_item.category = category
     New_item.name = item
+    New_item.unit = unit
     New_item.save()
     return render(request, 'adminindex.html', {'Message':'New Item Added Successfully!!!'})
 
@@ -39,17 +45,34 @@ def add_items(request):
     desc = request.POST['desc']
     if item_id1!= 'None':
         [item]=InventoryItems.objects.filter(item_id=item_id1)
-
+    item.quantity = item.quantity + int(quantity)
+    item.save()
     Item_object = Inventory()
     Item_object.item = item
     Item_object.quantity = quantity
     Item_object.price = price
     Item_object.unit = unit
     Item_object.description = desc
+    Item_object.type='purchased'
     Item_object.save()
 
     return render(request, 'index.html', {'Message':'Item Added Successfully!!!'})
 
 
 def update_items(request):
-    return
+    item = request.POST['item']
+    quantity = request.POST['quantity']
+
+    [item1] = InventoryItems.objects.filter(item_id=item)
+    Item_object = Inventory()
+    Item_object.item = item1
+    Item_object.quantity = item1.quantity - int(quantity)
+    Item_object.price = 0
+    Item_object.unit = item1.unit
+    Item_object.type = 'consumed'
+    Item_object.save()
+
+    item1.quantity = int(quantity)
+    item1.save()
+
+    return render(request, 'index.html', {'Message': 'Item Updated Successfully!!!'})

@@ -19,6 +19,8 @@ def item_id():
 class InventoryItems(models.Model):
     item_id = models.CharField(max_length=10 ,default=item_id, primary_key=True)
     name = models.CharField(max_length=20)
+    quantity = models.IntegerField(default=0)
+    unit = models.CharField(max_length=6,null=True)
     category = models.CharField(max_length=30)
 
     def __str__(self):
@@ -43,9 +45,10 @@ class Inventory(models.Model):
     date = models.DateTimeField(auto_now=True)
     item = models.ForeignKey(InventoryItems)
     quantity = models.CharField(max_length=4)
-    unit = models.CharField(max_length=2)
+    unit = models.CharField(max_length=6)
     price = models.CharField(max_length=5)
     description = models.CharField(max_length=30, blank=True)
+    type = models.CharField(max_length=9)
 
     def __str__(self):
         return self.inv_log_id

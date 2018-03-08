@@ -24,7 +24,16 @@
         function changeoption()
         {
             var c=document.add_item_form.category.value;
-            var i=document.add_item_form.item;
+            var w=document.getElementById('item');
+            var i,value;
+            for(i=0;i<w.options.length;i++)
+            {
+                value=w.options[i].id;
+                if(value==c)
+                    w.options[i].style.display = 'block';
+                else if(value!="Select")
+                    w.options[i].style.display = 'none';
+            }
         }
   </script>
 </head>
@@ -40,17 +49,17 @@
       <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
       <option value="other">Other Items</option>
   </select>
-  <select class="i2" name="item">
-    <option value="Select Item">Select Item</option>
+  <select class="i2" name="item" id="item">
+    <option value="Select Item" id="Select">Select Item</option>
   {% for i in context %}
-  <option value="{{ i }}">{{ i.name }}</option>
+  <option value="{{ i }}" id="{{ i.category }}">{{ i.name }}</option>
   {% endfor %}
   </select>
   <input class="i1" type="number" name="quantity" id="quantity" required placeholder="Enter quantity">
   <input class="i2" type="number" id="price" name="price" required placeholder="Enter price per unit item"><br>
   <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px">
-    <input type="radio" name="unit" value="kg" checked="checked">Kilo gram<input type="radio" name="unit" value="gm" style="margin-left: 200px">Gram
-    <input type="radio" name="unit" value="lt" style="margin-left: 200px">Litre
+    <input type="radio" name="unit" value="kg" checked="checked">Kilo grams<input type="radio" name="unit" value="gm" style="margin-left: 120px">Grams
+    <input type="radio" name="unit" value="lt" style="margin-left: 120px">Litres<input type="radio" name="unit" value="pieces" style="margin-left: 120px">Pieces
   </div>
     <br>
   <input class="i4" type="text" id="desc" placeholder="Enter Description" name="desc">

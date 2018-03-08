@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP | Update Item</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/style1.css' %}"/>
+<script>
+    function checkoptions(){
+        var c=document.update_item_form.category.value;
+        var i=document.update_item_form.item.value;
+        if(c==("Select Category")||i==("Select Item")){
+            alert("Select valid Category and unit!!!");
+            return false;
+        }
+    }
+    function changeoptions(){
+        var c=document.update_item_form.category.value;
+        var w=document.update_item_form.item;
+        var i,value;
+        for(i=0;i<w.options.length;i++)
+        {
+            value=w.options[i].id;
+            if(value==c)
+                w.options[i].style.display = 'block';
+            else if(value!="Select")
+                w.options[i].style.display = 'none';
+        }
+    }
+</script>
+</head>
+<body>
+<div class="login-page">
+    <h2 align="center">Update Item</h2>
+  <div class="form">
+    <form method="post" action="/inventory/update_items/" class="login-form" name="update_item_form">
+        {% csrf_token %}
+        <select name="category" class="x1" onchange="changeoptions()">
+            <option value="Select Category">Select Category</option>
+            <option value="daily purchased">Daily Purchase Items</option>
+            <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
+            <option value="other">Other Items</option>
+        </select>
+        <select name="item" class="x1">
+            <option value="Select Item" id="Select">Select Item</option>
+            {% for i in context %}
+            <option value="{{ i.item_id }}" id="{{ i.category }}">{{ i.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="quantity" placeholder="Enter Updated Quantity" required>
+      <button type="submit" onclick="return checkoptions()">Update item</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
