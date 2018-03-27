@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Manager | Display Accounts</title>
 	<script>
 		function generate_receipt(val){
@@ -10,29 +11,56 @@
 			window.open(url, '_blank');
 		}
 	</script>
+	{% load static %}
+	<!--===============================================================================================-->
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" href="{% static 'css/style1.css' %}">
 </head>
 <body>
-    <center><h1>Transaction Details</h1></center>
-	<hr></hr>
-    <table border="0" cellspacing="10" cellpadding="10" align="center">
-        <tr>
-			<th>Transaction ID</th><th>Transaction Date</th><th>Student Id</th><th>Payment Mode</th><th>Fees paid</th>
-			<th>Fine paid(If any)</th><th>Balance Fee</th><th>Total Dues</th><th>Particulars</th>
-		</tr>
-	{% for transaction in all_transactions %}
-		<tr>
-			<td align="center">{{transaction.transaction_id }}</td>
-			<td align="center">{{ transaction.transaction_date }}</td>
-			<td align="center">{{ transaction.sid }}</td>
-			<td align="center">{{ transaction.payment_mode }}</td>
-			<td align="center">{{ transaction.fees_paid }}</td>
-			<td align="center">{{ transaction.fine_paid }}</td>
-			<td align="center">{{ transaction.remaining_total }}</td>
-			<td align="center">{{ transaction.remaining_total }}</td>
-			<td align="center">{{ transaction.particulars }}</td>
-			<td align="center"><button value={{transaction.transaction_id }} onclick="return generate_receipt(this.value)">Print</button></td>
-		</tr>
-	{% endfor %}
-	</table>
+	<center><h1>Transaction Details</h1></center>
+	<hr>
+	<section>
+		<div class="tbl-header">
+						<table cellpadding="0" cellspacing="0" border="1">
+							<thead>
+								<tr>
+									<th>Transaction ID</th>
+									<th>Date</th>
+									<th>Student Id</th>
+									<th>Payment Mode</th>
+									<th>Fees paid</th>
+									<th>Fine Paid</th>
+									<th>Balance</th>
+									<th>Total</th>
+									<th>Particulars</th>
+									<th></th>
+
+
+								</tr>
+							</thead>
+						</table>
+			</div>
+				  <div class="tbl-content">
+   					 <table cellpadding="0" cellspacing="0" border="1">
+							<tbody>
+								{% for transaction in all_transactions %}
+									<tr>
+										<td>{{transaction.transaction_id }}</td>
+										<td>{{ transaction.transaction_date }}</td>
+										<td>{{ transaction.sid }}</td>
+										<td>{{ transaction.payment_mode }}</td>
+										<td>{{ transaction.fees_paid }}</td>
+										<td>{{ transaction.fine_paid }}</td>
+										<td>{{ transaction.remaining_total }}</td>
+										<td>{{ transaction.remaining_total }}</td>
+										<td>{{ transaction.particulars }}</td>
+										<td><button value={{transaction.transaction_id }} onclick="return generate_receipt(this.value)">Print</button></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+	</section>
 </body>
 </html>

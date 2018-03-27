@@ -425,3 +425,7 @@ def checkadminsession(request):
         return True
     else:
         return False
+
+
+def tempindex(request):
+    return render(request, 'stutempindex.html')

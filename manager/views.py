@@ -26,7 +26,7 @@ def manager(request):
 def login(request):
     if checkuser(request):
         if checkusersession(request):
-            response = HttpResponse(render(request, 'index.html', {"userid": request.session['userid']}))
+            response = HttpResponse(render(request, 'tempindex.html', {"userid": request.session['userid']}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -135,7 +135,7 @@ def update(request):
 
     Manager_info_object.save()
 
-    return render(request, 'index.html', {'Message': 'Employee Registered Successfully!!!'})
+    return render(request, 'tempacc.html', {'Message': 'Employee Registered Successfully!!!'})
 
 
 def pay_init_fees(request, stu_id):
@@ -211,7 +211,7 @@ def pay_init_fees(request, stu_id):
     # html=template.render(context)
     # pdf=render_to_pdf('receipt.html', context)
     # return HttpResponse(pdf, content_type="application/pdf")
-    return render(request, 'index.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': transID})
+    return render(request, 'tempacc.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': transID})
 
 
     # return redirect('/manager/login/', {'Message': 'Student Registered Successfully'})
@@ -298,7 +298,7 @@ def send_notice(request):
             new_notice.type_of_notice = request.POST['subject']
             new_notice.body_of_notice = request.POST['body']
             new_notice.save()
-            return render(request, 'index.html', {'userid': request.session['userid'],'Message': 'Notice Sent Successfully!'} )
+            return render(request, 'tempindex.html', {'userid': request.session['userid'],'Message': 'Notice Sent Successfully!'} )
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
@@ -490,6 +490,46 @@ def generate_receipt(request, trans_id):
             elif flag==2:
                 pdf = render_to_pdf('pdf/receipt1.html', context)
             return HttpResponse(pdf, content_type="application/pdf")
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def tempacc(request):
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'tempacc.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def tempfees(request):
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'tempfees.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def temproom(request):
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'temproom.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def tempinv(request):
+    if checkuser(request):
+        if checkusersession(request):
+            return render(request, 'tempinv.html')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

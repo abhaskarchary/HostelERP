@@ -3,24 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>ERP | Dues</title>
+	{% load static %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" href="{% static 'css/style1.css' %}">
 </head>
 
 <body>
     <center><h1>STUDENT DUES</h1></center>
-	<hr></hr>
-    <table border="0" cellspacing="10" cellpadding="10" align="center">
-		<tr><th>StudentID</th><th>Name</th><th>Running Installment</th><th>Running Fine</th><th>Total</th><th>Due Date</th>
-		</tr>
-	{% for student in FeesDetails %}
-		<tr><td align="center">{{student.sid }}</td>
-			<td align="center">{{ student.first_name }} &nbsp; {{student.last_name}}</td>
-			<td align="center">{{ student.next_installment }}</td>
-			<td align="center">{{ student.running_fine }}</td>
-			<td align="center">{{ student.total_dues }}</td>
-			<td align="center">{{ student.next_due_date }}</td>
-		</tr>
-	{% endfor %}
-	</table>
+	<hr>
+	<section>
+		<div class="tbl-header">
+						<table cellpadding="0" cellspacing="0" border="1">
+							<thead>
+								<tr>
+									<th>StudentID</th>
+									<th>Name</th>
+									<th>Running Installment</th>
+									<th>Running Fine</th>
+									<th>Total</th>
+									<th>Due Date</th>
+								</tr>
+							</thead>
+						</table>
+		</div>
+		<div class="tbl-content">
+			<table cellpadding="0" cellspacing="0" border="1">
+				<tbody>
+					{% for student in FeesDetails %}
+							<tr><td align="center">{{student.sid }}</td>
+								<td align="center">{{ student.first_name }} &nbsp; {{student.last_name}}</td>
+								<td align="center">{{ student.next_installment }}</td>
+								<td align="center">{{ student.running_fine }}</td>
+								<td align="center">{{ student.total_dues }}</td>
+								<td align="center">{{ student.next_due_date }}</td>
+							</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
 
 </body>
 </html>

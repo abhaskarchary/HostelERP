@@ -5,6 +5,7 @@
     <title>ERP | Dues</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+    <script>
     function validate_amount(){
             var attr = {{ attr|safe }}
             var attr1 = {{ attr1|safe }}
@@ -28,6 +29,7 @@
                 return false;
             }
         }
+    </script>
 </head>
 <body>
 
@@ -36,7 +38,7 @@
                 <table cellpadding="5" cellspacing="10">
                     <tr>
                         <th>Student ID</th><th>Student Name</th><th>Current Installment</th><th>Running Fine</th><th>Total</th>
-                        <th>Balance Fee</th><th>Rent per installment</th><th>Due Date</th><th>hello</th>
+                        <th>Balance Fee</th><th>Rent per installment</th><th>Due Date</th>
                     </tr>
                     <tr>
                         {% for i in attr1 %}

@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'^send_contact_message/$', views.send_contact_message, name='send_contact_message'),
     url(r'^noticebox/$', views.noticebox, name='noticebox'),
     url(r'^noticebox/(?P<nid>NO[0-9]+)/$', views.notice, name='notice'),
+    url(r'^tempindex/$', views.tempindex, name='notice'),
 ]
