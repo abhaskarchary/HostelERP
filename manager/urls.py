@@ -14,11 +14,6 @@ urlpatterns = [
     #url(r'^startsession/$', views.startsession, name='startsession'),
     url(r'^update/$', views.update, name='update'),
     url(r'^login/$', views.login, name='login'),
-    url(r'^userpanel/$', views.userpanel, name='userpanel'),
-    url(r'^account/$', views.account, name='account'),
-    url(r'^fees/$', views.fees, name='fees'),
-    url(r'^room/$', views.room, name='room'),
-    url(r'^inventory/$', views.inventory, name='inventory'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^initial_fees/(?P<stu_id>ETL[0-9]+)/$', views.pay_init_fees, name='pay_init_fees'),
     url(r'^deduct_fees/$', deduct_fees, name='deduct_fees'),
@@ -32,7 +27,6 @@ urlpatterns = [
     url(r'^checkfines/$', views.checkfines, name='checkfines'),
     url(r'^tempacc/$', views.tempacc, name='tempacc'),
     url(r'^tempfees/$', views.tempfees, name='tempfees'),
-    url(r'^temproom/$', views.temproom, name='temproom'),
     url(r'^tempinv/$', views.tempinv, name='tempinv'),
 
 ]

@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{%static 'assets/img/apple-icon.png'%}" />
     <link rel="icon" type="image/png" href="{%static 'assets/img/favicon.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Room Module | S.M.A.R.T. ERP Solutions</title>
+    <title>Fees Module | S.M.A.R.T. ERP Solutions</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -17,13 +17,15 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>-->
+    <link href="{%static 'assets/css/fontawesome.min.css'%}" rel="stylesheet">
+    <link href="{%static 'assets/css/materialicons.css'%}" rel='stylesheet' type='text/css'>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="red" data-image="{%static 'assets/img/sidebar-1.jpg'%}">
+        <div class="sidebar" data-color="orange" data-image="{%static 'assets/img/sidebar-1.jpg'%}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -37,31 +39,31 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
-                        <a href="/manager/login/">
+                        <a href="/smartadmin/login/">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/manager/tempacc/" class="dropdown" onclick="selectacc()">
+                        <a href="/smartadmin/account/" class="dropdown" onclick="selectacc()">
                             <i class="material-icons">person</i>
                             <p>Account Module</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="/manager/tempfees/">
+                    <li class="active">
+                        <a href="/smartadmin/fees/">
                             <i class="material-icons">account_balance_wallet</i>
                             <p>Fees Module</p>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="/manager/temproom/">
+                    <li>
+                        <a href="/view_rooms/">
                             <i class="material-icons">home</i>
                             <p>Room Module</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/manager/tempinv/">
+                        <a href="/smartadmin/inventory/">
                             <i class="material-icons">store</i>
                             <p>Inventory Module</p>
                         </a>
@@ -73,9 +75,15 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="./notifications.html">
+                        <a href="/manager/all_messages/">
                             <i class="material-icons text-gray">notifications</i>
                             <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/smartadmin/logout/">
+                            <i class="material-icons text-gray">power_settings_new</i>
+                            <p>Logout</p>
                         </a>
                     </li>
                     <!--<li class="active-pro">
@@ -97,12 +105,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/manager/temproom/"> Room Module </a>
+                        <a class="navbar-brand" href="/smartadmin/fees/"> Fees Module </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/manager/login/">
+                                <a href="/smartadmin/login/">
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
@@ -138,7 +146,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="/manager/logout/">
+                                <a href="/smartadmin/logout/">
                                     <i class="material-icons">power_settings_new</i>
                                     <p class="hidden-lg hidden-md">Logout</p>
                                 </a>
@@ -162,69 +170,61 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="card card-stats">
-                                <div class="card-header" data-background-color="purple">
-                                    <i class="material-icons">home</i>
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="material-icons">account_balance_wallet</i>
                                 </div>
                                 <div class="card-content">
                                     <br><br><br>
-                                    <h4 class="title">View Room Details
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats">
-                                        <i class="material-icons">touch_app</i>
-                                          <a href="/view_rooms/">Click to enter</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">people</i>
-                                </div>
-                                <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">View Student/Employee Details
+                                    <h4 class="title">View Fees Information
                                     </h4>
                                 </div>
                                 <div class="card-footer" align="center">
                                     <div class="stats dropdown">
                                         <i class="material-icons">touch_app</i>
-                                        <a href="/manager/tempfees/" class="dropdown-toggle" data-toggle="dropdown">Click to enter</a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="/student/studentinfo/">View Student Info</a>
-                                            </li>
-                                            <li>
-                                                <a href="/manager/view/">View Employee Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-                    </div>
-                    <!--<div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="red">
-                                    <i class="material-icons">mode_edit</i>
-                                </div>
-                                <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">Update Student Info
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats">
-                                        <i class="material-icons">touch_app</i>
-                                        <a href="/student/changestdinfo/">Click to enter</a>
+                                          <a href="/dues/">Click to enter</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">assignment_late</i>
+                                </div>
+                                <div class="card-content">
+                                    <br><br><br>
+                                    <h4 class="title">Deduct Fine
+                                    </h4>
+                                </div>
+                                <div class="card-footer" align="center">
+                                    <div class="stats dropdown">
+                                        <i class="material-icons">touch_app</i>
+                                        <a href="/manager/checkfines/">Click to enter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="red">
+                                    <i class="material-icons">description</i>
+                                </div>
+                                <div class="card-content">
+                                    <br><br><br>
+                                    <h4 class="title">View transactions
+                                    </h4>
+                                </div>
+                                <div class="card-footer" align="center">
+                                    <div class="stats">
+                                        <i class="material-icons">touch_app</i>
+                                        <a href="/manager/all_transactions/">Click to enter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="blue">
                                     <i class="material-icons">highlight_off</i>
@@ -241,8 +241,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>-->
+                        </div>-->
+                    </div>
                     <!--<div class="row">
                         <div class="col-md-4">
                             <div class="card">

@@ -2,6 +2,9 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from manager.models import EmployeeInfo
+from smartadmin.models import AdminInfo
 from .models import Room
 from student.models import Studentinfo
 # Create your views here.
@@ -27,11 +30,48 @@ class _room:
 
 
 def index(request):
+    if checkuser(request):
+        if checkusersession(request):
+            rooms = []
+            all_rooms = Room.objects.all()
+            for i in all_rooms:
+                rooms.append(_room(i))
+            return render(request, 'RoomView.html',{'object_list':rooms})
+    elif checkadmin(request):
+        if checkadminsession(request):
+            rooms = []
+            all_rooms = Room.objects.all()
+            for i in all_rooms:
+                rooms.append(_room(i))
+            return render(request, 'RoomView.html', {'object_list': rooms})
+    else:
+        return render(request, 'error.html')
+
+
+def checkuser(request):
     if request.session.has_key('userid'):
-        rooms = []
-        all_rooms = Room.objects.all()
-        for i in all_rooms:
-            rooms.append(_room(i))
-        return render(request, 'RoomView.html',{'object_list':rooms})
-    return render(request, 'error.html')
+        return True
+    else:
+        return False
+
+
+def checkusersession(request):
+    if request.session.session_key == EmployeeInfo.objects.get(empid=request.session['userid']).session_key:
+        return True
+    else:
+        return False
+
+
+def checkadmin(request):
+    if request.session.has_key('adminid'):
+        return True
+    else:
+        return False
+
+
+def checkadminsession(request):
+    if request.session.session_key == AdminInfo.objects.get(adminid=request.session['adminid']).session_key:
+        return True
+    else:
+        return False
 

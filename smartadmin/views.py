@@ -15,7 +15,7 @@ def login(request):
     if checkadmin(request):
         adminid = request.session['adminid']
         if checkadminsession(request):
-            response = HttpResponse(render(request, 'adminindex.html', {"userid": adminid}))
+            response = HttpResponse(render(request, 'tempadminindex.html', {"userid": adminid}))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -84,7 +84,7 @@ def update(request):
 
     Admin_info_object.save()
 
-    return render(request, 'adminindex.html', {'Message': 'Admin Registered Successfully!!!'})
+    return render(request, 'tempadminindex.html', {'Message': 'Admin Registered Successfully!!!'})
 
 
 def messages(request):
@@ -97,16 +97,34 @@ def messages(request):
         return render(request, 'error.html')
 
 
-def userpanel(request):
-    return render(request, 'adminpanel.html')
-
-
 def account(request):
-    return render(request, 'account1.html')
+    if checkadmin(request):
+        if checkadminsession(request):
+            return render(request, 'tempadminacc.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
+
+
+def fees(request):
+    if checkadmin(request):
+        if checkadminsession(request):
+            return render(request, 'tempadminfees.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
 
 
 def inventory(request):
-    return render(request, 'inventory1.html')
+    if checkadmin(request):
+        if checkadminsession(request):
+            return render(request, 'tempadmininv.html')
+        else:
+            return render(request, 'login.html', {'Message': 'Session terminated!'})
+    else:
+        return render(request, 'error.html')
 
 
 def checkadmin(request):

@@ -363,25 +363,6 @@ def deactivate(request, sid, op):
         return render(request, 'error.html')
 
 
-def userpanel(request):
-    return render(request, 'panel.html')
-
-
-def account(request):
-    return render(request, 'account.html')
-
-
-def fees(request):
-    return render(request, 'fees.html')
-
-
-def room(request):
-    return render(request, 'room.html')
-
-
-def inventory(request):
-    return render(request, 'inventory.html')
-
 def checkfines(request):
     if checkuser(request):
         if checkusersession(request):
@@ -510,16 +491,6 @@ def tempfees(request):
     if checkuser(request):
         if checkusersession(request):
             return render(request, 'tempfees.html')
-        else:
-            return render(request, 'login.html', {'Message': 'Session terminated!'})
-    else:
-        return render(request, 'error.html')
-
-
-def temproom(request):
-    if checkuser(request):
-        if checkusersession(request):
-            return render(request, 'temproom.html')
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
