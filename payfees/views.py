@@ -240,7 +240,7 @@ def info(request):
     if request.session.has_key('userid'):
         userid = request.session['userid']
         if request.session.session_key == EmployeeInfo.objects.get(empid=userid).session_key:
-            return render(request, 'payfees/displayreports.html', {'FeesDetails': Studentinfo.objects.all()})
+            return render(request, 'payfees/displayreports1.html', {'FeesDetails': Studentinfo.objects.all()})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

@@ -259,17 +259,16 @@ def pay_init_fees(request, stu_id):
 def all_transactions(request):
     if checkuser(request):
         if checkusersession(request):
-            return render(request, 'display_transactions.html', {'all_transactions': Transaction_Details.objects.all()})
+            return render(request, 'display_transactions1.html', {'all_transactions': Transaction_Details.objects.all().order_by('-transaction_id')})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     elif checkadmin(request):
         if checkadminsession(request):
-            return render(request, 'display_transactions.html', {'all_transactions': Transaction_Details.objects.all()})
+            return render(request, 'display_transactions1.html', {'all_transactions': Transaction_Details.objects.all().order_by('-transaction_id')})
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
-    return render(request, 'display_transactions.html', {'all_transactions':Transaction_Details.objects.all().order_by('-transaction_id')})
 
 
 def all_messages(request):
