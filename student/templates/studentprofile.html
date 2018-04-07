@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{%static 'assets/img/apple-icon.png'%}" />
     <link rel="icon" type="image/png" href="{%static 'assets/img/favicon.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Fees Module | S.M.A.R.T. ERP Solutions</title>
+    <title>Student Panel | S.M.A.R.T. ERP Solutions</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -16,16 +16,16 @@
     <link href="{%static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
-    <!--     Fonts and icons     -->
-    <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!--     Fonts and icons
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>-->
     <link href="{%static 'assets/css/fontawesome.min.css'%}" rel="stylesheet">
-    <link href="{%static 'assets/css/materialicons.css'%}" rel='stylesheet' type='text/css'>
+    <link href="{%static 'assets/css/materialicons.css'%}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="orange" data-image="{%static 'assets/img/sidebar-1.jpg'%}">
+        <div class="sidebar" data-color="green" data-image="{%static 'assets/img/sidebar-1.jpg'%}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -39,33 +39,27 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
-                        <a href="/smartadmin/login/">
+                        <a href="/student/login/">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="/smartadmin/account/" class="dropdown" onclick="selectacc()">
-                            <i class="material-icons">person</i>
-                            <p>Account Module</p>
-                        </a>
-                    </li>
                     <li class="active">
-                        <a href="/smartadmin/fees/">
-                            <i class="material-icons">account_balance_wallet</i>
-                            <p>Fees Module</p>
+                        <a href="/student/profile/">
+                            <i class="material-icons">person</i>
+                            <p>View Profile</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/view_rooms/">
-                            <i class="material-icons">home</i>
-                            <p>Room Module</p>
+                        <a href="/student/changepass/{{context.sid}}/">
+                            <i class="material-icons">mode_edit</i>
+                            <p>Change Password</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/smartadmin/inventory/">
-                            <i class="material-icons">store</i>
-                            <p>Inventory Module</p>
+                        <a href="/student/messageroom/">
+                            <i class="material-icons">chat</i>
+                            <p>Send Message</p>
                         </a>
                     </li>
                     <!--<li>
@@ -75,14 +69,14 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="/manager/all_messages/">
+                        <a href="#1">
                             <i class="material-icons text-gray">notifications</i>
                             <p>Notifications</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/smartadmin/logout/">
-                            <i class="material-icons text-gray">power_settings_new</i>
+                        <a href="/student/logout">
+                            <i class="material-icons">power_settings_new</i>
                             <p>Logout</p>
                         </a>
                     </li>
@@ -105,21 +99,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/smartadmin/fees/"> Fees Module </a>
+                        <a class="navbar-brand" href="/student/profile/"> View Profile </a>
                     </div>
-                    <p class="navbar-brand" id="Msg">{{Message}}</p>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/smartadmin/login/">
+                                <a href="/student/login/">
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/manager/issue_notice/">
-                                    <i class="material-icons">add_alert</i>
-                                    <p class="hidden-lg hidden-md">Issue Notice</p>
                                 </a>
                             </li>
                             <li class="dropdown">
@@ -147,104 +134,133 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="/smartadmin/logout/">
+                                <a href="/student/logout">
                                     <i class="material-icons">power_settings_new</i>
                                     <p class="hidden-lg hidden-md">Logout</p>
                                 </a>
                             </li>
                         </ul>
-                        <!--<form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>-->
                     </div>
                 </div>
             </nav>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">account_balance_wallet</i>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">View your profile</h4>
                                 </div>
                                 <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">View Fees Information
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats dropdown">
-                                        <i class="material-icons">touch_app</i>
-                                          <a href="/dues/">Click to enter</a>
-                                    </div>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Student ID</label>
+                                                    <input type="text" class="form-control" value="{{context.sid}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name</label>
+                                                    <input type="text" class="form-control" value="{{context.first_name}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                    <input type="text" class="form-control" value="{{context.last_name}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Contact No.</label>
+                                                    <input type="text" class="form-control" value="{{context.mobile_no}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Room No.</label>
+                                                    <input type="text" class="form-control" value="{{context.room.room_number}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Blood Group</label>
+                                                    <input type="text" class="form-control" value="{{context.blood_grp}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Address Line 1</label>
+                                                    <input type="text" class="form-control" value="{{context.address_l1}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Address Line 2</label>
+                                                    <input type="text" class="form-control" value="{{context.address_l2}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Gender</label>
+                                                    <input type="text" class="form-control" value="{{context.sex}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">City</label>
+                                                    <input type="text" class="form-control" value="{{context.city}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Postal Code</label>
+                                                    <input type="text" class="form-control" value="{{context.pin_code}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Institution Name</label>
+                                                    <input type="text" class="form-control" value="{{context.institution_name}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </form>
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">assignment_late</i>
+                        <div class="col-md-4">
+                            <div class="card card-profile">
+                                <div class="card-avatar">
+                                        <img class="img" src="{%static 'img/user1.jpg' %}"></img>
                                 </div>
-                                <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">Deduct Fine
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats dropdown">
-                                        <i class="material-icons">touch_app</i>
-                                        <a href="/manager/checkfines/">Click to enter</a>
-                                    </div>
+                                <div class="content">
+                                    <h6 class="category text-gray">Student ID - {{context.sid}}</h6>
+                                    <h4 class="card-title">{{context.first_name}} {{context.last_name}}</h4>
+                                    <p class="card-content">
+                                        Mobile No. - {{context.mobile_no}}
+                                    </p>
+                                    <p class="card-content">
+                                        Aadhaar No. - {{context.adhaar}}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="red">
-                                    <i class="material-icons">description</i>
-                                </div>
-                                <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">View transactions
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats">
-                                        <i class="material-icons">touch_app</i>
-                                        <a href="/manager/all_transactions/">Click to enter</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="material-icons">highlight_off</i>
-                                </div>
-                                <div class="card-content">
-                                    <br><br><br>
-                                    <h4 class="title">Deactivate Account
-                                    </h4>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <div class="stats">
-                                        <i class="material-icons">touch_app</i>
-                                        <a href="/manager/deactivate_student/">Click to enter</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-                    </div>
-                    <!--<div class="row">
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="green">
@@ -559,6 +575,82 @@
                             </div>
                         </div>
                     </div>-->
+                    <!--<div class="row">
+                        <div class="col-lg-12 col-md-20">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h4 class="title" align="center">Your Payment Details</h4>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Mode</th>
+                                            <th>Fees Paid</th>
+                                            <th>Fine Paid</th>
+                                            <th>Balance Fees</th>
+                                            <th>Balance Fine</th>
+                                            <th>Total Dues</th>
+                                            <th>Particulars</th>
+                                        </thead>
+                                        <tbody>
+                                            {%for transaction in student_transaction%}
+                                            <tr>
+                                                <td>{{transaction.transaction_id }}</td>
+                                                <td>{{ transaction.transaction_date }}</td>
+                                                <td>{{ transaction.payment_mode }}</td>
+                                                <td>{{ transaction.fees_paid }}</td>
+                                                <td>{{ transaction.fine_paid }}</td>
+                                                <td>{{ transaction.remaining_fees }}</td>
+                                                <td>{{ transaction.remaining_fine }}</td>
+                                                <td>{{ transaction.remaining_total }}</td>
+                                                <td>{{ transaction.particulars }}</td>
+                                            </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-20">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h4 class="title" align="center">Your Balance Fees</h4>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                            <th>Student ID</th>
+                                            <th>Name</th>
+                                            <th>Current Installment</th>
+                                            <th>Running Fine</th>
+                                            <th>Total</th>
+                                            <th>Balance Fees</th>
+                                            <th>Rent per installment</th>
+                                            <th>Due date</th>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in attr1 %}
+                                                <td> {{ i }}</td>
+                                            {% endfor %}
+                                            {% for i in attr %}
+                                                <td> {{ i }}</td>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    {% ifequal attr.2 0%}
+                                        <p class="title" align="center">You do not have any dues.</p>
+                                    {% else %}
+                                        <p class="title" align="center">Minimum amount to be paid-{{attr.2}}</p>
+                                    {% endifequal %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
             </div>
             <footer class="footer">
@@ -571,7 +663,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="http://www.abhishekkumar.net">
+                                <a href="http://abhishekkumar.net">
                                     Company
                                 </a>
                             </li>
@@ -615,11 +707,6 @@
         demo.initDashboardPageCharts();
 
     });
-    window.setTimeout(function() {
-  		$("#Msg").fadeTo(500, 0).slideUp(500, function(){
-    	$(this).remove();
-  	    });
-	}, 5000);
 </script>
 
 </html>

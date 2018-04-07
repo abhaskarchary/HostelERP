@@ -14,46 +14,46 @@ from transactions.models import Transaction_Details
 # Create your views here.
 
 
-def accountlogs(request, stu_id):
-    if checkstdnt(request):
-        if checkstdntsession(request):
-            return render(request, 'accountlogs.html',{'student_transaction': Transaction_Details.objects.filter(sid=stu_id)})
-        else:
-            return render(request, 'error.html')
-    else:
-            return render(request, 'error.html')
+#def accountlogs(request, stu_id):
+#    if checkstdnt(request):
+#        if checkstdntsession(request):
+#            return render(request, 'accountlogs.html',{'student_transaction': Transaction_Details.objects.filter(sid=stu_id)})
+#        else:
+#            return render(request, 'error.html')
+#    else:
+#            return render(request, 'error.html')
 
 
-def view_balance_fee(request, stu_id):
-    if checkstdnt(request):
-        if checkstdntsession(request):
-            stu = Studentinfo.objects.filter(sid=stu_id)
-            if not stu.exists():
-                return HttpResponse("<h3>Student ID not found</h3>")
-            b = Studentinfo.objects.get(sid=stu_id)
-            print(b.sid + " " + str(b.room))
-            room_number = b.room
-            room_type = Room.objects.get(room_number=room_number).roomType
-            room = Fees.objects.filter(room_type=room_type).values()
-            for rt in room:
-                rent_per_installment = rt['fees'] / rt['parts_per_year']
-                # if (b.balance > installment):
-                #     b1 = 1
-                #     total = installment + b.running_fine
-                # else:
-                #     b1 = 0
-                #     total = b.balance + b.running_fine
-                minimum_pay = b.total_dues
-                # maximum_pay=b.balance
-            l1 = [b.sid, b.first_name + " " + b.last_name]
-            # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
-            l = [b.next_installment, b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
-            context = {'attr': l, 'attr1': l1}
-            return render(request, 'show_student_dues.html', context)
-        else:
-            return render(request, 'error.html')
-    else:
-            return render(request, 'error.html')
+#def view_balance_fee(request, stu_id):
+#    if checkstdnt(request):
+#        if checkstdntsession(request):
+#            stu = Studentinfo.objects.filter(sid=stu_id)
+#            if not stu.exists():
+#                return HttpResponse("<h3>Student ID not found</h3>")
+#            b = Studentinfo.objects.get(sid=stu_id)
+#            # print(b.sid + " " + str(b.room))
+#            room_number = b.room
+#            room_type = Room.objects.get(room_number=room_number).roomType
+#            room = Fees.objects.filter(room_type=room_type).values()
+#            for rt in room:
+#                rent_per_installment = rt['fees'] / rt['parts_per_year']
+#                # if (b.balance > installment):
+#                #     b1 = 1
+#                #     total = installment + b.running_fine
+#                # else:
+#                #     b1 = 0
+#                #     total = b.balance + b.running_fine
+#                minimum_pay = b.total_dues
+#                # maximum_pay=b.balance
+#            l1 = [b.sid, b.first_name + " " + b.last_name]
+#            # l = {'running_dues':b.running_dues, 'running_fine':b.running_fine, 'total_dues': b.total_dues,'balance': b.balance, 'installment': installment, 'b1':b1}
+#            l = [b.next_installment, b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
+#            context = {'attr': l, 'attr1': l1}
+#            return render(request, 'show_student_dues.html', context)
+#        else:
+#            return render(request, 'error.html')
+#    else:
+#            return render(request, 'error.html')
 
 
 def messageroom(request):
@@ -285,8 +285,19 @@ def change_std_info(request):
 def login(request):
     if checkstdnt(request):
         if checkstdntsession(request):
-            context = Studentinfo.objects.get(sid=request.session['stdntid'])
-            response = HttpResponse(render(request, 'studentindex.html', {'context': context}))
+            b = Studentinfo.objects.get(sid=request.session['stdntid'])
+
+            room_number = b.room
+            room_type = Room.objects.get(room_number=room_number).roomType
+            room = Fees.objects.filter(room_type=room_type).values()
+            for rt in room:
+                rent_per_installment = rt['fees'] / rt['parts_per_year']
+                minimum_pay = b.total_dues
+            l1 = [b.sid, b.first_name + " " + b.last_name]
+            l = [b.next_installment, b.running_fine, minimum_pay, b.balance, rent_per_installment, b.next_due_date]
+            context = {'context': b,'student_transaction': Transaction_Details.objects.filter(sid=request.session['stdntid']),'attr': l, 'attr1': l1}
+
+            response = HttpResponse(render(request, 'stutempindex.html', context))
             _add_to_header(response, 'Cache-Control', 'no-store')
             _add_to_header(response, 'Cache-Control', 'no-cache')
             _add_to_header(response, 'Pragma', 'no-store')
@@ -325,8 +336,8 @@ def change_password(request, sid):
                 student_object.password = pass1
                 student_object.save()
             else:
-                return render(request, 'studentindex.html', {'context': student_object,'Error':'true','Message':'Error Code 2 : Passwords do not match'})
-            return render(request, 'studentindex.html', {'context':student_object,'Error':'false','Message':'Password changed successfully'})
+                return render(request, 'student_zone/changepass.html', {'context': sid,'Error':'true','Message':'Error Code 2 : Passwords do not match'})
+            return render(request, 'stutempindex.html', {'context':student_object,'Error':'false','Message':'Password changed successfully'})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
@@ -350,7 +361,7 @@ def send_message(request):
             new_message.type_of_message = request.POST['subject']
             new_message.body_of_message = request.POST['body']
             new_message.save()
-            return render(request, 'studentindex.html', {'context': student_object,'Message': 'Message Sent Successfully!!!'})
+            return render(request, 'stutempindex.html', {'context': student_object,'Message': 'Message Sent Successfully!!!'})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
@@ -380,7 +391,7 @@ def profile(request):
     if checkstdnt(request):
         if checkstdntsession(request):
             context = Studentinfo.objects.get(sid=request.session['stdntid'])
-            return render(request, 'student_zone/loggedin.html', {'context': context})
+            return render(request, 'studentprofile.html', {'context': context})
         else:
             return render(request, 'error.html')
     return render(request, 'error.html')
@@ -435,10 +446,6 @@ def checkadminsession(request):
         return True
     else:
         return False
-
-
-def tempindex(request):
-    return render(request, 'stutempindex.html')
 
 
 def get_init_pay(request):

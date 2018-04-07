@@ -56,7 +56,7 @@ def add_items(request):
     Item_object.type='purchased'
     Item_object.save()
 
-    return render(request, 'index.html', {'Message':'Item Added Successfully!!!'})
+    return render(request, 'tempinv.html', {'Message':'Item Added Successfully!!!'})
 
 
 def update_items(request):
@@ -75,4 +75,4 @@ def update_items(request):
     item1.quantity = int(quantity)
     item1.save()
 
-    return render(request, 'index.html', {'Message': 'Item Updated Successfully!!!'})
+    return render(request, 'tempinv.html', {'Message': 'Item Updated Successfully!!!'})

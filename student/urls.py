@@ -26,8 +26,8 @@ urlpatterns = [
     #url(r'^pay_initial_fees/$', views.pay_init_fees, name = 'pay_init_fees'),
     #url(r'^change_info_student/(?P<sid>ETL[0-9]+)/$', views.change_info, name = 'change_info'),
     url(r'^change_student_info/$', views.change_info, name = 'change_info'),
-    url(r'^accountlogs/(?P<stu_id>ETL[0-9]+)/$', views.accountlogs, name = 'account_logs'),
-    url(r'^view_balance_fee/(?P<stu_id>ETL[0-9]+)/$', views.view_balance_fee, name = 'view_balance_fee'),
+    #url(r'^accountlogs/(?P<stu_id>ETL[0-9]+)/$', views.accountlogs, name = 'account_logs'),
+    #url(r'^view_balance_fee/(?P<stu_id>ETL[0-9]+)/$', views.view_balance_fee, name = 'view_balance_fee'),
     url(r'^messageroom/$', views.messageroom, name = 'messageroom'),
     #url(r'^startsession/$', views.startsession, name='startsession'), Not needed
     url(r'^login/$', views.login, name='login'),
@@ -39,6 +39,5 @@ urlpatterns = [
     url(r'^send_contact_message/$', views.send_contact_message, name='send_contact_message'),
     url(r'^noticebox/$', views.noticebox, name='noticebox'),
     url(r'^noticebox/(?P<nid>NO[0-9]+)/$', views.notice, name='notice'),
-    url(r'^tempindex/$', views.tempindex, name='notice'),
     url(r'^get_init_pay/$', views.get_init_pay, name='get_init_pay'),
 ]

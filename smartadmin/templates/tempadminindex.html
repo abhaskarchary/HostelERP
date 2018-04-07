@@ -108,6 +108,7 @@
                         </button>
                         <a class="navbar-brand" href="/smartadmin/login/"> Dashboard </a>
                     </div>
+                    <p class="navbar-brand" id="Msg">{{Message}}</p>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
@@ -622,6 +623,11 @@
         demo.initDashboardPageCharts();
 
     });
+    window.setTimeout(function() {
+  		$("#Msg").fadeTo(500, 0).slideUp(500, function(){
+    	$(this).remove();
+  	    });
+	}, 5000);
 </script>
 
 </html>
