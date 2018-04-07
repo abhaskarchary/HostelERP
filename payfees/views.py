@@ -129,7 +129,7 @@ def update_dues(request, stu_id):
                         next_installment_amount = 0.0
                         next_installment_year=s.next_due_date.year
                         fee_per_installment = rt['fees'] / rt['parts_per_year']
-                        next_installment_month=s.next_due_date.month+int(12/rt['parts_per_year'])
+                        next_installment_month=s.next_due_date.month
                         if (next_installment_month > 12):
                             next_installment_month = next_installment_month - 12
                             next_installment_year=s.next_due_date.year+1
@@ -218,7 +218,7 @@ def update_dues(request, stu_id):
                 # pdf = render_to_pdf('receipt.html', context)
                 # return HttpResponse(pdf, content_type="application/pdf")
                 #return HttpResponse("<h3>Existing Dues deducted according to amount and balance successfully updated<h3>"
-                return render(request, 'index.html', {'Message': 'Fee paid successfully', 'trans_id':transaction.transaction_id })
+                return render(request, 'tempacc.html', {'Message': 'Fee paid successfully', 'trans_id':transaction.transaction_id })
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:

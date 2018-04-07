@@ -32,12 +32,38 @@
                     alert('Initial fee cannot be less than the required minimum amount');
                     return false;
                 }
+                else if(initial_fees>attr[3]){
+                    alert('Amount cannot be more than the yearly fee plus security money');
+                    return false;
+                }
             }
             window.history.forward();
             function noBack()
             {
+
+                <!--var attr = {{ attr | safe }}-->
+                <!--var attr1 = {{ attr1 | safe }}-->
+                <!--if(attr1[2]==="1 Part Payment")-->
+                <!--{-->
+                    <!--alert("hello");-->
+                    <!--document.getElementById("init_bal").value=attr[3];-->
+                    <!--document.getElementById("init_bal").readonly=true;-->
+                <!--}-->
                 window.history.forward();
             }
+
+            function disable(){
+            var a=document.getElementById("payment").value;
+            if(a=='Cash')
+            {
+            //alert("b");
+                document.getElementById("cheque").setAttribute("readonly", true);
+            }
+            else{
+            //alert("a");
+                document.getElementById("cheque").removeAttribute("readonly");
+            }
+        }
         </script>
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
@@ -52,7 +78,6 @@
               <p>Generated Student ID - {{attr1.0}}</p>
               <p>Room Selected - {{attr1.1}}</p>
               <p>Room Type - {{attr1.2}}</p>
-              <br/>
               <p>Yearly Fees - {{attr.0}}</p>
               <p>Security Money - {{attr.1}}</p>
               <br/>
@@ -62,8 +87,14 @@
               <!--<h1>{{attr.2}}</h1>-->
             <form action="/manager/initial_fees/{{ attr1.0 }}/" method="post" class="login-form" name="payfees_form" onsubmit="return check_initial_fees()">
               {% csrf_token %}
-                <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
-                <select class="i2" name="payment_mode">
+                {% ifequal attr1.3 1%}
+                    <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" value={{attr.3}} readonly="readonly">
+                {% endifequal %}
+                {% ifnotequal attr1.3 1 %}
+                    <input class="i4" type="number" name="initial_balance" id="init_bal" required="required" placeholder="How much will you pay">
+                {% endifnotequal %}
+
+                <select class="i2" name="payment_mode" onchange="disable()" id="payment">
                           <option  value="Select payment mode">Select payment mode</option>
                           <option  value="Cheque">Cheque</option>
                           <option  value="Cash">Cash</option>

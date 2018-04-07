@@ -5,6 +5,8 @@
 <title>ERP | Register</title>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+  <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.3.min. js' %}"></script>
     <script>
         window.history.forward();
 	    function noBack()
@@ -20,6 +22,25 @@
               return false;
             }
         }
+
+     function demofunc(room){
+      alert(room);
+        $.ajax({
+
+          url:"/student/get_init_pay/",
+          type:"get",
+          data:{
+            room:room,
+          },
+          success:function(data){
+            alert(data);
+          },
+          failure: function(data) {
+            alert('Got an error dude');
+        }
+        });
+        alert("hello2");
+      }
   </script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
@@ -58,7 +79,7 @@
   <input class="i2" type="number" id="HODmobile" required="required" placeholder="Enter mobile no. of HOD" min="7000000000" max="9999999999" name="hmobile">
     <br>
 
-  <select class="i1" name="vacant_room_list">
+  <select class="i1" name="vacant_room_list" onchange="demofunc(this.value)">
     <option value="Select Room">Select Room</option>
   {% for i in context %}
   <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.roomType}}</option>
@@ -68,6 +89,10 @@
   <br>
   <button type="submit" onclick="return validate_room_choice()">Submit</button>
 </form>
+
+    <script>
+
+    </script>
 </div>
 </div>
 </body>

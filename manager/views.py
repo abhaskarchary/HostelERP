@@ -154,10 +154,11 @@ def pay_init_fees(request, stu_id):
         room_number = Studentinfo.objects.get(sid = stu_id).room
         room_type = Room.objects.get(room_number = room_number).roomType
         room = Fees.objects.filter(room_type = room_type).values()
+        bal=s['balance']-initial_bal
         for rt in room:
             next_installment_amount=0.0
             fee_per_installment=rt['fees']/rt['parts_per_year']
-            bal = (rt['fees'])+rt['security_money']-initial_bal
+            #bal = (rt['fees'])+rt['security_money']-initial_bal
             fee_paid=initial_bal-rt['security_money']
             no_of_installments_cleared = int(fee_paid / fee_per_installment)
             if(bal>0):
@@ -505,3 +506,10 @@ def tempinv(request):
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
         return render(request, 'error.html')
+
+
+def demo(request):
+    room=request.GET["room"]
+
+    print("request RECEIVEd")
+    return HttpResponse("hello abhishek "+name)

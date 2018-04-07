@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^noticebox/$', views.noticebox, name='noticebox'),
     url(r'^noticebox/(?P<nid>NO[0-9]+)/$', views.notice, name='notice'),
     url(r'^tempindex/$', views.tempindex, name='notice'),
+    url(r'^get_init_pay/$', views.get_init_pay, name='get_init_pay'),
 ]

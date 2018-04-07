@@ -124,16 +124,25 @@ def update(request,sid = None):
     room_number = request.POST['vacant_room_list'].split()[0]
 
     room_type = Room.objects.get(room_number=room_number).roomType
+
+    fee = Fees.objects.filter(room_type=room_type).values()
+    init_bal=0
+    total=0
+    for f in fee:
+        init_bal=f['fees']+f['security_money']
+        total = (f['fees'] / f['parts_per_year']) + f['security_money']
     # print(room_number)
     # print(room_type)
             #print(first_name, last_name)
     if sid is None:
         student_info_object = Studentinfo()
-        student_info_object.balance = 0.0
+        student_info_object.balance = init_bal
         student_info_object.running_dues = 0.0
         student_info_object.running_fine = 0.0
         student_info_object.refundable_security = 0.0
-        student_info_object.total_dues = 0.0
+        student_info_object.total_dues = total
+        student_info_object.next_due_date = datetime.datetime.now()
+        student_info_object.next_installment = 0.0
     else:
         [student_info_object] = Studentinfo.objects.filter(sid=sid)
     student_info_object.first_name = first_name
@@ -150,8 +159,7 @@ def update(request,sid = None):
     student_info_object.guardian_name = gname
     student_info_object.guardian_mobile = gmobile
     student_info_object.institution_name = iname
-    student_info_object.next_due_date=datetime.datetime.now()
-    student_info_object.next_installment=0.0
+
     # student_info_object.hod_name = hname
     # student_info_object.hod_mobile = hmobile
     if room_number != 'None':
@@ -213,14 +221,16 @@ def update(request,sid = None):
     l={}
     last_booking = Studentinfo.objects.all().order_by('sid').last()
     fee = Fees.objects.filter(room_type = room_type).values()
+    max_pay=0
     for f in fee:
         total = (f['fees']/f['parts_per_year']) + f['security_money']
+        max_pay=f['fees']+f['security_money']
         # l = [f['security_money'],f['fees'],total]
-        l=[f['fees'], f['security_money'], total]
-        l1=[last_booking.sid, room_number, room_type]
+        l=[f['fees'], f['security_money'], total, max_pay]
+        l1=[last_booking.sid, room_number, room_type, f['parts_per_year'] ]
     context = {'attr': l, "attr1":l1}
     # fee = Fees.objects.get(room_type = room_type).values()
-    return render(request, 'registration/pay_initial_fees.html',context)
+    return render(request, 'registration/pay_initial_fees.html', context)
 
 
 def pay_init_fees(request, stu_id):
@@ -429,3 +439,9 @@ def checkadminsession(request):
 
 def tempindex(request):
     return render(request, 'stutempindex.html')
+
+
+def get_init_pay(request):
+    room = request.GET["room"]
+    print("request RECEIVEd")
+    return HttpResponse("hello abhishek " + room)

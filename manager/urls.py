@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^tempacc/$', views.tempacc, name='tempacc'),
     url(r'^tempfees/$', views.tempfees, name='tempfees'),
     url(r'^tempinv/$', views.tempinv, name='tempinv'),
+    url(r'^demo/$', views.demo, name='demo'),
 
 ]
