@@ -117,7 +117,7 @@ def update(request):
     ad2 = request.POST['ad2']
     city = request.POST['city']
     pin = request.POST['pin']
-    pass1 = request.POST['pass1']
+
 
     Manager_info_object = EmployeeInfo()
     Manager_info_object.first_name = first_name
@@ -131,7 +131,7 @@ def update(request):
     Manager_info_object.address_l2 = ad2
     Manager_info_object.city = city
     Manager_info_object.pin_code = pin
-    Manager_info_object.password = pass1
+    Manager_info_object.password = "123456"
 
     Manager_info_object.save()
 
