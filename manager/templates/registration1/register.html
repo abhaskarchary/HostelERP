@@ -4,7 +4,27 @@
 <meta charset="ISO-8859-1">
 <title>ERP | Register</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+<!--<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>-->
+  <link rel="apple-touch-icon" sizes="76x76" href="{%static 'assets/img/apple-icon.png'%}" />
+    <link rel="icon" type="image/png" href="{%static 'assets/img/favicon.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Student Panel | S.M.A.R.T. ERP Solutions</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{%static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{%static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>-->
+    <link href="{%static 'assets/css/fontawesome.min.css'%}" rel="stylesheet">
+    <link href="{%static 'assets/css/materialicons.css'%}" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>-->
+  <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.3.min. js' %}"></script>
   <script>
     function check(){
       var a=document.form.pass1.value;
@@ -16,28 +36,139 @@
     }
   </script>
 </head>
-<body>
-<div class="login-page">
-  <div class="form">
-<form action="/manager/update/" method="post" class="login-form" name="form" onsubmit="check()">
-  {% csrf_token %}
-<input class="i1" type="text" name="name1" id="name" required="required" placeholder="Enter first name">
-<input class="i2" type="text" id="name2" name="name2" required="required" placeholder="Enter last name"><br>
-<input class="i1" type="password" name="pass1" id="pass1" required="required" placeholder="Enter password" maxlength="20">
-  <input class="i2" type="text" name="pass2" id="pass2" required="required" placeholder="Confirm Password" maxlength="20" onblur="check()">
-<div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px"><input type="radio" name="sex" value="male" checked="checked">Male<input type="radio" name="sex" value="Female" style="margin-left: 300px">Female</div><br>
-<input class="i1" type="number" required="required" placeholder="Enter Aadhaar number" min="100000000000" max="999999999999" name="aadhaar">
-<input class="i3" type="text" value="+91" readonly="readonly">
-<input class="i5" type="number" name="mobile" id="mobile" required="required" placeholder="Enter your mobile no." min="7000000000" max="9999999999"><br>
-<input class="i1" type="text" name="pname" id="parent" required="required" placeholder="Enter father's/mother's name">
-<input class="i2" type="number" name="pmobile" id="parentmobile" required="required" placeholder="Enter father's/mother's mobile no." min="7000000000" max="9999999999"><br>
-<input class="i1" type="text" required="required" placeholder="Address line 1" name = "ad1">
-<input class="i2" type="text" required="required" placeholder="Address line 2" name = "ad2"><br>
-<input class="i1" type="text" required="required" placeholder="Enter city" name = "city">
-<input class="i2" type="number" id="pincode" required="required" placeholder="Enter your pincode" min="100000" max="999999" name = "pin"><br>
-<button type="submit">Submit</button>
-</form>
-</div>
-</div>
+<body bgcolor="white">
+   <div class="content" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+
+                        <div class="col-md-8" style="margin-top:20px">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h4 class="title">Employee Registration</h4>
+                                </div>
+                                <div class="card-content">
+                                    <form action="/manager/update/" method="post" class="login-form" name="form">
+                                      {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">First Name</label>
+                                                    <input type="text" class="form-control" name="name1" id="name" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Last Name</label>
+                                                    <input type="text" class="form-control" id="name2" name="name2" required="required">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <input type="radio" name="sex" value="male" checked="checked">Male
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <input type="radio" name="sex" value="Female">Female
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Aadhar Number</label>
+                                                    <input type="number" required="required"  min="100000000000" max="999999999999" name="aadhaar" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Contact Number</label>
+                                                    <input class="form-control" type="number" name="mobile" id="mobile" required="required" min="6000000000" max="9999999999">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Father's/Mother's Name</label>
+                                                    <input class="form-control" type="text" name="pname" id="parent" required="required">
+                                                </div>
+                                            </div>
+                                          <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Father's/Mother's Mobile</label>
+                                                    <input class="form-control" type="number" name="pmobile" id="parentmobile" required="required" min="6000000000" max="9999999999">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Address Line 1</label>
+                                                    <input class="form-control" type="text" required="required"  name = "ad1">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Address Line 2</label>
+                                                    <input  class="form-control" type="text" required="required"  name = "ad2">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">City</label>
+                                                    <input class="form-control" type="text" required="required"  name = "city" >
+                                                </div>
+                                            </div>
+                                           <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Pincode</label>
+                                                    <input class="form-control" type="number" id="pincode" required="required"  min="100000" max="999999" name = "pin" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-md-12" align="center">
+                                              <div class="form-group label-floating">
+                                                 <button type="submit">Submit</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                </div>
+            </div>
+   </div>
 </body>
+{%load static%}
+<script src="{%static 'assets/js/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'assets/js/material.min.js'%}" type="text/javascript"></script>
+<!--  Charts Plugin -->
+<script src="{%static 'assets/js/chartist.min.js'%}"></script>
+<!--  Dynamic Elements plugin -->
+<script src="{%static 'assets/js/arrive.min.js'%}"></script>
+<!--  PerfectScrollbar Library -->
+<script src="{%static 'assets/js/perfect-scrollbar.jquery.min.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{%static 'assets/js/bootstrap-notify.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{%static 'assets/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{%static 'assets/js/demo.js'%}"></script>
 </html>

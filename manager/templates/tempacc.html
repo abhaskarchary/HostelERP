@@ -631,6 +631,12 @@
         demo.initDashboardPageCharts();
 
     });
+    var t='{{trans_id}}';
+    if(t!=""){
+        //alert(t);
+        var url = "/manager/generatereceipt/"+t;
+        window.open(url, '_blank');
+    }
     window.setTimeout(function() {
   		$("#Msg").fadeTo(500, 0).slideUp(500, function(){
     	$(this).remove();
