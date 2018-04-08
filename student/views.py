@@ -7,7 +7,8 @@ from payfees.models import Fees
 from Room.models import Room
 from django.http import HttpResponse
 import re
-import datetime
+from datetime import datetime
+import json
 from transactions.models import Transaction_Details
 # from payfees.models import TransactionDetails
 
@@ -103,6 +104,7 @@ def change_info(request):
 
 
 def update(request,sid = None):
+    flag=0
     first_name = request.POST['name1']
     last_name = request.POST['name2']
     blood_grp = request.POST['blood_grp']
@@ -118,31 +120,77 @@ def update(request,sid = None):
     gname = request.POST['gname']
     gmobile = request.POST['gmobile']
     iname = request.POST['iname']
+
+    initial_bal=0
+    p_mode=""
+    particulars=""
+    cheque_no=""
+    yearlyfees=0
+    security_money=0
+    if sid is  None:
+        initial_bal = float(request.POST['initial_balance'])
+        p_mode = (request.POST['payment_mode'])
+        particulars = request.POST['particulars']
+        cheque_no = request.POST['cheque_no']
+        yearlyfees=float(request.POST['yearlyfees'])
+        security_money=float(request.POST['security_money'])
+
     # hname = request.POST['hname']
     # hmobile = request.POST['hmobile']
     # if sid is None:
     room_number = request.POST['vacant_room_list'].split()[0]
 
     room_type = Room.objects.get(room_number=room_number).roomType
+    room = Fees.objects.filter(room_type=room_type).values()
 
-    fee = Fees.objects.filter(room_type=room_type).values()
-    init_bal=0
-    total=0
-    for f in fee:
-        init_bal=f['fees']+f['security_money']
-        total = (f['fees'] / f['parts_per_year']) + f['security_money']
+    bal=yearlyfees+security_money-initial_bal
+    for rt in room:
+        next_installment_amount = 0.0
+        fee_per_installment = rt['fees'] / rt['parts_per_year']
+        # bal = (rt['fees'])+rt['security_money']-initial_bal
+        fee_paid = initial_bal - rt['security_money']
+        print(fee_paid)
+        no_of_installments_cleared = int(fee_paid / fee_per_installment)
+        print(no_of_installments_cleared)
+        if (bal > 0):
+            next_installment_amount_cleared = fee_paid - no_of_installments_cleared * fee_per_installment
+            print(next_installment_amount_cleared)
+            next_installment_amount = fee_per_installment - next_installment_amount_cleared
+            print(next_installment_amount)
+        duration_bw_succ_installments = 12 / rt['parts_per_year']
+        today = datetime.now()
+        month = today.month
+        next_installment_month = int(month + no_of_installments_cleared * duration_bw_succ_installments)
+        if (next_installment_month > 12):
+            next_installment_month = next_installment_month - 12
+            next_due_date = str((today.year) + 1) + "-" + str(next_installment_month) + "-05"
+        else:
+            next_due_date = str(today.year) + "-" + str(next_installment_month) + "-05"
+        d = datetime.strptime(next_due_date, "%Y-%m-%d").date()
+    # fee = Fees.objects.filter(room_type=room_type).values()
+    # init_bal=0
+    # total=0
+    # for f in fee:
+    #     init_bal=f['fees']+f['security_money']
+    #     total = (f['fees'] / f['parts_per_year']) + f['security_money']
     # print(room_number)
     # print(room_type)
             #print(first_name, last_name)
     if sid is None:
+        flag=1
         student_info_object = Studentinfo()
-        student_info_object.balance = init_bal
+        student_info_object.balance = bal
         student_info_object.running_dues = 0.0
         student_info_object.running_fine = 0.0
         student_info_object.refundable_security = 0.0
-        student_info_object.total_dues = total
-        student_info_object.next_due_date = datetime.datetime.now()
-        student_info_object.next_installment = 0.0
+        student_info_object.total_dues = next_installment_amount
+        student_info_object.next_due_date = d
+        student_info_object.next_installment = next_installment_amount
+
+
+        # sid=increment_id()
+
+
     else:
         [student_info_object] = Studentinfo.objects.filter(sid=sid)
     student_info_object.first_name = first_name
@@ -180,6 +228,26 @@ def update(request,sid = None):
         return redirect('/student/register')
     student_info_object.save()
 
+    if flag==1:
+        last_booking = Studentinfo.objects.all().order_by('sid').last()
+        sid=""
+        sid=last_booking.sid
+        print(sid)
+        transaction = Transaction_Details()
+        [transaction.sid]=Studentinfo.objects.filter(sid=sid)
+        transaction.transaction_date = datetime.now()
+        transaction.payment_mode = p_mode
+        transaction.fees_paid = initial_bal
+        transaction.fine_paid = 0.0
+        transaction.remaining_fees = 0.0
+        transaction.remaining_fine = 0.0
+        transaction.remaining_total = bal
+        transaction.particulars = particulars
+        transaction.cheque_dd_no = cheque_no
+        transID = transaction.transaction_id
+        print("Latest transaction id= " + transID)
+        transaction.save()
+
     """Changes discarded"""
     # due = Dues()
     #
@@ -216,21 +284,45 @@ def update(request,sid = None):
     # context = {'attr':attr}
 
     if sid is not None:
-        return render(request, 'registration/registration_complete.html')
+        if flag==1:
+            return render(request, 'tempacc.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': transID})
+        return render(request, 'tempacc.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': ""})
 
-    l={}
-    last_booking = Studentinfo.objects.all().order_by('sid').last()
-    fee = Fees.objects.filter(room_type = room_type).values()
-    max_pay=0
+    # l={}
+    # last_booking = Studentinfo.objects.all().order_by('sid').last()
+    # fee = Fees.objects.filter(room_type = room_type).values()
+    # max_pay=0
+    # for f in fee:
+    #     total = (f['fees']/f['parts_per_year']) + f['security_money']
+    #     max_pay=f['fees']+f['security_money']
+    #     # l = [f['security_money'],f['fees'],total]
+    #     l=[f['fees'], f['security_money'], total, max_pay]
+    #     l1=[last_booking.sid, room_number, room_type, f['parts_per_year'] ]
+    # context = {'attr': l, "attr1":l1}
+    # # fee = Fees.objects.get(room_type = room_type).values()
+    return render(request, 'tempacc.html', {'Message': 'Student Registered Successfully!!!', 'trans_id': transID})
+
+
+def get_init_pay(request):
+    room_number = request.GET["room"]
+    room_type = Room.objects.get(room_number=room_number).roomType
+    fee = Fees.objects.filter(room_type=room_type).values()
+    data={}
     for f in fee:
         total = (f['fees']/f['parts_per_year']) + f['security_money']
         max_pay=f['fees']+f['security_money']
         # l = [f['security_money'],f['fees'],total]
-        l=[f['fees'], f['security_money'], total, max_pay]
-        l1=[last_booking.sid, room_number, room_type, f['parts_per_year'] ]
-    context = {'attr': l, "attr1":l1}
-    # fee = Fees.objects.get(room_type = room_type).values()
-    return render(request, 'registration/pay_initial_fees.html', context)
+        l=[f['fees'], f['security_money'], total, max_pay, room_number, f['parts_per_year']]
+        l1=[room_number, room_type, f['parts_per_year'] ]
+        data['fees']=f['fees']
+        data['security_money']=f['security_money']
+        data['total']=total
+        data['max_pay']=max_pay
+        data['room_number']=room_number
+        #data['room_type']=room_type
+        data['parts_per_year']=f['parts_per_year']
+        print(data)
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def pay_init_fees(request, stu_id):
@@ -448,7 +540,3 @@ def checkadminsession(request):
         return False
 
 
-def get_init_pay(request):
-    room = request.GET["room"]
-    print("request RECEIVEd")
-    return HttpResponse("hello abhishek " + room)

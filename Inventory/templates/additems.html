@@ -4,7 +4,27 @@
 <meta charset="ISO-8859-1">
 <title>ERP | Inventory</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>
+<!--<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>-->
+  <link rel="apple-touch-icon" sizes="76x76" href="{%static 'assets/img/apple-icon.png'%}" />
+    <link rel="icon" type="image/png" href="{%static 'assets/img/favicon.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Student Panel | S.M.A.R.T. ERP Solutions</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{%static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{%static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>-->
+    <link href="{%static 'assets/css/fontawesome.min.css'%}" rel="stylesheet">
+    <link href="{%static 'assets/css/materialicons.css'%}" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'registration/style.css' %}"/>-->
+  <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+  <script src="{% static 'js/jquery-1.11.3.min. js' %}"></script>
     <script>
         window.history.forward();
 	    function noBack()
@@ -38,35 +58,120 @@
   </script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-<div class="login-page">
-  <div class="form">
-<form action="/inventory/add_items/" method="post" class="login-form" name="add_item_form" >
-  {% csrf_token %}
+<div class="content" style="">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="margin-top:20px">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h4 class="title">Change Student Details</h4>
+                                </div>
+                                <div class="card-content">
+                                    <form action="/inventory/add_items/" method="post" class="login-form" name="add_item_form" >
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Select Item Category</label>
+                                                    <select  name="category" onchange="changeoption()">
+                                                        <option value="Select Category">Select Category</option>
+                                                        <option value="daily purchased">Daily Purchased Items</option>
+                                                        <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
+                                                        <option value="other">Other Items</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Select Item</label>
+                                                   <select name="item" id="item">
+                                                      <option value="Select Item" id="Select">Select Item</option>
+                                                      {% for i in context %}
+                                                      <option value="{{ i }}" id="{{ i.category }}">{{ i.name }}</option>
+                                                      {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Enter Quantity</label>
+                                                    <input class="form-control" type="number" name="quantity" id="quantity" required="required">
+                                                </div>
+                                            </div>
 
-  <select class="i1" name="category" onchange="changeoption()">
-      <option value="Select Category">Select Category</option>
-      <option value="daily purchased">Daily Purchased Items</option>
-      <option value="monthly/yearly purchased">Monthly/Yearly Purchased Items</option>
-      <option value="other">Other Items</option>
-  </select>
-  <select class="i2" name="item" id="item">
-    <option value="Select Item" id="Select">Select Item</option>
-  {% for i in context %}
-  <option value="{{ i }}" id="{{ i.category }}">{{ i.name }}</option>
-  {% endfor %}
-  </select>
-  <input class="i1" type="number" name="quantity" id="quantity" required placeholder="Enter quantity">
-  <input class="i2" type="number" id="price" name="price" required placeholder="Enter price per unit item"><br>
-  <div style="width:644px;vertical-align: center;text-align: left;padding: 15px;margin-left: 40px">
-    <input type="radio" name="unit" value="kg" checked="checked">Kilo grams<input type="radio" name="unit" value="gm" style="margin-left: 120px">Grams
-    <input type="radio" name="unit" value="lt" style="margin-left: 120px">Litres<input type="radio" name="unit" value="pieces" style="margin-left: 120px">Pieces
-  </div>
-    <br>
-  <input class="i4" type="text" id="desc" placeholder="Enter Description" name="desc">
-    <br>
-  <button type="submit" onclick="return validate_choices()">Submit</button>
-</form>
-</div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Enter price per unit item</label>
+                                                    <input class="form-control" type="number" id="price" name="price" required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <input type="radio" name="unit" value="kg" checked="checked">Kilo grams
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <input  type="radio" name="unit" value="gm" >Grams
+                                                </div>
+                                            </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group label-floating">
+                                                    <input  type="radio" name="unit" value="lt" >Litres
+                                                </div>
+                                            </div>
+                                          <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <input type="radio" name="unit" value="pieces">Pieces
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12" >
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Enter Description</label>
+                                                    <input class="form-control" type="text" id="desc" name="desc">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12" align="center">
+                                                <div class="form-group label-floating">
+                                                    <button type="submit" onclick="return validate_choices()">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                </div>
+            </div>
 </div>
 </body>
+{%load static%}
+<script src="{%static 'assets/js/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'assets/js/material.min.js'%}" type="text/javascript"></script>
+<!--  Charts Plugin -->
+<script src="{%static 'assets/js/chartist.min.js'%}"></script>
+<!--  Dynamic Elements plugin -->
+<script src="{%static 'assets/js/arrive.min.js'%}"></script>
+<!--  PerfectScrollbar Library -->
+<script src="{%static 'assets/js/perfect-scrollbar.jquery.min.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{%static 'assets/js/bootstrap-notify.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{%static 'assets/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{%static 'assets/js/demo.js'%}"></script>
 </html>
