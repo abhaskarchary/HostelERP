@@ -232,9 +232,12 @@ def update(request,sid = None):
         last_booking = Studentinfo.objects.all().order_by('sid').last()
         sid=""
         sid=last_booking.sid
+        fname=last_booking.first_name
+        lname=last_booking.last_name
         print(sid)
         transaction = Transaction_Details()
         [transaction.sid]=Studentinfo.objects.filter(sid=sid)
+        transaction.student_name=fname+" "+lname
         transaction.transaction_date = datetime.now()
         transaction.payment_mode = p_mode
         transaction.fees_paid = initial_bal

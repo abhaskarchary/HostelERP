@@ -91,7 +91,8 @@ def update_dues(request, stu_id):
             particulars = request.POST['particulars']
             cheque_no=request.POST['cheque_no']
            #mess_fees = request.POST['mess_fees']
-
+            fname=""
+            lname=""
             if stu_id:
                 stu = Studentinfo.objects.filter(sid = stu_id)
                 stu1 = Studentinfo.objects.filter(sid = stu_id).values()
@@ -99,6 +100,8 @@ def update_dues(request, stu_id):
                     total = s.total_dues
                     bal = s.balance
                     fine = s.running_fine
+                    fname=s.first_name
+                    lname=s.last_name
                     #due = s.running_dues
                     # if total<amount:
                     #     remaining_dues=0.0
@@ -129,7 +132,7 @@ def update_dues(request, stu_id):
                         next_installment_amount = 0.0
                         next_installment_year=s.next_due_date.year
                         fee_per_installment = rt['fees'] / rt['parts_per_year']
-                        next_installment_month=s.next_due_date.month
+                        next_installment_month=s.next_due_date.month+(12/rt['parts_per_year'])
                         if (next_installment_month > 12):
                             next_installment_month = next_installment_month - 12
                             next_installment_year=s.next_due_date.year+1
@@ -148,7 +151,9 @@ def update_dues(request, stu_id):
                         d = datetime.strptime(next_due_date, "%Y-%m-%d").date()
                         # bal = s['balance'] + initial_bal
                         # s['balance'] = s['balance'] + initial_bal
-                    s.balance=rem_bal
+                    if(rem_bal>0):
+                        s.next_due_date = d
+                    s.balance = rem_bal
                     s.next_due_date=d
                     s.next_installment=next_installment_amount
                     s.total_dues=s.next_installment+s.running_fine
@@ -165,6 +170,7 @@ def update_dues(request, stu_id):
 
                 transaction = Transaction_Details()
                 [transaction.sid] = Studentinfo.objects.filter(sid=stu_id)
+                transaction.student_name=fname+" "+lname
                 transaction.transaction_date=datetime.now()
                 transaction.payment_mode = p_mode
                 transaction.fees_paid = total_fee

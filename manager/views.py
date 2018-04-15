@@ -435,6 +435,7 @@ def generate_receipt(request, trans_id):
                         template = get_template('pdf/receipt.html')
                         context = {
                             "sid": t.sid,
+                            "student_name":t.student_name,
                             "trans_id": t.transaction_id,
                             "trans_date": t.transaction_date,
                             "pmode": t.payment_mode,
@@ -452,6 +453,7 @@ def generate_receipt(request, trans_id):
                         template = get_template('pdf/receipt1.html')
                         context = {
                             "sid": t.sid,
+                            "student_name": t.student_name,
                             "trans_id": t.transaction_id,
                             "trans_date": t.transaction_date,
                             "pmode": t.payment_mode,
