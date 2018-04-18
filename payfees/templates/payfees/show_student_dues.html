@@ -71,10 +71,11 @@
 
         function disable(){
             var a=document.getElementById("payment").value;
-            if(a=='Cash')
+            if(a=='Cash' || a=='Select payment mode')
             {
             //alert("b");
                 document.getElementById("cheque").setAttribute("readonly", true);
+                document.getElementById("cheque").value="";
             }
             else{
             //alert("a");
@@ -84,7 +85,7 @@
     </script>
 </head>
 
-<body>
+<body onload="disable()">
         <div class="wrapper">
         <div>
             <div class="content">
@@ -127,22 +128,24 @@
                                         <div class="row">
                                             <div class="col-md-12" align="center">
                                                   <div class="form-group label-floating">
-                                                      {% ifequal attr.2 0%}
                                                       <p>This student does not have any dues.</p>
-                                                      {% else %}
-                                                       <p>Minimum amount to be paid-{{attr.2}}</p>
-                                                      {% endifequal %}
                                                   </div>
                                               </div>
                                         </div>
                                     </div>
                                     {% else %}
+
+                                        <div class="row">
+                                            <div class="col-md-12" align="center">
+                                                  <div class="form-group label-floating">
+                                                      <p><b>Minimum amount to be paid - {{ attr.2 }}</b></p>
+                                                  </div>
+                                              </div>
+                                        </div>
+
                                     <div>
                                     <form name="due_form" onsubmit="return check_amount()" action="/dues/update_dues/{{ attr1.0 }}/" method="post">
                                     {% csrf_token %}
-
-
-
                                         <div class="row">
                                               <div class="col-md-4">
                                                   <div class="form-group label-floating">

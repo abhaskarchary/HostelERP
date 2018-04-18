@@ -148,13 +148,12 @@ def update_dues(request, stu_id):
                             next_installment_month = next_installment_month - 12
                             next_installment_year=next_installment_year+1
                         next_due_date = str(next_installment_year) + "-" + str(next_installment_month) + "-05"
-                        d = datetime.strptime(next_due_date, "%Y-%m-%d").date()
+                        d = datetime.strptime(next_due_date, "%Y-%m-%d")
                         # bal = s['balance'] + initial_bal
                         # s['balance'] = s['balance'] + initial_bal
-                    if(rem_bal>0):
-                        s.next_due_date = d
+
+                    s.next_due_date = d
                     s.balance = rem_bal
-                    s.next_due_date=d
                     s.next_installment=next_installment_amount
                     s.total_dues=s.next_installment+s.running_fine
                     s.save()

@@ -431,8 +431,12 @@ def generate_receipt(request, trans_id):
             for t in transaction:
                 stu=Studentinfo.objects.filter(sid=t.sid)
                 for s in stu:
+                    due_date = "Next Due Date - "+ str(s.next_due_date.day+1)+"/"+str(s.next_due_date.month)+"/"+str(s.next_due_date.year)
+                    if s.balance == 0.0:
+                        due_date = ""
                     if(t.cheque_dd_no!=''):
                         template = get_template('pdf/receipt.html')
+
                         context = {
                             "sid": t.sid,
                             "student_name":t.student_name,
@@ -441,10 +445,11 @@ def generate_receipt(request, trans_id):
                             "pmode": t.payment_mode,
                             "fees_paid": t.fees_paid,
                             "fine": t.fine_paid,
+                            "total_paid":t.fees_paid+t.fine_paid,
                             "balance": t.remaining_total,
                             "total": t.remaining_total,
                             "particulars": t.particulars,
-                            "next_due_date": s.next_due_date,
+                            "next_due_date": due_date,
                             "cheque_no": t.cheque_dd_no,
                             "print_date" : datetime.now()
                         }
@@ -459,10 +464,11 @@ def generate_receipt(request, trans_id):
                             "pmode": t.payment_mode,
                             "fees_paid": t.fees_paid,
                             "fine": t.fine_paid,
+                            "total_paid": t.fees_paid + t.fine_paid,
                             "balance": t.remaining_total,
                             "total": t.remaining_total,
                             "particulars": t.particulars,
-                            "next_due_date": s.next_due_date,
+                            "next_due_date": due_date,
                             "print_date": datetime.now()
                         }
                         flag = 2

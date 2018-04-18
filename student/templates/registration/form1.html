@@ -105,21 +105,21 @@
       }
 
       function disable(){
-      //alert("disable");
-          var a=document.getElementById("payment").value;
-          if(a=='Cash' || a=='Select payment mode')
-          {
-              //alert("b");
-              document.getElementById("cheque").setAttribute("readonly", true);
-          }
-          else{
-              //alert("a");
-              document.getElementById("cheque").removeAttribute("readonly");
-          }
-      }
+            var a=document.getElementById("payment").value;
+            if(a=='Cash' || a=='Select payment mode')
+            {
+            //alert("b");
+                document.getElementById("cheque").setAttribute("readonly", true);
+                document.getElementById("cheque").value="";
+            }
+            else{
+            //alert("a");
+                document.getElementById("cheque").removeAttribute("readonly");
+            }
+        }
   </script>
 </head>
-<body bgcolor="white">
+<body bgcolor="white" onload="disable()">
 
             <div class="content">
                 <div class="container-fluid">

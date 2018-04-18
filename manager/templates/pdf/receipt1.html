@@ -14,8 +14,17 @@
 				font-size:15px;
 			}
 		</style>
+		<script>
+			function checkduedate(){
+				alert("hello");
+				var bal=parseInt(document.getElementById("balance").innerHTML);
+				if(bal==0.0){
+					document.getElementById("next_due_date").innerHTML="";
+				}
+			}
+		</script>
 	</head>
-	<body>
+	<body onload="checkduedate()">
 		<div style="height:20%; width:100%;" align="center">
 			<div style="height:100%; width:40%;position:relative" align="center">
 			<br>
@@ -47,7 +56,7 @@
 				</tr>
 				<tr>
 					<td align="center">{{ particulars }}</td>
-					<td align="center">5000</td>
+					<td align="center">{{ total_paid }}</td>
 				</tr>
 			</table>
 			<p style="font-size:20px"><b>Payment Details</b></p>
@@ -62,7 +71,7 @@
 					<th align="center">Fine Paid(If Any)</th><td align="center">{{ fine }}</td>
 				</tr>
 				<tr>
-					<th align="center">Balance</th><td align="center">{{ balance }}</td>
+					<th align="center">Balance</th><td id="balance" align="center">{{ balance }}</td>
 				</tr>
 				<tr>
 					<th align="center">Total Dues</th><td align="center">{{ total }}</td>
@@ -71,7 +80,7 @@
 					<td colspan="2" align="right"><hr></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="right"><b>Next Due Date - </b>{{ next_due_date }}</td>
+					<td id="next_due_date" colspan="2" align="right"><b>{{ next_due_date }}</b></td>
 				</tr>
 			</table>
 			<br>
