@@ -1,36 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{trans_id}}</title>
-</head>
-<body>
-	<div style="height=20%">
-		<center><h1>S.M.A.R.T E.R.P Fee Receipt</h1></center>
-		<h3 align="right">Print Date-{{ print_date }}</h3>
-	</div>
-
-	<hr></hr>
-	<h1>Student Id - {{sid}}</h1>
-	<h1>Student Name - {{ student_name }}</h1>
-    <table border="0" cellspacing="10" cellpadding="10" align="center">
-        <tr>
-			<th>Transaction ID</th><th>Transaction Date</th><th>Payment Mode</th><th>Fees paid</th>
-			<th>Fine paid(If any)</th><th>Balance Fee</th><th>Total Dues</th><th>Particulars</th><th>Next Due Date</th>
-		</tr>
-		<tr>
-			<td align="center">{{ trans_id }}</td>
-			<td align="center">{{ trans_date }}</td>
-			<td align="center">{{ pmode }}</td>
-			<td align="center">{{ fees_paid }}</td>
-			<td align="center">{{ fine }}</td>
-			<td align="center">{{ balance }}</td>
-			<td align="center">{{ total }}</td>
-			<td align="center">{{ particulars }}</td>
-			<td align="center">{{ next_due_date }}</td>
-			<!--<td align="center">{{ print_date }}</td>-->
-		</tr>
-	</table>
-
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{{trans_id}}
+		</title>
+		<style>
+			td{
+				font-size:15px;
+			}
+			th{
+				font-size:15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="height:20%; width:100%;" align="center">
+			<div style="height:100%; width:40%;position:relative" align="center">
+			<br>
+				<p style="font-size:25px"><b>SMART ERP SOLUTIONS</b></p>
+				<p style="font-size:15px">Payment Receipt</p>
+			</div>
+		</div>
+		<div id="content" style="width:100%;top:60%" align="center">
+			<table style="width:60%" border="0" cellpadding="5px" cellspacing="5px">
+				<tr>
+					<th align="center">Transaction ID</th><td align="center">{{ trans_id }}</td>
+				</tr>
+				<tr>
+					<th align="center">Transaction Date</th><td align="center">{{ trans_date }}</td>
+				</tr>
+				<tr>
+					<th align="center">Student ID</th><td align="center">{{sid}}</td>
+				</tr>
+				<tr>
+					<th align="center">Student Name</th><td align="center">{{ student_name }}</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<table style="width:60%" border="0" cellpadding="5px" cellspacing="5px">
+				<tr>
+					<th align="center">Particulars</th>
+					<th align="center">Total Amount Paid</th>
+				</tr>
+				<tr>
+					<td align="center">{{ particulars }}</td>
+					<td align="center">5000</td>
+				</tr>
+			</table>
+			<p style="font-size:20px"><b>Payment Details</b></p>
+			<table style="width:60%" border="0" frame="box" cellpadding="5px" cellspacing="5px">
+				<tr>
+					<th align="center">Payment Mode</th><td align="center">{{ pmode }}</td>
+				</tr>
+				<tr>
+					<th align="center">Fee Paid</th><td align="center">{{ fees_paid }}</td>
+				</tr>
+				<tr>
+					<th align="center">Fine Paid(If Any)</th><td align="center">{{ fine }}</td>
+				</tr>
+				<tr>
+					<th align="center">Balance</th><td align="center">{{ balance }}</td>
+				</tr>
+				<tr>
+					<th align="center">Total Dues</th><td align="center">{{ total }}</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right"><hr></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right"><b>Next Due Date - </b>{{ next_due_date }}</td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<table style="width:60%" border="0" cellpadding="5px">
+				<tr>
+					<td align="left"><b>Manager's Signature : ___________________________</b></td>
+				</tr>
+				<tr>
+					<td align="right"><p style="font-size:15px">Print Date - {{ print_date }}</p></td>
+				</tr>
+				<tr>
+					<td align="right">&copy;  <a href="http://www.abhishekkumar.net">AAA Developers</a></td>
+				</tr>
+			</table>
+		</div>
+	</body>
 </html>
