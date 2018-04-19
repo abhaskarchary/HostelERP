@@ -427,8 +427,9 @@ def generate_receipt(request, trans_id):
     if checkuser(request):
         if checkusersession(request):
             transaction=Transaction_Details.objects.filter(transaction_id=trans_id)
-
+            transId=""
             for t in transaction:
+                transId=t.transaction_id
                 stu=Studentinfo.objects.filter(sid=t.sid)
                 for s in stu:
                     due_date = "Next Due Date - "+ str(s.next_due_date.day+1)+"/"+str(s.next_due_date.month)+"/"+str(s.next_due_date.year)
@@ -478,7 +479,11 @@ def generate_receipt(request, trans_id):
                 pdf = render_to_pdf('pdf/receipt.html', context)
             elif flag==2:
                 pdf = render_to_pdf('pdf/receipt1.html', context)
-            return HttpResponse(pdf, content_type="application/pdf")
+            response=HttpResponse(pdf, content_type="application/pdf")
+            filename="%s.pdf" %(transId)
+            content="inline; filename='%s'" %(filename)
+            response['Content-Disposition']=content
+            return response
         else:
             return render(request, 'login.html', {'Message': 'Session terminated!'})
     else:
