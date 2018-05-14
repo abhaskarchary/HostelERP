@@ -151,8 +151,8 @@
                                              <div class="col-md-4">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Gender</label>
-                                                    <input type="radio"  name="sex" value="male" checked="checked">Male
-                                                    <input type="radio"  name="sex" value="male" >Female
+                                                    <input type="radio"  name="sex" value="male" checked="checked" style="margin-top: 15px">Male
+                                                    <input type="radio"  name="sex" value="male" style="margin-left:100px">Female
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -261,8 +261,8 @@
                                          </div>
                                         <div class="col-md-3">
                                           <div class="form-group label-floating">
-                                                <label class="control-label">Select Room</label>
-                                                <select class="dropdown-toggle" name="vacant_room_list" onchange="demofunc(this.value)">
+                                                <!--<label class="control-label">Select Room</label>-->
+                                                <select style="margin-top:15px" class="dropdown-toggle" name="vacant_room_list" onchange="demofunc(this.value)">
                                                     <option value="Select Room">Select Room</option>
                                                     {% for i in context %}
                                                     <option value="{{ i }}" onchange="show_room_type()"> {{ i }} - {{i.roomType}}</option>
@@ -340,7 +340,7 @@
                                           <div class="row" align="center">
                                             <div class="col-md-12">
                                               <div class="form-group label-floating">
-                                                 <button type="submit" onclick="return validate_room_choice()">Submit</button>
+                                                 <button class="btn btn-primary btn-fill" type="submit" onclick="return validate_room_choice()">Submit</button>
                                               </div>
                                             </div>
                                           </div>

@@ -73,7 +73,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Select Item Category</label>
+                                                    <!--<label class="control-label">Select Item Category</label>-->
                                                     <select  name="category" onchange="changeoption()">
                                                         <option value="Select Category">Select Category</option>
                                                         <option value="daily purchased">Daily Purchased Items</option>
@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Select Item</label>
+                                                    <!--<label class="control-label">Select Item</label>-->
                                                    <select name="item" id="item">
                                                       <option value="Select Item" id="Select">Select Item</option>
                                                       {% for i in context %}
@@ -142,7 +142,7 @@
                                         <div class="row">
                                             <div class="col-md-12" align="center">
                                                 <div class="form-group label-floating">
-                                                    <button type="submit" onclick="return validate_choices()">Submit</button>
+                                                    <button class="btn btn-success btn-fill" type="submit" onclick="return validate_choices()">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
