@@ -20,6 +20,10 @@ def new(request):
     return render(request, 'newitem.html')
 
 
+def new1(request):
+    return render(request, 'newitem1.html')
+
+
 def view_items(request):
     return  render(request, 'customitem.html', {'context':InventoryItems.objects.all()})
 
@@ -34,7 +38,7 @@ def new_item(request):
     New_item.name = item
     New_item.unit = unit
     New_item.save()
-    return render(request, 'adminindex.html', {'Message':'New Item Added Successfully!!!'})
+    return render(request, 'tempadmininv.html', {'Message':'New Item Added Successfully!!!'})
 
 
 def add_items(request):
@@ -56,7 +60,7 @@ def add_items(request):
     Item_object.type='purchased'
     Item_object.save()
 
-    return render(request, 'tempinv.html', {'Message':'Item Added Successfully!!!'})
+    return render(request, 'tempadmininv.html', {'Message':'Item Added Successfully!!!'})
 
 
 def update_items(request):
@@ -75,4 +79,4 @@ def update_items(request):
     item1.quantity = int(quantity)
     item1.save()
 
-    return render(request, 'tempinv.html', {'Message': 'Item Updated Successfully!!!'})
+    return render(request, 'tempadmininv.html', {'Message': 'Item Updated Successfully!!!'})

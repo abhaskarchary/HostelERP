@@ -50,15 +50,15 @@
                                         <tbody>
                                             {% for student in object_list %}
                                                 <tr>
-                                                    <td align="center">{{student.room_number}}</td>
-                                                    <td align="center">{{ student.capacity }}</td>
-                                                    <td align="center"> {{ student.tenant1 }}</td>
-                                                    <td align="center"> {{ student.tenant2 }}</td>
-                                                    <td align="center">{{ student.vacancy }}</td>
-                                                    </td><td align="center">{{ student.roomType }}</td>
-                                                    <td align="center">{{ student.additional_charges }}</td>
-                                                    <td align="center">{{student.need_maintenance}}</td>
-                                                    <td align="center">{{student.repairs}}</td>
+                                                    <td>{{student.room_number}}</td>
+                                                    <td>{{ student.capacity }}</td>
+                                                    <td> {{ student.tenant1 }}</td>
+                                                    <td> {{ student.tenant2 }}</td>
+                                                    <td>{{ student.vacancy }}</td>
+                                                    <td>{{ student.roomType }}</td>
+                                                    <td>{{ student.additional_charges }}</td>
+                                                    <td>{{student.need_maintenance}}</td>
+                                                    <td>{{student.repairs}}</td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
